@@ -1,0 +1,116 @@
+<script lang="ts">
+  import AvatarToProfile from "$lib/user/AvatarToProfile.svelte";
+  import { user } from "$lib/user/userStore";
+  import { getOSS } from "$lib/utils/oss";
+  import type OSS from "ali-oss";
+  import CryptoJS from "crypto-js";
+
+  let comment = $state("");
+  let textArea: HTMLTextAreaElement | undefined = $state();
+  let oss: OSS | undefined = $state();
+
+  function handlePaste(clipboardData: DataTransfer) {
+    const item = Array.from(clipboardData.items).at(-1);
+    if (!item) {
+      return;
+    }
+    if (item.type.startsWith("image/")) {
+      const file = item.getAsFile();
+      if (!file) {
+        return;
+      }
+      handleImg(file);
+      return;
+    }
+  }
+
+  async function handleImg(img: File) {
+    console.log(img);
+    if (!oss || !$user.loggedIn) {
+      console.error("未登录,无法上传");
+      return;
+    }
+    const wa = CryptoJS.lib.WordArray.create(await img.arrayBuffer());
+    const id = CryptoJS.MD5(wa);
+    const type = img.name.split(".").at(-1);
+    const pattern = `![${img.name}](UPLOADING_${id}.${type})`;
+    const path = `works-covers/${$user.studentNumber}/${id}.${type}`;
+    if (textArea) {
+      const start = textArea.selectionStart;
+      comment =
+        comment.substring(0, start) + pattern + comment.substring(start);
+    }
+    const url = `https://m.ccw.site/${path}?t=.png`;
+    upload(img, path)
+      .then(() => {
+        comment = comment.replaceAll(pattern, `![${img.name}](${url})`);
+      })
+      .catch((e) => {
+        console.warn(e);
+        comment = comment.replaceAll(
+          pattern,
+          `![${img.name}(可能上传失败)](${url})`,
+        );
+      });
+  }
+
+  async function upload(img: File, url: string) {
+    if (!oss || !$user.loggedIn) {
+      console.error("未登录,无法上传");
+      return;
+    }
+    return oss.put(url, img, {
+      headers: {
+        "x-oss-forbid-overwrite": true,
+      },
+    });
+  }
+
+  async function init() {
+    if (!$user.loggedIn) {
+      return;
+    }
+    oss = await getOSS($user.oid);
+  }
+
+  $effect(() => {
+    if ($user.loggedIn) {
+      setTimeout(init, 10);
+    }
+  });
+</script>
+
+{#if $user.loggedIn}
+  <div class="ml-4 mt-4 flex flex-row gap-4 md:gap-8">
+    <div class="size-8 md:size-12">
+      <AvatarToProfile
+        oid={$user.oid}
+        url={$user.avatar}
+        virtual={$user.virtualValue}
+      />
+    </div>
+    <form>
+      <textarea
+        class="resize border border-gray-500 rounded-xl md:w-64 w-60 min-w-56 max-w-64 md:max-w-96 focus:border-green-500 transition-[border] outline-0 p-2 min-h-12 max-h-64 overflow-y-auto text-sm md:text-lg"
+        name="comment"
+        placeholder="评论(可粘贴图片文件, 输入框可调整大小)"
+        bind:value={comment}
+        bind:this={textArea}
+        onpaste={(e) => {
+          if (!e.clipboardData) {
+            return;
+          }
+          const { clipboardData } = e;
+          handlePaste(clipboardData);
+        }}
+      >
+      </textarea>
+      <div class="flex w-full">
+        <button
+          class="mr-0 ml-auto border-green-500 border rounded-lg text-green-500 pl-2 pr-2 cursor-help"
+          disabled>评论</button
+        >
+      </div>
+    </form>
+  </div>
+{/if}

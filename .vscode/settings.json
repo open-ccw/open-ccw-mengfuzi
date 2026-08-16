@@ -1,5 +1,13 @@
 {
-	"files.associations": {
-		"*.css": "tailwindcss"
-	}
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "prettier.tabWidth": 2,
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "editor.quickSuggestions": {
+    "other": "offWhenInlineCompletions",
+    "comments": true,
+    "strings": "off"
+  }
 }

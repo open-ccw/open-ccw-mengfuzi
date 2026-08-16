@@ -1,0 +1,39 @@
+<script lang="ts">
+  import { goto, replaceState } from "$app/navigation";
+  import { page } from "$app/state";
+  import PageHeader from "$lib/PageHeader.svelte";
+  import { parseType } from "$lib/search/parseType";
+  import SearchResultPages from "$lib/search/SearchResultPages.svelte";
+  import type { SearchTypes } from "$lib/search/searchTypes";
+  import { onMount, tick } from "svelte";
+
+  const { url } = page;
+
+  let search = $state(url.searchParams.get("key") || "");
+  let type: SearchTypes = $state(parseType(url.searchParams.get("type") || ""));
+
+  async function refreshSearchParams() {
+    const { url } = page;
+    url.searchParams.set("key", search);
+    url.searchParams.set("type", type);
+    await tick();
+    replaceState(url, {});
+  }
+  onMount(() => {
+    refreshSearchParams();
+  });
+</script>
+
+<svelte:head>
+  <title>搜索 — Open CCW</title>
+  <meta name="description" content="在 Open CCW 中搜索 CCW 社区的作品、创作者、文章和星球。支持关键词搜索，快速找到你感兴趣的 CCW 内容。" />
+</svelte:head>
+
+<PageHeader />
+<SearchResultPages
+  bind:keyword={search}
+  bind:type
+  onSearch={() => {
+    refreshSearchParams();
+  }}
+/>

@@ -1,3 +1,4 @@
 # allow crawling everything by default
 User-agent: *
 Disallow:
+Sitemap: https://ccw.kivotos.qzz.io/sitemap.xml

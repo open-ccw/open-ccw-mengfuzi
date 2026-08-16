@@ -1,2 +1,16 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 @plugin '@tailwindcss/typography';
+
+@font-face {
+  font-family: 'Inter';
+  src: url('https://img.js.design/assets/font/Inter-Bold.ttf.br') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --color-error: var(--color-red-500);
+  --color-submit: var(--color-green-500);
+  --font-family-inter: 'Inter', sans-serif;
+}

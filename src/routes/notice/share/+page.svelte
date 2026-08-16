@@ -1,0 +1,9 @@
+<script>
+  import NotificationPage from "$lib/notify/notificationPage.svelte";
+</script>
+
+<svelte:head>
+  <meta name="description" content="查看 CCW 社区的好友分享通知。Open CCW 消息中心 - 分享通知页面。" />
+</svelte:head>
+
+<NotificationPage type="FRIEND_SHARE"></NotificationPage>

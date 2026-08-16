@@ -1,0 +1,20 @@
+import { get, writable } from "svelte/store";
+import { communityWeb } from "$lib/api";
+import { browser } from "$app/environment";
+import { user } from "$lib/user/userStore";
+
+export const notificationStats = writable<Awaited<
+  ReturnType<typeof communityWeb.getNotificationStats>
+> | null>(null);
+
+if (browser) {
+  refreshNotificationStats();
+}
+
+export async function refreshNotificationStats() {
+  if (!get(user).loggedIn) {
+    return;
+  }
+  const stats = await communityWeb.getNotificationStats();
+  notificationStats.set(stats);
+}
