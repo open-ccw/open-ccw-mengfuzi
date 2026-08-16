@@ -41,11 +41,9 @@
 
 <main class="w-full flex flex-col items-center px-4 py-12 gap-10">
   <section class="flex flex-col items-center text-center gap-4 max-w-2xl">
-    <img
-      src={logo}
-      alt="Open CCW"
-      class="size-20 rounded-2xl p-2 bg-gray-700"
-    />
+    <div class="logo-badge logo-badge-lg h-20 w-20 rounded-2xl">
+      <img src={logo} alt="Open CCW" class="h-full w-full object-contain" />
+    </div>
     <h2 class="text-3xl font-bold text-gray-800 font-inter">
       Welcome to Open CCW
     </h2>

@@ -2,8 +2,9 @@
 @plugin '@tailwindcss/typography';
 
 @font-face {
-  font-family: 'Inter';
-  src: url('https://img.js.design/assets/font/Inter-Bold.ttf.br') format('truetype');
+  font-family: "Inter";
+  src: url("https://img.js.design/assets/font/Inter-Bold.ttf.br")
+    format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -11,6 +12,40 @@
 
 @theme {
   --color-error: var(--color-red-500);
-  --color-submit: var(--color-green-500);
-  --font-family-inter: 'Inter', sans-serif;
+  --color-submit-out: #062d2a;
+  --color-submit-bg: #7ff0d1;
+  --color-success: #8df7d3;
+  --color-brand-50: #ebfff9;
+  --color-brand-100: #d6fff0;
+  --color-brand-300: #6ef3d0;
+  --color-brand-500: #53efc0;
+  --color-brand-600: #1cc6a3;
+  --color-brand-900: #031611;
+  --font-family-inter: "Inter", sans-serif;
+}
+
+:root {
+  color-scheme: light;
+  background-color: #f4f7f6;
+  --logo-bg-color: #374151; /* unified logo badge background (dark gray) */
+}
+
+/* Minimal global layout: only keep base theme tokens and light resets here. Component-specific styles moved into components. */
+
+body {
+  min-height: 100vh;
+  background: #f4f7f6;
+  color: #1f2937;
+  font-family: var(--font-family-inter), sans-serif;
+}
+
+:root {
+  color-scheme: light;
+  background-color: #f4f7f6;
+  --logo-bg-color: #374151; /* keep token available */
+}
+
+::selection {
+  background: rgba(52, 211, 153, 0.2);
+  color: #0f172a;
 }

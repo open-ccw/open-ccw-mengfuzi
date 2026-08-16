@@ -31,7 +31,7 @@
       </div>
       <div class="min-w-0">
         <a
-          class="text-sm md:text-base font-medium text-gray-800 truncate block hover:text-gray-600"
+          class="text-sm md:text-base font-medium text-[#0f172a] truncate block hover:text-[#0b3b36]"
           href="/user/{$user.oid}"
           onclick={onclose}
         >
@@ -42,7 +42,7 @@
   </div>
 
   <button
-    class="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer relative"
+    class="w-full flex items-center gap-3 px-4 py-3 text-[#0f172a] hover:bg-gray-50 transition-colors cursor-pointer relative"
     onclick={onCheckIn}
   >
     <img src={coinSvg} alt="签到" class="size-6" />
@@ -54,7 +54,7 @@
 
   <a
     href="/notice/interaction"
-    class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors"
+    class="flex items-center gap-3 px-4 py-3 text-[#0f172a] hover:bg-gray-50 transition-colors"
     onclick={onclose}
   >
     <div class="size-6 relative">
@@ -76,7 +76,7 @@
 
   <a
     href="/settings/auth"
-    class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors"
+    class="flex items-center gap-3 px-4 py-3 text-[#0f172a] hover:bg-gray-50 transition-colors"
     onclick={onclose}
   >
     <img src={cogSvg} alt="设置" class="size-6" />

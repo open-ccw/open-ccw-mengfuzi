@@ -12,6 +12,7 @@
   import { scale } from "svelte/transition";
   import { updateToken } from "$lib/user/userStore";
   import { communityWeb } from "@ccw-api/api";
+  import SubmitButton from "$lib/utils/SubmitButton.svelte";
 
   let dialog = $state<HTMLDialogElement>();
   let accounts = $state<Account[]>([]);
@@ -89,15 +90,18 @@
   }
 </script>
 
-<dialog bind:this={dialog} class="bg-transparent border-0 p-0">
+<dialog bind:this={dialog} class="border-0 bg-transparent p-0">
   <div
-    class="fixed inset-0 flex items-center justify-center"
+    class="fixed inset-0 flex items-center justify-center bg-black/30 backdrop-blur-[2px]"
     transition:scale={{ duration: 200 }}
   >
-    <div class="w-108 rounded-xl bg-gray-200 border p-8 shadow-2xl">
-      <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-black">登录</h2>
-        <div class="w-6 h-6">
+    <div class="auth-shell w-[min(28rem,calc(100vw-2rem))] rounded-3xl p-6 md:p-8">
+      <div class="mb-6 flex items-center justify-between gap-4">
+        <div>
+          <p class="text-xs uppercase tracking-[0.2em] text-gray-500">Open CCW</p>
+          <h2 class="text-2xl font-bold text-[#0f172a]">登录</h2>
+        </div>
+        <div class="h-8 w-8 shrink-0 rounded-full bg-gray-100 flex items-center justify-center">
           <CancelButton
             onclick={() => {
               if (!dialog) {
@@ -110,25 +114,25 @@
       </div>
 
       {#if accounts.length === 0}
-        <div class="text-center py-8">
-          <p class="text-gray-600 mb-4">暂无已注册账号</p>
-          <p class="text-sm text-gray-500">
+        <div class="py-8 text-center">
+                  <p class="mb-4 text-base text-[#0f172a]">暂无已注册账号</p>
+                  <p class="text-sm text-gray-600">
             请先通过
-            <a href="/register" class="text-blue-600 underline">注册流程</a>
+            <a href="/register" class="auth-link">注册流程</a>
             添加账号
           </p>
         </div>
       {:else}
         <form onsubmit={handleSubmit} class="space-y-4">
           <div>
-            <label for="account" class="block text-sm text-black mb-2"
-              >账号</label
-            >
+            <label for="account" class="mb-2 block text-sm font-medium text-[#0f172a]">
+              账号
+            </label>
             <div class="flex gap-2">
               <select
                 id="account"
                 bind:value={selectedName}
-                class="flex-1 p-3 rounded-lg bg-gray-100 border border-gray-700 text-black focus:border-green-400 focus:outline-none transition-colors"
+                class="auth-input flex-1"
               >
                 {#each accounts as acc}
                   <option value={acc.name}>{acc.name}</option>
@@ -138,7 +142,7 @@
                 <button
                   type="button"
                   title="移除账号"
-                  class="p-3 rounded-lg bg-gray-100 border border-gray-700 text-red-500 hover:bg-red-100 hover:border-red-400 transition-colors cursor-pointer"
+                  class="flex h-12 w-12 items-center justify-center rounded-xl border border-[#d1eae2] bg-white text-lg text-[#ef4444] transition-colors hover:border-[#fca5a5] hover:text-[#b91c1c] cursor-pointer"
                   onclick={handleRemove}
                 >
                   ✕
@@ -150,7 +154,7 @@
           <div>
             <label
               for="pin"
-              class="block text-sm text-black mb-2"
+                          class="mb-2 block text-sm font-medium text-[#0f172a]"
               title="PIN is used to decrypt token"
             >
               PIN
@@ -160,22 +164,20 @@
               type="password"
               autocomplete="new-password"
               bind:value={pin}
-              placeholder="请输入PIN"
-              class="p-3 w-full rounded-lg bg-gray-100 border border-gray-700 text-black focus:border-green-400 focus:outline-none transition-colors"
+              placeholder="请输入 PIN"
+              class="auth-input"
             />
           </div>
 
           <Error {error}></Error>
 
-          <button
-            type="submit"
-            disabled={submitting || !selectedName}
-            class="w-full rounded-lg bg-gray-100 border-2 border-submit text-black font-semibold p-3 hover:bg-green-100 active:bg-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
-          >
+          <SubmitButton disabled={submitting || !selectedName}>
             {submitting ? "验证中..." : "确认"}
-          </button>
+          </SubmitButton>
         </form>
-        <a href="/register" class="text-blue-600 underline"> 注册新token </a>
+        <p class="mt-4 text-sm text-gray-600">
+          <a href="/register" class="auth-link">注册新 token</a>
+        </p>
       {/if}
     </div>
   </div>

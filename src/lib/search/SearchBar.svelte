@@ -1,4 +1,6 @@
 <script lang="ts">
+  import RoundSubmitButton from "$lib/utils/RoundSubmitButton.svelte";
+
   let {
     value = $bindable(""),
     onsearch,
@@ -14,7 +16,7 @@
 </script>
 
 <form onsubmit={handleSubmit}>
-  <div class="relative">
+  <div class="relative flex items-center">
     <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
       <svg
         class="size-5"
@@ -35,11 +37,10 @@
       bind:value
       class="w-full h-12 pl-12 pr-4 rounded-full bg-white border border-gray-200 shadow-sm text-gray-800 placeholder-gray-400 focus:border-green-600 outline-none transition-all"
     />
-    <button
-      type="submit"
-      class="absolute right-1.5 top-1/2 -translate-y-1/2 h-9 px-5 rounded-full bg-green-500 text-white text-sm font-medium hover:bg-green-600 active:scale-95 transition-all cursor-pointer"
-    >
-      搜索
-    </button>
+    <div class="absolute right-0 p-2">
+      <RoundSubmitButton>
+        <span class="ml-1 mr-1">搜索</span>
+      </RoundSubmitButton>
+    </div>
   </div>
 </form>

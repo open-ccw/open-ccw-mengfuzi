@@ -29,7 +29,7 @@
 <div>
   <div class="flex w-full">
     <button
-      class="ml-auto mr-0 bg-white text-red-500 rounded-md border border-red-500 p-1 hover:bg-red-300 cursor-pointer"
+      class="ml-auto mr-0 rounded-lg border border-[#d1eae2] bg-white px-3 py-1.5 text-sm font-medium text-[#0f172a] shadow-sm transition-colors hover:border-[#bdecd9] hover:bg-[#fbfefe] cursor-pointer"
       onclick={() => {
         if (!renderAsHTML && !previewSafeHTML) {
           previewSafeHTML = true;
@@ -45,20 +45,20 @@
   </div>
   {#if renderAsHTML}
     <p
-      class="mt-1 leading-relaxed text-wrap whitespace-break-spaces bg-gray-500 text-white rounded-2xl p-4 wrap-anywhere"
+      class="mt-2 rounded-2xl border border-[#e6f5ee] bg-white p-4 leading-relaxed text-wrap whitespace-break-spaces text-[#0f172a] wrap-anywhere shadow-sm"
       id="marked"
     >
       {@html safeHTML}
     </p>
   {:else if previewSafeHTML}
     <p
-      class="text-black mt-1 leading-relaxed text-wrap whitespace-break-spaces wrap-anywhere"
+      class="mt-2 leading-relaxed text-wrap whitespace-break-spaces text-[#0f172a] wrap-anywhere"
     >
       {safeHTML}
     </p>
   {:else}
     <p
-      class="text-black mt-1 leading-relaxed text-wrap whitespace-break-spaces wrap-anywhere"
+      class="mt-2 leading-relaxed text-wrap whitespace-break-spaces text-[#0f172a] wrap-anywhere"
     >
       {text}
     </p>
@@ -68,6 +68,12 @@
 <style>
   #marked :global(a) {
     text-decoration: underline;
-    color: lightblue;
+    color: #0f766e;
+  }
+
+  #marked :global(code) {
+    background: rgba(16,185,129,0.06);
+    border-radius: 0.35rem;
+    padding: 0.08rem 0.25rem;
   }
 </style>

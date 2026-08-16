@@ -55,12 +55,12 @@
 
 <!-- 导航栏 -->
 <header
-  class="bg-black/65 w-full h-12 md:h-16 sticky top-0 flex items-center justify-center md:justify-start shrink-0 z-50 backdrop-blur-[7px] [-webkit-backdrop-filter:blur(7px)]"
+  class="bg-white/95 w-full h-12 md:h-16 sticky top-0 flex items-center justify-center md:justify-start shrink-0 z-50 border-b border-gray-200"
 >
   <a href="/" class="flex items-center justify-center h-full" title="homepage">
     <div class="size-8 md:size-10 ml-2 md:ml-3 shrink-0"><Logo /></div>
     <h1
-      class="ml-2 md:ml-3 overflow-hidden h-full text-2xl md:text-3xl text-white font-bold font-inter whitespace-nowrap flex items-center translate-y-[-3%]"
+      class="ml-2 md:ml-3 overflow-hidden h-full text-2xl md:text-3xl text-[#0f172a] font-bold font-inter whitespace-nowrap flex items-center translate-y-[-3%]"
     >
       Open CCW
     </h1>
@@ -78,12 +78,12 @@
   <!-- svelte-ignore a11y_click_events_have_key_events -->
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div
-    class="fixed inset-0 top-12 md:top-16 z-40 bg-black/30"
+    class="fixed inset-0 top-12 md:top-16 z-40 bg-black/6"
     transition:fade={{ duration: 100 }}
     onclick={() => (menuOpen = false)}
   >
     <div
-      class="absolute top-0 right-0 w-48 md:w-56 bg-gray-200 rounded-bl-2xl shadow-xl py-2"
+      class="absolute top-0 right-0 w-48 md:w-56 bg-white rounded-bl-2xl border border-gray-100 shadow-md py-2"
       onclick={(e: MouseEvent) => e.stopPropagation()}
       transition:slide={{ duration: 100 }}
     >

@@ -8,7 +8,7 @@
 
 {#if !$user.loggedIn}
   <button
-    class="border-green-600 border-2 rounded-full w-auto md:h-12 h-8 pl-6 pr-6 md:text-2xl text-xl text-green-600 cursor-pointer"
+    class="rounded-full border border-[#34d399] text-[#065f46] px-4 py-2 md:h-12 h-8 font-semibold hover:bg-[#f0fdf7] transition-colors flex items-center justify-center"
     onclick={() => {
       openLogin = true;
     }}
