@@ -86,7 +86,8 @@
   {:else}
     {#each adorned as tag}
       <div class="mt-2">
-        <ApprovalTag {tag} onClick={isSelf ? detach : null}></ApprovalTag>
+        <ApprovalTag {tag} onClick={isSelf && showHidden ? detach : null}
+        ></ApprovalTag>
       </div>
     {/each}
     {#if showHidden}
@@ -95,7 +96,8 @@
       {/if}
       {#each notAdorned as tag}
         <div class="mt-2">
-          <ApprovalTag {tag} onClick={isSelf ? adorn : null}></ApprovalTag>
+          <ApprovalTag {tag} onClick={isSelf && showHidden ? adorn : null}
+          ></ApprovalTag>
         </div>
       {/each}
     {/if}
