@@ -220,6 +220,7 @@
                       />
                     </svg>
                     <span>点赞</span>
+                    <span>{comment.likeCount}</span>
                   </button>
                 </div>
               </div>
