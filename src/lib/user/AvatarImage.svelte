@@ -13,6 +13,6 @@
   <img
     src={url}
     {alt}
-    class="size-full rounded-full z-0 m-auto border border-gray-200"
+    class="size-full rounded-full z-0 m-auto border border-border"
   />
 </div>

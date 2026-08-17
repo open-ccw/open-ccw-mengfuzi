@@ -1,5 +1,5 @@
 <svg
-  class="size-full text-gray-400"
+  class="size-full text-text-placeholder"
   viewBox="0 0 24 24"
   fill="none"
   stroke="currentColor"

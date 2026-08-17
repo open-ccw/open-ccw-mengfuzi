@@ -29,7 +29,10 @@
 <svelte:head>
   <title>OAuth 授权回调 — Open CCW</title>
   <meta name="robots" content="noindex, nofollow" />
-  <meta name="description" content="Open CCW OAuth 授权回调处理页面，正在验证授权信息并完成 Token 获取，验证通过后将自动跳转至注册页面完成账号绑定。" />
+  <meta
+    name="description"
+    content="Open CCW OAuth 授权回调处理页面，正在验证授权信息并完成 Token 获取，验证通过后将自动跳转至注册页面完成账号绑定。"
+  />
 </svelte:head>
 
 <div
@@ -40,15 +43,15 @@
     {#if error}
       <div class="text-center">
         <div
-          class="mx-auto mb-4 w-14 h-14 rounded-full bg-red-100 flex items-center justify-center"
+          class="mx-auto mb-4 w-14 h-14 rounded-full bg-error-light flex items-center justify-center"
         >
-          <span class="text-2xl text-red-500 font-bold">!</span>
+          <span class="text-2xl text-error font-bold">!</span>
         </div>
-        <h2 class="text-2xl font-bold text-gray-800 mb-3">授权失败</h2>
-        <p class="text-gray-500 text-sm mb-6 break-all">{error}</p>
+        <h2 class="text-2xl font-bold text-text-primary mb-3">授权失败</h2>
+        <p class="text-text-secondary text-sm mb-6 break-all">{error}</p>
         <a
           href="/"
-          class="inline-block rounded-lg bg-gray-200 text-gray-700 font-medium px-6 py-3 hover:bg-gray-300 transition-colors"
+          class="inline-block rounded-lg bg-bg-secondary text-text-secondary font-medium px-6 py-3 hover:bg-bg-secondary transition-colors"
         >
           返回首页
         </a>
@@ -56,14 +59,14 @@
     {:else if loading}
       <div class="text-center">
         <div
-          class="mx-auto mb-6 w-12 h-12 border-4 border-gray-200 border-t-green-400 rounded-full animate-spin"
+          class="mx-auto mb-6 w-12 h-12 border-4 border-border border-t-success rounded-full animate-spin"
         ></div>
-        <h2 class="text-2xl font-bold text-gray-800 mb-3">正在完成授权</h2>
-        <p class="text-gray-500 text-sm">正在验证授权信息，请稍候...</p>
+        <h2 class="text-2xl font-bold text-text-primary mb-3">正在完成授权</h2>
+        <p class="text-text-secondary text-sm">正在验证授权信息，请稍候...</p>
       </div>
     {:else}
       <div class="text-center">
-        <h2 class="text-2xl font-bold text-gray-800">处理中...</h2>
+        <h2 class="text-2xl font-bold text-text-primary">处理中...</h2>
       </div>
     {/if}
   </div>

@@ -94,9 +94,9 @@
     class="fixed inset-0 flex items-center justify-center"
     transition:scale={{ duration: 200 }}
   >
-    <div class="w-108 rounded-xl bg-gray-200 border p-8 shadow-2xl">
+    <div class="w-108 rounded-xl bg-bg-secondary border p-8 shadow-2xl">
       <div class="flex justify-between items-center mb-6">
-        <h2 class="text-2xl font-bold text-black">登录</h2>
+        <h2 class="text-2xl font-bold text-text-primary">登录</h2>
         <div class="w-6 h-6">
           <CancelButton
             onclick={() => {
@@ -111,24 +111,24 @@
 
       {#if accounts.length === 0}
         <div class="text-center py-8">
-          <p class="text-gray-600 mb-4">暂无已注册账号</p>
-          <p class="text-sm text-gray-500">
+          <p class="text-text-secondary mb-4">暂无已注册账号</p>
+          <p class="text-sm text-text-placeholder">
             请先通过
-            <a href="/register" class="text-blue-600 underline">注册流程</a>
+            <a href="/register" class="text-info underline">注册流程</a>
             添加账号
           </p>
         </div>
       {:else}
         <form onsubmit={handleSubmit} class="space-y-4">
           <div>
-            <label for="account" class="block text-sm text-black mb-2"
+            <label for="account" class="block text-sm text-text-primary mb-2"
               >账号</label
             >
             <div class="flex gap-2">
               <select
                 id="account"
                 bind:value={selectedName}
-                class="flex-1 p-3 rounded-lg bg-gray-100 border border-gray-700 text-black focus:border-green-400 focus:outline-none transition-colors"
+                class="flex-1 p-3 rounded-lg bg-bg border border-border-strong text-text-primary focus:border-primary focus:outline-none transition-colors cursor-pointer"
               >
                 {#each accounts as acc}
                   <option value={acc.name}>{acc.name}</option>
@@ -138,7 +138,7 @@
                 <button
                   type="button"
                   title="移除账号"
-                  class="p-3 rounded-lg bg-gray-100 border border-gray-700 text-red-500 hover:bg-red-100 hover:border-red-400 transition-colors cursor-pointer"
+                  class="p-3 rounded-lg bg-bg border border-border-strong text-error hover:bg-error-light hover:border-error transition-colors cursor-pointer"
                   onclick={handleRemove}
                 >
                   ✕
@@ -150,7 +150,7 @@
           <div>
             <label
               for="pin"
-              class="block text-sm text-black mb-2"
+              class="block text-sm text-text-primary mb-2"
               title="PIN is used to decrypt token"
             >
               PIN
@@ -161,7 +161,7 @@
               autocomplete="new-password"
               bind:value={pin}
               placeholder="请输入PIN"
-              class="p-3 w-full rounded-lg bg-gray-100 border border-gray-700 text-black focus:border-green-400 focus:outline-none transition-colors"
+              class="p-3 w-full rounded-lg bg-bg border border-border-strong text-text-primary focus:border-primary focus:outline-none transition-colors"
             />
           </div>
 
@@ -170,12 +170,12 @@
           <button
             type="submit"
             disabled={submitting || !selectedName}
-            class="w-full rounded-lg bg-gray-100 border-2 border-submit text-black font-semibold p-3 hover:bg-green-100 active:bg-green-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
+            class="w-full rounded-lg bg-bg border-2 border-primary text-text-primary font-semibold p-3 hover:bg-success-light active:bg-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
           >
             {submitting ? "验证中..." : "确认"}
           </button>
         </form>
-        <a href="/register" class="text-blue-600 underline"> 注册新token </a>
+        <a href="/register" class="text-info underline"> 注册新token </a>
       {/if}
     </div>
   </div>

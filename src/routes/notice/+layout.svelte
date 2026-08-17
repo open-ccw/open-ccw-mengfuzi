@@ -60,7 +60,7 @@
         class="relative flex flex-col flex-wrap size-18 justify-center items-center transition-colors cursor-pointer {noticeTypes[
           selectedId
         ].type === type
-          ? 'border-b-green-500 border-b text-green-500'
+          ? 'border-b-success border-b text-success'
           : 'border-b border-b-transparent'}"
         onclick={() => {
           selectedId = id;
@@ -72,7 +72,7 @@
         <span class="absolute text-sm shrink-0 bottom-2">{name}</span>
         {#if $notificationStats && counts && counts[id] > 0}
           <div
-            class="bg-red-500 size-4 rounded-full absolute top-2 right-2 text-xs text-white"
+            class="bg-error size-4 rounded-full absolute top-2 right-2 text-xs text-white"
           >
             {counts[id]}
           </div>

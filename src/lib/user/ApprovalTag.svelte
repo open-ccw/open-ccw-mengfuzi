@@ -29,19 +29,19 @@
     {/if}
   </button>
   <div
-    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 top-6 bg-gray-300 p-2 rounded-lg gap-2 z-10 absolute float-left"
+    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 top-6 bg-bg-secondary p-2 rounded-lg gap-2 z-10 absolute float-left"
   >
     <!-- 雷霆大icon -->
-    <div class="bg-gray-200 rounded-lg shrink-0 size-16">
+    <div class="bg-bg-secondary rounded-lg shrink-0 size-16">
       <img src={tag.approvalTag.mediumImage} alt="medium" />
     </div>
     <!-- 雷霆介绍 -->
     <div class="flex flex-col w-48 gap-1">
       <p class="font-bold text-xs">{tag.approvalTagName}</p>
-      <p class="text-xs text-gray-800">
+      <p class="text-xs text-text-primary">
         {@html DOMPurify.sanitize(tag.approvalTag.description)}
       </p>
-      <p class="text-xs text-gray-500">{tag.approvalTag.prerequisite}</p>
+      <p class="text-xs text-text-secondary">{tag.approvalTag.prerequisite}</p>
     </div>
   </div>
 </div>

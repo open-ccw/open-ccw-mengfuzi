@@ -10,7 +10,7 @@
 <div class="h-18 md:h-24">
   <a
     href="https://ccw.site/post/{item.slug}"
-    class="h-full flex items-center gap-4 bg-white rounded-xl shadow border border-gray-100 p-2 hover:border-indigo-200 hover:shadow-md transition-all"
+    class="h-full flex items-center gap-4 bg-white rounded-xl shadow border border-border p-2 hover:border-indigo-200 hover:shadow-md transition-all"
   >
     {#if item.featureImage}
       <img
@@ -20,10 +20,12 @@
       />
     {/if}
     <div class="min-w-0 flex-1 gap-2 flex flex-col">
-      <div class="font-medium text-gray-900 truncate">
+      <div class="font-medium text-text-primary truncate">
         {item.title}
       </div>
-      <div class="flex gap-4 text-xs text-gray-400 shrink-0 items-center">
+      <div
+        class="flex gap-4 text-xs text-text-placeholder shrink-0 items-center"
+      >
         <button
           class="h-8 flex cursor-pointer overflow-hidden items-center"
           onclick={() => goto(`/user/${item.authorOid}`)}

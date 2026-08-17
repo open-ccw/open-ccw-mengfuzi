@@ -66,7 +66,7 @@
         <div class="md:h-16 h-12"></div>
       {/if}
 
-      <div class="bg-white shadow border border-gray-100">
+      <div class="bg-white shadow border border-border">
         <div class="px-6 pb-6">
           <!-- 头像 -->
           <div class="flex flex-row gap-4 relative flex-nowrap">
@@ -86,24 +86,24 @@
 
             <div class="ml-2 mt-0 flex flex-col">
               <h1
-                class="text-2xl font-bold text-gray-900 items-center gap-2 flex"
+                class="text-2xl font-bold text-text-primary items-center gap-2 flex"
               >
                 {profile.name}
                 <AuthRankDisplay rank={profile.identityAuthRank}
                 ></AuthRankDisplay>
               </h1>
-              <p class="text-xs text-gray-500 mt-1">
+              <p class="text-xs text-text-secondary mt-1">
                 CCW ID：{profile.studentNumber}
               </p>
               <!-- 简介 -->
               {#if profile.bio}
                 <p
-                  class="mt-1 text-gray-700 leading-relaxed text-sm text-balance break-all wrap-anywhere"
+                  class="mt-1 text-text-secondary leading-relaxed text-sm text-balance break-all wrap-anywhere"
                 >
                   {profile.bio}
                 </p>
               {:else}
-                <p class="mt-1 text-gray-400 text-xs">
+                <p class="mt-1 text-text-placeholder text-xs">
                   这个人很懒，什么都没写~
                 </p>
               {/if}
@@ -128,7 +128,7 @@
 
           <!-- 核心统计 -->
           <div
-            class="mt-6 grid grid-cols-4 gap-3 border-t border-gray-100 pt-5 text-center"
+            class="mt-6 grid grid-cols-4 gap-3 border-t border-border pt-5 text-center"
           >
             <ProfileDataView
               name="信誉分"
@@ -147,7 +147,7 @@
 
           <!-- 社交统计 -->
           <div
-            class="mt-3 grid grid-cols-4 gap-3 border-t border-gray-100 pt-4 text-center"
+            class="mt-3 grid grid-cols-4 gap-3 border-t border-border pt-4 text-center"
           >
             <ProfileDataView name="被收藏" data={favoriteCount} />
             <ProfileDataView name="评论数" data={profile.commentCount} />
@@ -159,25 +159,28 @@
 
       <!-- 个人信息详情 -->
       <div
-        class="mt-4 bg-white rounded-2xl shadow border border-gray-100 px-6 py-5"
+        class="mt-4 bg-white rounded-2xl shadow border border-border px-6 py-5"
       >
-        <h2 class="text-lg font-semibold text-gray-900 mb-4">个人信息</h2>
+        <h2 class="text-lg font-semibold text-text-primary mb-4">个人信息</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
           <div>
-            <div class="text-gray-400">性别</div>
-            <div class="text-gray-800 mt-1" title={profile.gender}>
+            <div class="text-text-placeholder">性别</div>
+            <div class="text-text-primary mt-1" title={profile.gender}>
               {genderLabel(profile.gender, profile.hideGender)}
             </div>
           </div>
           <div>
-            <div class="text-gray-400">生日</div>
-            <div class="text-gray-800 mt-1" title={String(profile.birthday)}>
+            <div class="text-text-placeholder">生日</div>
+            <div
+              class="text-text-primary mt-1"
+              title={String(profile.birthday)}
+            >
               {formatBirthday(profile.birthday)}
             </div>
           </div>
           <div>
-            <div class="text-gray-400">加入天数</div>
-            <div class="text-gray-800 mt-1">
+            <div class="text-text-placeholder">加入天数</div>
+            <div class="text-text-primary mt-1">
               {profile.studentCreatedDays} 天
             </div>
           </div>
@@ -186,9 +189,9 @@
 
       <!-- 个人简介详情 -->
       <div
-        class="mt-4 bg-white rounded-2xl shadow border border-gray-100 px-6 py-5"
+        class="mt-4 bg-white rounded-2xl shadow border border-border px-6 py-5"
       >
-        <h2 class="text-lg font-semibold text-gray-900 mb-4">个人介绍</h2>
+        <h2 class="text-lg font-semibold text-text-primary mb-4">个人介绍</h2>
         {#if profile.extraInfo}
           <div class="space-y-4 text-sm">
             {#if profile.extraInfo.learnedProgrammingLanguages}
@@ -233,7 +236,7 @@
   {/if}
 {:else if error}
   <div class="max-w-full mx-auto py-12 text-center">
-    <p class="text-gray-400">加载失败，请稍后重试</p>
+    <p class="text-text-placeholder">加载失败，请稍后重试</p>
   </div>
 {:else}
   <ProfileSkeleton></ProfileSkeleton>

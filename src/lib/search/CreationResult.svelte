@@ -18,19 +18,19 @@
 <div class="w-48 mt-2">
   <a
     href="/detail/{item.oid}"
-    class="h-full flex flex-col items-center bg-white rounded-xl shadow border border-gray-100 p-2 hover:border-indigo-200 hover:shadow-md transition-all"
+    class="h-full flex flex-col items-center bg-white rounded-xl shadow border border-border p-2 hover:border-indigo-200 hover:shadow-md transition-all"
   >
     {#if cover}
       <img
         src={cover}
         alt={title}
-        class="h-full aspect-video rounded-lg object-cover border border-gray-300"
+        class="h-full aspect-video rounded-lg object-cover border border-border-strong"
       />
     {/if}
     <div class="flex flex-row gap-1 self-start items-center w-full">
       {#if item.type == "ORIGINAL"}
         <div
-          class="text-nowrap border-green-500 text-green-500 border rounded-lg pl-1 pr-1 text-sm scale-75"
+          class="text-nowrap border-success text-success border rounded-lg pl-1 pr-1 text-sm scale-75"
         >
           原创
         </div>
@@ -41,7 +41,7 @@
           改编
         </div>
       {/if}
-      <div class="font-medium text-gray-900 truncate">{title}</div>
+      <div class="font-medium text-text-primary truncate">{title}</div>
     </div>
 
     <div class="flex flex-row justify-center w-full">
@@ -59,7 +59,9 @@
       </div>
     </div>
     <div class="min-w-0 flex-1 gap-2 flex flex-col self-start">
-      <div class="flex gap-4 text-xs text-gray-400 shrink-0 items-center">
+      <div
+        class="flex gap-4 text-xs text-text-placeholder shrink-0 items-center"
+      >
         <button
           class="h-8 flex cursor-pointer overflow-hidden items-center"
           onclick={(e) => {

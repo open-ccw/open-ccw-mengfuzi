@@ -83,7 +83,7 @@
     onclick={() => (menuOpen = false)}
   >
     <div
-      class="absolute top-0 right-0 w-48 md:w-56 bg-gray-200 rounded-bl-2xl shadow-xl py-2"
+      class="absolute top-0 right-0 w-48 md:w-56 bg-bg-secondary rounded-bl-2xl shadow-xl py-2"
       onclick={(e: MouseEvent) => e.stopPropagation()}
       transition:slide={{ duration: 100 }}
     >

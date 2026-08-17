@@ -28,13 +28,16 @@
     ASSET_MARKET_LIKED,
     ASSET_MARKET_DONATE,
     FRIEND_INVITE,
+    TEAM_COMMENTED,
   } from "@ccw-api/api";
-  import LikeIcon from "./likeIcon.svelte";
+  import LikeIcon from "./LikeIcon.svelte";
   import RenderHTML from "$lib/utils/RenderHTML.svelte";
   import { user } from "$lib/user/userStore";
+  import RenderComment from "./RenderComment.svelte";
 
-  const userLinkClass = "font-medium text-indigo-600 hover:underline";
-  const subjectLinkClass = "font-medium text-blue-900 hover:underline";
+  const userLinkClass =
+    "font-medium text-info hover:underline whitespace-break-spaces";
+  const subjectLinkClass = "font-medium text-primary hover:underline";
 
   const {
     page,
@@ -120,15 +123,17 @@
       <a href="/user/{page.senderInfo?.oid}" class={userLinkClass}
         >{page.senderInfo?.name ?? "用户"}</a
       >
-      <span class="text-gray-400">发来了一条新通知</span>
+      <span class="text-text-placeholder">发来了一条新通知</span>
     </div>
-    <span class="text-xs text-gray-300"
+    <span class="text-xs text-text-placeholder"
       >（该通知类型{page.contentCategory}暂未支持，点击展开查看原始数据）</span
     >
-    <details class="text-xs text-gray-400">
-      <summary class="cursor-pointer hover:text-gray-600">查看原始数据</summary>
+    <details class="text-xs text-text-placeholder">
+      <summary class="cursor-pointer hover:text-text-secondary"
+        >查看原始数据</summary
+      >
       <pre
-        class="whitespace-pre-wrap break-all bg-gray-100 rounded-lg p-2 mt-1">{JSON.stringify(
+        class="whitespace-pre-wrap break-all bg-bg-secondary rounded-lg p-2 mt-1">{JSON.stringify(
           page,
           null,
           2,
@@ -191,14 +196,39 @@
       </a>
       下评论:
     </div>
-    <div class="whitespace-break-spaces w-full bg-gray-100 rounded-lg p-2">
-      {page.content.comments}
+    <div
+      class="whitespace-break-spaces w-full bg-bg-secondary rounded-lg p-2 border border-border"
+    >
+      <RenderComment comment={page.content.comments}></RenderComment>
     </div>
   </div>
 {/snippet}
 
 {#snippet creationCommentReplied(page: CREATION_COMMENT_REPLIED)}
-  {@render ____PLACEHOLDER(page)}
+  <div class="flex w-full flex-col">
+    <div class="inline">
+      <a href="/user/{page.senderInfo.oid}" class={userLinkClass}
+        >{page.senderInfo.name}</a
+      >
+      回复了你在作品
+      <a href="/detail/{page.content.subject_oid}}" class={subjectLinkClass}>
+        {page.content.subject_outline}
+      </a>
+      下的评论:
+    </div>
+    <div class="w-full bg-bg-secondary rounded-lg p-2 border border-border">
+      <RenderComment comment={page.content.comments}></RenderComment>
+    </div>
+    {#if $user.loggedIn}
+      <div
+        class="w-full bg-bg-tertiary rounded-b-lg p-2 text-text-secondary border border-border"
+      >
+        <a href="/user/{$user.oid}" class={userLinkClass}>@{$user.name}</a>: <RenderComment
+          comment={page.message}
+        ></RenderComment>
+      </div>
+    {/if}
+  </div>
 {/snippet}
 
 {#snippet creationShare(page: CREATION_SHARE)}
@@ -244,11 +274,43 @@
 {/snippet}
 
 {#snippet extensionCommented(page: EXTENSION_COMMENTED)}
-  {@render ____PLACEHOLDER(page)}
+  <a href="/user/{page.senderInfo.oid}" class={userLinkClass}
+    >{page.senderInfo.name}</a
+  >
+  在你的扩展
+  <a
+    href="https://assets.ccw.site/extension/{page.extensionInfo.eid}"
+    class={subjectLinkClass}>{page.extensionInfo.name}</a
+  >
+  下留言
+  <div
+    class="whitespace-break-spaces w-full bg-bg-secondary rounded-lg p-2 border border-border"
+  >
+    <RenderComment comment={page.content.comments}></RenderComment>
+  </div>
 {/snippet}
 
 {#snippet extensionCommentReplied(page: EXTENSION_COMMENT_REPLIED)}
-  {@render ____PLACEHOLDER(page)}
+  <a href="/user/{page.senderInfo.oid}" class={userLinkClass}
+    >{page.senderInfo.name}</a
+  >
+  回复了你在扩展
+  <a
+    href="https://assets.ccw.site/extension/{page.extensionInfo.eid}"
+    class={subjectLinkClass}>{page.extensionInfo.name}</a
+  >
+  的评论
+  <div class="w-full bg-bg-secondary rounded-t-lg p-2 border border-border">
+    <RenderComment comment={page.content.comments}></RenderComment>
+  </div>
+  {#if $user.loggedIn}
+    <div
+      class="w-full bg-bg-tertiary rounded-b-lg p-2 text-text-secondary border border-border"
+    >
+      <a href="/user/{$user.oid}" class={userLinkClass}>@{$user.name}</a>:
+      <RenderComment comment={page.message}></RenderComment>
+    </div>
+  {/if}
 {/snippet}
 
 {#snippet postFavorite(page: POST_FAVORITE)}
@@ -300,14 +362,19 @@
         >下留言:
       {/if}
     </div>
-    <div class="whitespace-break-spaces w-full bg-gray-100 rounded-lg p-2">
-      {page.content.comments}
+    <div
+      class="w-full bg-bg-secondary {page.message
+        ? 'rounded-t-lg'
+        : 'rounded-lg'} p-2 border border-border"
+    >
+      <RenderComment comment={page.content.comments}></RenderComment>
     </div>
     {#if page.message && $user.loggedIn}
       <div
-        class="whitespace-break-spaces w-full bg-gray-300 rounded-b-lg p-2 text-gray-500"
+        class="w-full bg-bg-tertiary rounded-b-lg p-2 text-text-secondary border border-border"
       >
-        <a href="/user/{$user.oid}" class={userLinkClass}>@{$user.name}</a>: {page.message}
+        <a href="/user/{$user.oid}" class={userLinkClass}>@{$user.name}</a>:
+        <RenderComment comment={page.message}></RenderComment>
       </div>
     {/if}
   </div>
@@ -351,8 +418,47 @@
   投了币
 {/snippet}
 
-{#snippet teamCommented(page: any)}
-  {@render ____PLACEHOLDER(page)}
+{#snippet teamCommented(page: TEAM_COMMENTED)}
+  <div class="flex w-full flex-col">
+    <div class="inline">
+      <a href="/user/{page.senderInfo.oid}" class={userLinkClass}
+        >{page.senderInfo.name}</a
+      >
+      {#if page.message && $user.loggedIn}
+        回复了你在战队
+        <a
+          href="https://www.ccw.site/gamejam/teamDetail?id={page.content
+            .subject_oid}"
+          class={userLinkClass}
+          target="_blank">{page.content.subject_outline}</a
+        >
+        中的留言
+      {:else}
+        在你的战队
+        <a
+          href="https://www.ccw.site/gamejam/teamDetail?id={page.content
+            .subject_oid}"
+          class={userLinkClass}
+          target="_blank">{page.content.subject_outline}</a
+        >下留言:
+      {/if}
+    </div>
+    <div
+      class="w-full bg-bg-secondary {page.message
+        ? 'rounded-t-lg'
+        : 'rounded-lg'} p-2 border border-border"
+    >
+      <RenderComment comment={page.content.comments}></RenderComment>
+    </div>
+    {#if page.message && $user.loggedIn}
+      <div
+        class="w-full bg-bg-tertiary rounded-b-lg p-2 text-text-secondary border border-border"
+      >
+        <a href="/user/{$user.oid}" class={userLinkClass}>@{$user.name}</a>:
+        <RenderComment comment={page.message}></RenderComment>
+      </div>
+    {/if}
+  </div>
 {/snippet}
 
 {#snippet friendInvite(page: FRIEND_INVITE)}
@@ -384,17 +490,19 @@
       {/if}
     </div>
     <div
-      class="whitespace-break-spaces w-full bg-gray-100 {page.message
+      class="whitespace-break-spaces w-full bg-bg-secondary border border-border {page.message
         ? 'rounded-t-lg'
         : 'rounded-lg'} p-2"
     >
-      {page.content.comments}
+      <RenderComment comment={page.content.comments}></RenderComment>
     </div>
     {#if page.message && $user.loggedIn}
       <div
-        class="whitespace-break-spaces w-full bg-gray-300 rounded-b-lg p-2 text-gray-500"
+        class="flex w-full bg-bg-tertiary border border-border rounded-b-lg p-2 text-text-secondary"
       >
-        <a href="/user/{$user.oid}" class={userLinkClass}>@{$user.name}</a>: {page.message}
+        <a href="/user/{$user.oid}" class={userLinkClass}>
+          @{$user.name}
+        </a>: <RenderComment comment={page.message}></RenderComment>
       </div>
     {/if}
   </div>

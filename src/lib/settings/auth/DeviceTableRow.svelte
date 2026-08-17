@@ -64,10 +64,10 @@
 </script>
 
 <tr
-  class="hover:bg-gray-100 transition-colors border-b border-gray-300 min-h-12"
+  class="hover:bg-bg-secondary transition-colors border-b border-border-strong min-h-12"
 >
   <td
-    class="flex justify-center items-center h-12 sticky left-0 bg-gray-50 border-r border-gray-300 z-10"
+    class="flex justify-center items-center h-12 sticky left-0 bg-bg-secondary border-r border-border-strong z-10"
   >
     {#if session.currentDevice}
       <input
@@ -81,7 +81,7 @@
     {/if}
   </td>
   <td
-    class="px-4 py-3 text-center text-gray-500 font-mono text-xs z-0"
+    class="px-4 py-3 text-center text-text-secondary font-mono text-xs z-0"
     title={session.ip}
   >
     {session.id}
@@ -89,7 +89,7 @@
   <td class="px-4 py-3 whitespace-nowrap z-0" title={session.device}>
     {#if session.currentDevice}
       <span
-        class="mr-1.5 inline-block w-1.5 h-1.5 rounded-full bg-green-400 align-middle"
+        class="mr-1.5 inline-block w-1.5 h-1.5 rounded-full bg-success align-middle"
       ></span>
     {/if}
     {session.device || "未知设备"}
@@ -97,12 +97,12 @@
   <td class="px-4 py-3 whitespace-nowrap z-0" title={session.browser}>
     {session.browser || "未知浏览器"}
   </td>
-  <td class="px-4 py-3 text-gray-600 whitespace-nowrap z-0">
+  <td class="px-4 py-3 text-text-secondary whitespace-nowrap z-0">
     {loginTime.toLocaleString()}
   </td>
   <td class="px-4 py-3 text-center z-0">
     <span
-      class="inline-block rounded-full bg-gray-100 px-2.5 py-0.5 text-xs text-gray-600"
+      class="inline-block rounded-full bg-bg-secondary px-2.5 py-0.5 text-xs text-text-secondary"
     >
       {loginType}
     </span>
@@ -110,7 +110,7 @@
   <td class="px-4 py-3 relative w-44 z-0">
     {#if detailedLocation}
       <button
-        class="text-green-700 text-xs cursor-pointer hover:text-green-900 hover:underline transition-colors text-left whitespace-nowrap"
+        class="text-success text-xs cursor-pointer hover:text-success hover:underline transition-colors text-left whitespace-nowrap"
         title="点击复制 IP：{session.ip}"
         onclick={copyIP}
       >
@@ -119,7 +119,7 @@
       </button>
     {:else}
       <button
-        class="text-gray-600 text-xs cursor-pointer hover:text-gray-900 hover:underline transition-colors text-left whitespace-nowrap"
+        class="text-text-secondary text-xs cursor-pointer hover:text-text-primary hover:underline transition-colors text-left whitespace-nowrap"
         title="点击复制 IP：{session.ip}"
         onclick={copyIP}
       >
@@ -138,7 +138,7 @@
     <div class="flex items-center justify-center gap-2 w-44">
       {#if session.currentDevice}
         <span
-          class="rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-600 whitespace-nowrap"
+          class="rounded-md bg-success-light px-2 py-1 text-xs font-medium text-success whitespace-nowrap"
         >
           当前设备
         </span>
@@ -146,31 +146,37 @@
 
       {#if !detailedLocation}
         {#if loadingDetailedLocation}
-          <span class="text-gray-400 text-xs whitespace-nowrap">查询中...</span>
+          <span class="text-text-placeholder text-xs whitespace-nowrap"
+            >查询中...</span
+          >
         {:else}
           {#if loadLocationError}
-            <span class="text-red-500 text-xs whitespace-nowrap"
+            <span class="text-error text-xs whitespace-nowrap"
               >{loadLocationError}</span
             >
           {/if}
           <button
             onclick={fetchDetailedLocation}
-            class="rounded-md bg-blue-50 px-2.5 py-1 text-xs font-medium text-blue-600 hover:bg-blue-100 transition-colors cursor-pointer whitespace-nowrap"
+            class="rounded-md bg-info-light px-2.5 py-1 text-xs font-medium text-info hover:bg-info-light transition-colors cursor-pointer whitespace-nowrap"
           >
             精确定位
           </button>
         {/if}
       {:else}
-        <span class="text-gray-400 text-xs">已定位</span>
+        <span class="text-text-placeholder text-xs">已定位</span>
       {/if}
 
       {#if loggedOut}
-        <span class="text-gray-400 text-xs whitespace-nowrap">已退出</span>
+        <span class="text-text-placeholder text-xs whitespace-nowrap"
+          >已退出</span
+        >
       {:else if logoutProcessing}
-        <span class="text-gray-400 text-xs whitespace-nowrap">正在退出...</span>
+        <span class="text-text-placeholder text-xs whitespace-nowrap"
+          >正在退出...</span
+        >
       {:else}
         <button
-          class="rounded-md bg-red-50 px-2.5 py-1 text-xs font-medium text-red-500 hover:bg-red-100 transition-colors cursor-pointer whitespace-nowrap"
+          class="rounded-md bg-error-light px-2.5 py-1 text-xs font-medium text-error hover:bg-error-light transition-colors cursor-pointer whitespace-nowrap"
           onclick={handleLogout}
         >
           退出

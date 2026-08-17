@@ -14,13 +14,13 @@
 
 <div class="max-w-full mx-auto flex justify-center py-12 md:py-20 px-4">
   <div
-    class="bg-white rounded-2xl shadow-lg border border-red-200 px-6 py-8 max-w-md w-full text-center"
+    class="bg-white rounded-2xl shadow-lg border border-error px-6 py-8 max-w-md w-full text-center"
   >
     <div
-      class="mx-auto size-16 rounded-full bg-red-50 flex items-center justify-center mb-4"
+      class="mx-auto size-16 rounded-full bg-error-light flex items-center justify-center mb-4"
     >
       <svg
-        class="size-8 text-red-500"
+        class="size-8 text-error"
         viewBox="0 0 24 24"
         fill="none"
         stroke="currentColor"
@@ -32,8 +32,10 @@
         <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
       </svg>
     </div>
-    <h2 class="text-xl font-bold text-gray-900">该用户已被封禁</h2>
-    <p class="mt-2 text-sm text-gray-500">该账号因违反ccw社区规范被封禁</p>
+    <h2 class="text-xl font-bold text-text-primary">该用户已被封禁</h2>
+    <p class="mt-2 text-sm text-text-secondary">
+      该账号因违反ccw社区规范被封禁
+    </p>
     <div class="mt-5 space-y-2 text-sm">
       <div class="flex items-center justify-between gap-2">
         <span class="text-gray-400">封禁时间</span>

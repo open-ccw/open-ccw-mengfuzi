@@ -34,7 +34,7 @@
   ></span>
   {#if redDot}
     <span
-      class="bg-red-500 rounded-full size-2 md:size-3 absolute right-1 top-1"
+      class="bg-error rounded-full size-2 md:size-3 absolute right-1 top-1"
     ></span>
   {/if}
 </button>

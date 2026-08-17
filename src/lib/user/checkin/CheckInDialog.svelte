@@ -51,7 +51,7 @@
   <div class="bg-white w-80 rounded-2xl shadow-xl overflow-hidden relative">
     <!-- 顶部装饰条 -->
     <div
-      class="bg-linear-to-r from-green-400 to-green-300 h-16 flex items-center justify-center gap-3"
+      class="bg-linear-to-r from-primary to-primary-hover h-16 flex items-center justify-center gap-3"
     >
       <img src={coinSvg} alt="coin" class="w-8 h-8" />
       <span class="text-white text-xl font-bold">每日签到</span>
@@ -65,33 +65,33 @@
 
       {#if checkedIn}
         <div class="w-16 h-16 mx-auto"><Coin {bucks}></Coin></div>
-        <p class="text-lg font-bold text-gray-800">今日已签到</p>
-        <p class="text-gray-500 text-sm">
-          获得 <span class="text-green-500 font-bold">+{bucks}</span> 金币
+        <p class="text-lg font-bold text-text-primary">今日已签到</p>
+        <p class="text-text-secondary text-sm">
+          获得 <span class="text-success font-bold">+{bucks}</span> 金币
         </p>
-        <p class="text-gray-500 text-sm">当前金币：{coinCount}</p>
+        <p class="text-text-secondary text-sm">当前金币：{coinCount}</p>
         <button
-          class="w-full rounded-lg bg-green-400 text-gray-900 font-semibold py-2.5 hover:bg-green-300 transition-colors cursor-pointer"
+          class="w-full rounded-lg bg-primary text-white font-semibold py-2.5 hover:bg-primary-hover transition-colors cursor-pointer"
           onclick={onclose}
         >
           好的
         </button>
       {:else if bucks}
         <div class="w-16 h-16 mx-auto"><Coin {bucks}></Coin></div>
-        <p class="text-gray-700 text-sm">
+        <p class="text-text-secondary text-sm">
           签到即可获得金币
-          <span class="text-green-500 font-bold">+{bucks}</span>
+          <span class="text-success font-bold">+{bucks}</span>
           奖励
         </p>
         <button
           disabled={checking}
-          class="w-full rounded-lg bg-green-400 text-gray-900 font-semibold py-2.5 hover:bg-green-300 disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
+          class="w-full rounded-lg bg-primary text-white font-semibold py-2.5 hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
           onclick={handleCheckIn}
         >
           {checking ? "签到中..." : "立即签到"}
         </button>
         <button
-          class="w-full text-gray-400 text-sm hover:text-gray-500 transition-colors cursor-pointer"
+          class="w-full text-text-placeholder text-sm hover:text-text-secondary transition-colors cursor-pointer"
           onclick={onclose}
         >
           下次再说
@@ -100,7 +100,7 @@
         <div>加载中...</div>
       {:else}
         <button
-          class="w-full text-gray-400 text-sm hover:text-gray-500 transition-colors cursor-pointer"
+          class="w-full text-text-placeholder text-sm hover:text-text-secondary transition-colors cursor-pointer"
           onclick={onclose}
         >
           返回

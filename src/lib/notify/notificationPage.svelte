@@ -2,7 +2,7 @@
   import { communityWeb, type Notification } from "$lib/api";
   import Error from "$lib/utils/Error.svelte";
   import { onMount } from "svelte";
-  import NotificationMessage from "./notificationMessage.svelte";
+  import NotificationMessage from "./NotificationMessage.svelte";
   import { token } from "$lib/auth/tokenStore";
 
   let {
@@ -86,16 +86,16 @@
 
 <footer
   bind:this={footer}
-  class="w-full flex items-center justify-center gap-2 py-4 text-sm text-gray-400"
+  class="w-full flex items-center justify-center gap-2 py-4 text-sm text-text-placeholder"
 >
   {#if loading}
     <span
-      class="size-4 border-2 border-gray-200 border-t-indigo-500 rounded-full animate-spin"
+      class="size-4 border-2 border-border border-t-info rounded-full animate-spin"
     ></span>
     <span>加载中...</span>
   {:else if finished}
     <span>— 已加载全部消息 —</span>
   {:else}
-    <span class="size-4 border-2 border-gray-100 rounded-full"></span>
+    <span class="size-4 border-2 border-border rounded-full"></span>
   {/if}
 </footer>

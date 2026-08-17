@@ -10,7 +10,38 @@
 }
 
 @theme {
-  --color-error: var(--color-red-500);
-  --color-submit: var(--color-green-500);
   --font-family-inter: 'Inter', sans-serif;
+
+  /* 语义化颜色 - 品牌色/主色 */
+  --color-primary: var(--color-green-600);
+  --color-primary-hover: var(--color-green-700);
+  --color-primary-active: var(--color-green-400);
+
+  /* 状态色 */
+  --color-success: var(--color-green-500);
+  --color-success-light: var(--color-green-100);
+  --color-error: var(--color-red-500);
+  --color-error-light: var(--color-red-100);
+  --color-warning: var(--color-amber-500);
+  --color-warning-light: var(--color-amber-100);
+  --color-info: var(--color-blue-500);
+  --color-info-light: var(--color-blue-100);
+
+  /* 文本颜色 */
+  --color-text-primary: var(--color-gray-800);
+  --color-text-secondary: var(--color-gray-600);
+  --color-text-placeholder: var(--color-gray-400);
+  --color-text-disabled: var(--color-gray-300);
+
+  /* 边框颜色 */
+  --color-border: var(--color-gray-200);
+  --color-border-strong: var(--color-gray-300);
+
+  /* 背景颜色 */
+  --color-bg: var(--color-white);
+  --color-bg-secondary: var(--color-gray-50);
+  --color-bg-tertiary: var(--color-gray-100);
+
+  /* 交互状态 */
+  --color-primary-outline-focus: var(--color-green-400);
 }

@@ -7,8 +7,8 @@
   const info = $derived(badgeInfo[name] ?? []);
   const lineClassNames = [
     "font-bold text-xs",
-    "text-xs text-gray-800",
-    "text-xs text-gray-500",
+    "text-xs text-text-primary",
+    "text-xs text-text-secondary",
   ];
   function prevent(e: Event) {
     e.preventDefault();
@@ -32,9 +32,9 @@
     ></video>
   </button>
   <div
-    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 top-8 bg-gray-300 p-2 rounded-lg gap-2 z-10 absolute float-left"
+    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 top-8 bg-bg-secondary p-2 rounded-lg gap-2 z-10 absolute float-left"
   >
-    <div class="bg-gray-200 rounded-lg shrink-0 size-16">
+    <div class="bg-bg-secondary rounded-lg shrink-0 size-16">
       <video
         src={files.icon}
         autoplay

@@ -70,23 +70,25 @@
   }
 </script>
 
-<h1 class="text-lg font-bold text-gray-800 text-center w-full">登录设备管理</h1>
+<h1 class="text-lg font-bold text-text-primary text-center w-full">
+  登录设备管理
+</h1>
 
 {#if error}
   <Error {error}></Error>
 {:else}
   <div class="flex items-center justify-between mb-4 px-1">
     <div>
-      <p class="text-sm text-gray-500 mt-0.5">
+      <p class="text-sm text-text-secondary mt-0.5">
         {#if loading}
           正在加载设备信息...
         {:else if sessions.length === 0}
           暂无已登录的设备
         {:else}
-          当前共 <span class="text-green-600 font-semibold">{deviceCount}</span>
+          当前共 <span class="text-success font-semibold">{deviceCount}</span>
           台设备在线
           {#if otherDeviceCount > 0}
-            ，其中 <span class="text-orange-500 font-semibold"
+            ，其中 <span class="text-warning font-semibold"
               >{otherDeviceCount}</span
             > 台为其他设备
           {/if}
@@ -96,12 +98,14 @@
 
     <div class="flex gap-2 flex-col">
       {#if loggingOutAll}
-        <span class="rounded-lg bg-gray-100 px-4 py-1 text-sm text-gray-400">
+        <span
+          class="rounded-lg bg-bg-secondary px-4 py-1 text-sm text-text-placeholder"
+        >
           正在退出 {selectedCount} 台设备...
         </span>
       {:else}
         <button
-          class="rounded-lg border border-orange-200 bg-orange-50 px-4 py-1 text-sm font-medium text-orange-500 hover:bg-orange-100 hover:border-orange-300 transition-colors cursor-pointer whitespace-nowrap"
+          class="rounded-lg border border-warning bg-warning-light px-4 py-1 text-sm font-medium text-warning hover:bg-warning-light hover:border-warning transition-colors cursor-pointer whitespace-nowrap"
           onclick={logoutSelected}
         >
           退出选中设备 ({selectedCount})
@@ -110,12 +114,14 @@
 
       {#if otherDeviceCount > 0}
         {#if loggingOutAll}
-          <span class="rounded-lg bg-gray-100 px-4 py-1 text-sm text-gray-400">
+          <span
+            class="rounded-lg bg-bg-secondary px-4 py-1 text-sm text-text-placeholder"
+          >
             正在退出全部设备...
           </span>
         {:else}
           <button
-            class="rounded-lg border border-red-200 bg-red-50 px-4 py-1 text-sm text-red-500 hover:bg-red-100 hover:border-red-300 transition-colors cursor-pointer whitespace-nowrap"
+            class="rounded-lg border border-error bg-error-light px-4 py-1 text-sm text-error hover:bg-error-light hover:border-error transition-colors cursor-pointer whitespace-nowrap"
             onclick={logoutAll}
           >
             退出全部设备
@@ -126,14 +132,14 @@
   </div>
 
   <div class="w-full p-2">
-    <div class="w-full overflow-x-auto border border-gray-200 rounded-lg">
+    <div class="w-full overflow-x-auto border border-border rounded-lg">
       <table class="w-full text-sm">
         <thead>
           <tr
-            class="bg-gray-200 text-gray-700 text-xs font-semibold uppercase tracking-wider"
+            class="bg-bg-secondary text-text-secondary text-xs font-semibold uppercase tracking-wider"
           >
             <th
-              class="px-4 py-3 text-center w-fit sticky left-0 bg-gray-200 border-r border-gray-300 z-10"
+              class="px-4 py-3 text-center w-fit sticky left-0 bg-bg-secondary border-r border-border-strong z-10"
               >选择</th
             >
             <th class="px-4 py-3 text-center w-fit">ID</th>
@@ -145,19 +151,24 @@
             <th class="px-4 py-3 text-center w-44">操作</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-gray-100 bg-white">
+        <tbody class="divide-y divide-border bg-white">
           {#if loading}
             <tr>
               <td colspan="7" class="px-4 py-16 text-center">
                 <div
-                  class="mx-auto w-8 h-8 border-2 border-gray-200 border-t-green-400 rounded-full animate-spin"
+                  class="mx-auto w-8 h-8 border-2 border-border border-t-success rounded-full animate-spin"
                 ></div>
-                <p class="mt-3 text-gray-400 text-sm">加载设备列表...</p>
+                <p class="mt-3 text-text-placeholder text-sm">
+                  加载设备列表...
+                </p>
               </td>
             </tr>
           {:else if sessions.length === 0}
             <tr>
-              <td colspan="7" class="px-4 py-16 text-center text-gray-400">
+              <td
+                colspan="7"
+                class="px-4 py-16 text-center text-text-placeholder"
+              >
                 暂无设备记录
               </td>
             </tr>

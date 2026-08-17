@@ -29,7 +29,7 @@
 <div>
   <div class="flex w-full">
     <button
-      class="ml-auto mr-0 bg-white text-red-500 rounded-md border border-red-500 p-1 hover:bg-red-300 cursor-pointer"
+      class="ml-auto mr-0 bg-white text-error rounded-md border border-error p-1 hover:bg-error-light cursor-pointer"
       onclick={() => {
         if (!renderAsHTML && !previewSafeHTML) {
           previewSafeHTML = true;
@@ -52,13 +52,13 @@
     </p>
   {:else if previewSafeHTML}
     <p
-      class="text-black mt-1 leading-relaxed text-wrap whitespace-break-spaces wrap-anywhere"
+      class="text-text-primary mt-1 leading-relaxed text-wrap whitespace-break-spaces wrap-anywhere"
     >
       {safeHTML}
     </p>
   {:else}
     <p
-      class="text-black mt-1 leading-relaxed text-wrap whitespace-break-spaces wrap-anywhere"
+      class="text-text-primary mt-1 leading-relaxed text-wrap whitespace-break-spaces wrap-anywhere"
     >
       {text}
     </p>

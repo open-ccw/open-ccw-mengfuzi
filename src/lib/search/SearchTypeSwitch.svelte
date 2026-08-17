@@ -12,7 +12,7 @@
 {#snippet but(t: SearchTypes, n: string)}
   <button
     class="cursor-pointer {type == t
-      ? 'border-green-400 border-b'
+      ? 'border-primary border-b'
       : 'border-none'} transition-all text-lg"
     onclick={() => {
       type = t;

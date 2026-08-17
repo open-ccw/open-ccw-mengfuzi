@@ -17,7 +17,7 @@
 <div class="fixed right-0 z-30 h-full">
   <div class="flex flex-row items-center h-full">
     <div
-      class="rounded-l-full shadow shadow-gray-300 z-30 bg-gray-50 w-9 h-18 relative -top-12"
+      class="rounded-l-full shadow shadow-border-strong z-30 bg-bg-secondary w-9 h-18 relative -top-12"
     >
       <button
         title="comment"

@@ -6,9 +6,9 @@
 
 <div class="py-16 text-center">
   <div
-    class="p-4 mx-auto size-16 rounded-full bg-gray-100 flex items-center justify-center mb-4"
+    class="p-4 mx-auto size-16 rounded-full bg-bg-secondary flex items-center justify-center mb-4"
   >
     <SearchIcon></SearchIcon>
   </div>
-  <p class="text-gray-500">{hint}</p>
+  <p class="text-text-secondary">{hint}</p>
 </div>

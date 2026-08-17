@@ -24,14 +24,14 @@
 
 {#if $user.loggedIn}
   <!-- 用户信息 -->
-  <div class="px-4 py-3 border-b border-gray-100">
+  <div class="px-4 py-3 border-b border-border">
     <div class="flex items-center gap-3">
       <div class="size-8 md:size-10 shrink-0">
         <AvatarToProfile url={$user.avatar} oid={$user.oid} />
       </div>
       <div class="min-w-0">
         <a
-          class="text-sm md:text-base font-medium text-gray-800 truncate block hover:text-gray-600"
+          class="text-sm md:text-base font-medium text-text-primary truncate block hover:text-text-secondary"
           href="/user/{$user.oid}"
           onclick={onclose}
         >
@@ -42,26 +42,26 @@
   </div>
 
   <button
-    class="w-full flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer relative"
+    class="w-full flex items-center gap-3 px-4 py-3 text-text-primary hover:bg-bg-secondary transition-colors cursor-pointer relative"
     onclick={onCheckIn}
   >
     <img src={coinSvg} alt="签到" class="size-6" />
     {#if !checkedIn}
-      <span class="bg-red-500 rounded-full size-2 absolute left-8 top-3"></span>
+      <span class="bg-error rounded-full size-2 absolute left-8 top-3"></span>
     {/if}
     <span class="text-sm font-medium">每日签到</span>
   </button>
 
   <a
     href="/notice/interaction"
-    class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors"
+    class="flex items-center gap-3 px-4 py-3 text-text-primary hover:bg-bg-secondary transition-colors"
     onclick={onclose}
   >
     <div class="size-6 relative">
       <img src={noticeSvg} alt="消息" class="size-6" />
       {#if notifyCount > 0}
         <div
-          class="bg-red-500 rounded-full absolute size-4 -top-2 -right-2 text-center text-white text-xs flex justify-center items-center"
+          class="bg-error rounded-full absolute size-4 -top-2 -right-2 text-center text-white text-xs flex justify-center items-center"
         >
           {#if notifyCount < 100}
             <span>{notifyCount}</span>
@@ -76,7 +76,7 @@
 
   <a
     href="/settings/auth"
-    class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors"
+    class="flex items-center gap-3 px-4 py-3 text-text-primary hover:bg-bg-secondary transition-colors"
     onclick={onclose}
   >
     <img src={cogSvg} alt="设置" class="size-6" />
@@ -85,9 +85,9 @@
 
   {@render search()}
 
-  <div class="border-t border-gray-100 mt-1 pt-2">
+  <div class="border-t border-border mt-1 pt-2">
     <button
-      class="w-full flex items-center gap-3 px-4 py-3 text-red-500 hover:bg-gray-50 transition-colors cursor-pointer"
+      class="w-full flex items-center gap-3 px-4 py-3 text-error hover:bg-bg-secondary transition-colors cursor-pointer"
       onclick={onlogout}
     >
       <svg
@@ -117,7 +117,7 @@
 {#snippet search()}
   <a
     href="/search"
-    class="flex items-center gap-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors"
+    class="flex items-center gap-3 px-4 py-3 text-text-primary hover:bg-bg-secondary transition-colors"
   >
     <div class="size-6"><SearchIcon /></div>
     <span class="text-sm font-medium">搜索</span>

@@ -91,7 +91,7 @@
     </div>
     <form>
       <textarea
-        class="resize border border-gray-500 rounded-xl md:w-64 w-60 min-w-56 max-w-64 md:max-w-96 focus:border-green-500 transition-[border] outline-0 p-2 min-h-12 max-h-64 overflow-y-auto text-sm md:text-lg"
+        class="resize border border-border-strong rounded-xl md:w-64 w-60 min-w-56 max-w-64 md:max-w-96 focus:border-primary transition-[border] outline-0 p-2 min-h-12 max-h-64 overflow-y-auto text-sm md:text-lg"
         name="comment"
         placeholder="评论(可粘贴图片文件, 输入框可调整大小)"
         bind:value={comment}
@@ -107,7 +107,7 @@
       </textarea>
       <div class="flex w-full">
         <button
-          class="mr-0 ml-auto border-green-500 border rounded-lg text-green-500 pl-2 pr-2 cursor-help"
+          class="mr-0 ml-auto border-primary border rounded-lg text-primary pl-2 pr-2 cursor-help"
           disabled>评论</button
         >
       </div>

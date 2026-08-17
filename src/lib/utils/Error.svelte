@@ -5,5 +5,5 @@
 
 {#if error}
   <div class="text-error">{error}</div>
-  <a href="/" class="text-blue-500">返回主页</a>
+  <a href="/" class="text-info">返回主页</a>
 {/if}
