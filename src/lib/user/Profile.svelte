@@ -55,7 +55,10 @@
   {#if lockDetail.locked}
     <LockedDetail {lockDetail}></LockedDetail>
   {:else if profile}
-    <CommentTrigger oid={profile.studentOid} subjectType="PROFILE"
+    <CommentTrigger
+      oid={profile.studentOid}
+      subjectType="PROFILE"
+      sectionType="COMMENT"
     ></CommentTrigger>
     <div class="max-w-full mx-auto md:-mt-16 -mt-12">
       {#if profile.memberArchive?.homepageCover}

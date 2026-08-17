@@ -2,12 +2,17 @@
   import AvatarToProfile from "$lib/user/AvatarToProfile.svelte";
   import { user } from "$lib/user/userStore";
   import { getOSS } from "$lib/utils/oss";
+  import { communityWeb } from "@ccw-api/api";
   import type OSS from "ali-oss";
   import CryptoJS from "crypto-js";
+  import type { TopicConfig } from "./topicConfig";
 
   let comment = $state("");
   let textArea: HTMLTextAreaElement | undefined = $state();
   let oss: OSS | undefined = $state();
+  let submitting = $state(false);
+  let error = $state("");
+  let { oid, subjectType, sectionType }: TopicConfig = $props();
 
   function handlePaste(clipboardData: DataTransfer) {
     const item = Array.from(clipboardData.items).at(-1);
@@ -25,7 +30,6 @@
   }
 
   async function handleImg(img: File) {
-    console.log(img);
     if (!oss || !$user.loggedIn) {
       console.error("未登录,无法上传");
       return;
@@ -78,10 +82,34 @@
       setTimeout(init, 10);
     }
   });
+
+  async function createComment() {
+    if (submitting) {
+      return;
+    }
+    submitting = true;
+    try {
+      await communityWeb.createComment(
+        comment,
+        {
+          subjectOid: oid,
+          subjectType,
+        },
+        sectionType,
+      );
+      comment = "";
+    } catch (e) {
+      error = String(e);
+    }
+    submitting = false;
+  }
 </script>
 
 {#if $user.loggedIn}
-  <div class="ml-4 mt-4 flex flex-row gap-4 md:gap-8">
+  {#if error}
+    <div class="text-error border border-error">{error}</div>
+  {/if}
+  <div class="mt-4 flex flex-row gap-4 md:gap-8">
     <div class="size-8 md:size-12">
       <AvatarToProfile
         oid={$user.oid}
@@ -91,7 +119,7 @@
     </div>
     <form>
       <textarea
-        class="resize border border-border-strong rounded-xl md:w-64 w-60 min-w-56 max-w-64 md:max-w-96 focus:border-primary transition-[border] outline-0 p-2 min-h-12 max-h-64 overflow-y-auto text-sm md:text-lg"
+        class="resize-y border border-border-strong rounded-xl md:w-84 w-60 focus:border-primary transition-[border] outline-0 p-2 min-h-12 max-h-64 overflow-y-auto text-sm md:text-lg"
         name="comment"
         placeholder="评论(可粘贴图片文件, 输入框可调整大小)"
         bind:value={comment}
@@ -107,8 +135,11 @@
       </textarea>
       <div class="flex w-full">
         <button
-          class="mr-0 ml-auto border-primary border rounded-lg text-primary pl-2 pr-2 cursor-help"
-          disabled>评论</button
+          class="mr-0 ml-auto border-primary border rounded-lg text-primary pl-2 pr-2 {submitting
+            ? 'cursor-not-allowed'
+            : 'cursor-pointer'}"
+          disabled={submitting}
+          onclick={createComment}>评论</button
         >
       </div>
     </form>

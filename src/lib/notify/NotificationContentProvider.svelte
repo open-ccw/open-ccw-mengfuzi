@@ -33,7 +33,7 @@
   import LikeIcon from "./LikeIcon.svelte";
   import RenderHTML from "$lib/utils/RenderHTML.svelte";
   import { user } from "$lib/user/userStore";
-  import RenderComment from "./RenderComment.svelte";
+  import RenderComment from "../comment/RenderComment.svelte";
 
   const userLinkClass =
     "font-medium text-info hover:underline whitespace-break-spaces";

@@ -11,8 +11,12 @@
     preview = true;
   }}
 >
-  <img src={url} alt={id} class="h-12 object-cover w-fit" />
-  <span class="text-sm text-text-placeholder scale-50">{id}</span>
+  <img
+    src={url}
+    alt={id}
+    class="h-12 object-cover w-fit border border-border"
+  />
+  <span class="text-[8px] text-text-placeholder">{id}</span>
 </button>
 
 {#if preview}

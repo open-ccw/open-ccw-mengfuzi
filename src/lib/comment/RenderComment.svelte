@@ -18,9 +18,11 @@
 </script>
 
 <div class="flex flex-col whitespace-normal">
-  <div class="h-fit flex text-wrap whitespace-break-spaces">{text}</div>
+  <div class="h-fit flex text-wrap whitespace-break-spaces wrap-anywhere">
+    {text}
+  </div>
   {#if images.length}
-    <details class="flex-col flex">
+    <details class="flex-col flex w-fit">
       <summary class="text-sm cursor-pointer text-text-placeholder select-none">
         附件
       </summary>

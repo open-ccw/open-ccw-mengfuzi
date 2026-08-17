@@ -15,7 +15,7 @@
   }
 </script>
 
-<div class="group w-fit flex flex-col items-center relative ml-1 mr-1">
+<div class="group w-fit flex flex-col items-center relative ml-4 mr-1">
   <button type="button" class="cursor-default" oncontextmenu={prevent}>
     <!-- 勋章本体 -->
     <video
@@ -27,12 +27,12 @@
       disablepictureinpicture
       controlslist="nodownload noplaybackrate noremoteplayback noplay"
       draggable={false}
-      class="h-8 pointer-events-none"
+      class="h-6 pointer-events-none scale-120"
       oncontextmenu={prevent}
     ></video>
   </button>
   <div
-    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 top-8 bg-bg-secondary p-2 rounded-lg gap-2 z-10 absolute float-left"
+    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 top-8 bg-bg-secondary p-2 rounded-lg gap-2 z-10 absolute float-left shadow shadow-gray-500"
   >
     <div class="bg-bg-secondary rounded-lg shrink-0 size-16">
       <video
