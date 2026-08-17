@@ -11,8 +11,12 @@
     preview = true;
   }}
 >
-  <img src={url} alt={id} class="h-12 object-cover w-fit" />
-  <span class="text-sm text-text-placeholder scale-50">{id}</span>
+  <img
+    src={url}
+    alt={id}
+    class="h-12 object-cover aspect-video border border-border"
+  />
+  <span class="text-[8px] text-text-placeholder">{id}</span>
 </button>
 
 {#if preview}
@@ -23,6 +27,6 @@
     }}
     transition:blur={{ duration: 100 }}
   >
-    <img src={url} alt={id} class="h-64 object-cover w-fit max-w-full" />
+    <img src={url} alt={id} class="h-64 object-cover aspect-auto" />
   </button>
 {/if}

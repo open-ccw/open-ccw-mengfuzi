@@ -8,15 +8,24 @@
   import DeveloperBadge from "./custom-badge/DeveloperBadge.svelte";
   import { developerBadges } from "./custom-badge/developerBadges";
 
-  const { oid = "", uid = "" } = $props();
+  let {
+    oid = "",
+    uid = "",
+    approvals = [],
+    showHidden = true,
+  }: {
+    oid?: string;
+    uid?: string;
+    approvals?: ApprovalTagType[];
+    showHidden?: boolean;
+  } = $props();
 
   const developerBadgeNames = $derived(
     developerBadges.find((d) => d.oid === oid || d.uid === uid)?.badges ?? [],
   );
 
-  let loading = $state(true);
+  let loading = $state(false);
   let error = $state("");
-  let approvals: ApprovalTagType[] = $state([]);
 
   function clearErrorLater() {
     setTimeout(() => {
@@ -60,8 +69,13 @@
     loading = false;
   }
   onMount(() => {
+    if (approvals.length) {
+      return;
+    }
     refresh();
   });
+  let adorned = $derived(approvals.filter((tag) => tag.adorned));
+  let notAdorned = $derived(approvals.filter((tag) => !tag.adorned));
 </script>
 
 <div class="flex-wrap flex relative">
@@ -70,20 +84,26 @@
       class="animate-spin border-4 border-t-info border-gray-600 rounded-full size-6"
     ></div>
   {:else}
-    {#each approvals.filter((tag) => tag.adorned) as tag}
+    {#each adorned as tag}
       <div class="mt-2">
-        <ApprovalTag {tag} onClick={isSelf ? detach : null}></ApprovalTag>
+        <ApprovalTag {tag} onClick={isSelf && showHidden ? detach : null}
+        ></ApprovalTag>
       </div>
     {/each}
-    <div class="border-dashed border border-gray-500 h-6 mt-2"></div>
-    {#each approvals.filter((tag) => !tag.adorned) as tag}
-      <div class="mt-2">
-        <ApprovalTag {tag} onClick={isSelf ? adorn : null}></ApprovalTag>
-      </div>
-    {/each}
+    {#if showHidden}
+      {#if adorned.length > 0 && notAdorned.length > 0}
+        <div class="border-dashed border border-gray-500 h-6 mt-2"></div>
+      {/if}
+      {#each notAdorned as tag}
+        <div class="mt-2">
+          <ApprovalTag {tag} onClick={isSelf && showHidden ? adorn : null}
+          ></ApprovalTag>
+        </div>
+      {/each}
+    {/if}
     <!-- Open CCW 社区专属勋章 -->
     {#if developerBadgeNames.length > 0}
-      <div class="w-full flex mt-3 -ml-1">
+      <div class="w-fit flex mt-2 -ml-1">
         {#each developerBadgeNames as name}
           <DeveloperBadge {name}></DeveloperBadge>
         {/each}

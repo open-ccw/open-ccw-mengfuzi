@@ -29,10 +29,12 @@
     {/if}
   </button>
   <div
-    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 top-6 bg-bg-secondary p-2 rounded-lg gap-2 z-10 absolute float-left border border-white/10"
+    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 top-6 bg-bg-secondary p-2 rounded-lg gap-2 z-10 absolute float-left border border-white/10 shadow-gray-500/50 shadow"
   >
     <!-- 雷霆大icon -->
-    <div class="bg-bg-secondary rounded-lg shrink-0 size-16 border border-white/10">
+    <div
+      class="bg-bg-secondary rounded-lg shrink-0 size-16 border border-white/10"
+    >
       <img src={tag.approvalTag.mediumImage} alt="medium" />
     </div>
     <!-- 雷霆介绍 -->

@@ -1,27 +1,20 @@
 <script lang="ts">
   import CommentMain from "./CommentMain.svelte";
   import icon from "$lib/assets/chevron-left.svg";
-  import { setCommentTopic, type TopicConfig } from "./commentContext";
+  import { type TopicConfig } from "./topicConfig";
 
   let openComment = $state(false);
-  const { oid, subjectType }: TopicConfig = $props();
-
-  $effect(() => {
-    setCommentTopic({
-      oid,
-      subjectType,
-    });
-  });
+  const { oid, subjectType, sectionType }: TopicConfig = $props();
 </script>
 
-<div class="fixed right-0 z-30 h-full">
+<div class="fixed right-0 z-30 h-full top-0 pt-12 md:pt-16">
   <div class="flex flex-row items-center h-full">
     <div
-      class="rounded-l-full shadow shadow-border-strong z-30 bg-bg-secondary w-9 h-18 relative -top-12"
+      class="rounded-l-full shadow shadow-border-strong bg-bg-secondary w-9 h-18 relative -top-12"
     >
       <button
         title="comment"
-        class="cursor-pointer flex items-center w-full h-full pl-2"
+        class="cursor-pointer flex items-center w-full h-full pl-2 z-30"
         onclick={() => {
           openComment = !openComment;
         }}
@@ -35,8 +28,10 @@
         </div>
       </button>
     </div>
-    {#if openComment}
-      <CommentMain oid=""></CommentMain>
-    {/if}
+    <div class="z-20 h-full relative">
+      {#if openComment}
+        <CommentMain {oid} {subjectType} {sectionType}></CommentMain>
+      {/if}
+    </div>
   </div>
 </div>

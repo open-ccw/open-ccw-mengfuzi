@@ -31,7 +31,7 @@
     "wrangler": "^4.118.0"
   },
   "dependencies": {
-    "@ccw-api/api": "^2.1.7",
+    "@ccw-api/api": "^2.1.8",
     "@ccw-api/request": "^1.2.2",
     "@types/ali-oss": "^6.23.3",
     "ali-oss": "^6.23.0",
