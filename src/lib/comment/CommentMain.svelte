@@ -8,11 +8,7 @@
 </script>
 
 <div
-<<<<<<< HEAD
-  class="w-80 md:w-lg h-full bg-bg-secondary shadow-lg shadow-black z-20"
-=======
-  class="pl-4 w-80 md:w-lg h-full bg-white shadow-lg shadow-black z-20 overflow-y-auto"
->>>>>>> 19f26ce477c82015758f2657099fff42916e2fa1
+  class="pl-4 w-80 md:w-lg h-full bg-bg-secondary shadow-lg shadow-black z-20 overflow-y-auto"
   transition:slide={{ axis: "x", duration: 200 }}
 >
   <WriteComment {oid} {subjectType} {sectionType} />

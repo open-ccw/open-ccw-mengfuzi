@@ -32,11 +32,7 @@
     ></video>
   </button>
   <div
-<<<<<<< HEAD
-    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 top-8 bg-bg-secondary p-2 rounded-lg gap-2 z-10 absolute float-left border border-white/10"
-=======
-    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 top-8 bg-bg-secondary p-2 rounded-lg gap-2 z-10 absolute float-left shadow shadow-gray-500"
->>>>>>> 19f26ce477c82015758f2657099fff42916e2fa1
+    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 top-8 bg-bg-secondary p-2 rounded-lg gap-2 z-10 absolute float-left border border-white/10 shadow shadow-gray-500"
   >
     <div class="bg-bg-secondary rounded-lg shrink-0 size-16 border border-white/10">
       <video

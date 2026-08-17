@@ -47,7 +47,9 @@
     class="w-screen h-screen min-h-fit flex items-center justify-center"
     style:background="url({bg}) repeat center/cover"
   >
-    <div class="bg-bg-secondary w-lg h-fit rounded-2xl p-8 shadow-xl">
+    <div
+      class="bg-bg-secondary/50 w-lg h-fit rounded-2xl p-8 shadow-xl backdrop-blur-[15px]"
+    >
       {#if success}
         <div class="text-center py-6">
           <div
@@ -67,7 +69,9 @@
           </a>
         </div>
       {:else}
-        <h1 class="ml-auto mr-auto w-fit text-2xl font-bold mb-6">
+        <h1
+          class="ml-auto mr-auto w-fit text-2xl font-bold mb-6 text-text-primary"
+        >
           欢迎来到Open CCW
         </h1>
         <span class="ml-auto mr-0 w-fit text-sm text-text-secondary">
