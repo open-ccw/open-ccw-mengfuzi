@@ -35,7 +35,7 @@
       type="text"
       placeholder="搜索作品、用户、文章、星球..."
       bind:value
-      class="w-full h-12 pl-12 pr-4 rounded-full bg-white border border-border shadow-sm text-text-primary placeholder-text-placeholder focus:border-primary outline-none transition-all"
+      class="w-full h-12 pl-12 pr-4 rounded-full bg-bg-secondary border border-border shadow-sm text-text-primary placeholder-text-placeholder focus:border-primary outline-none transition-all"
     />
     <button
       type="submit"

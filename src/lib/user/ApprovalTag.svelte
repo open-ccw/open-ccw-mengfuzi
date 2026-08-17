@@ -29,15 +29,15 @@
     {/if}
   </button>
   <div
-    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 top-6 bg-bg-secondary p-2 rounded-lg gap-2 z-10 absolute float-left"
+    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 top-6 bg-bg-secondary p-2 rounded-lg gap-2 z-10 absolute float-left border border-white/10"
   >
     <!-- 雷霆大icon -->
-    <div class="bg-bg-secondary rounded-lg shrink-0 size-16">
+    <div class="bg-bg-secondary rounded-lg shrink-0 size-16 border border-white/10">
       <img src={tag.approvalTag.mediumImage} alt="medium" />
     </div>
     <!-- 雷霆介绍 -->
     <div class="flex flex-col w-48 gap-1">
-      <p class="font-bold text-xs">{tag.approvalTagName}</p>
+      <p class="font-bold text-xs text-text-primary">{tag.approvalTagName}</p>
       <p class="text-xs text-text-primary">
         {@html DOMPurify.sanitize(tag.approvalTag.description)}
       </p>

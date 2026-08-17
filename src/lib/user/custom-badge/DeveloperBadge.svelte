@@ -6,7 +6,7 @@
   const files = $derived(getBadgeFiles(name));
   const info = $derived(badgeInfo[name] ?? []);
   const lineClassNames = [
-    "font-bold text-xs",
+    "font-bold text-xs text-text-primary",
     "text-xs text-text-primary",
     "text-xs text-text-secondary",
   ];
@@ -32,9 +32,9 @@
     ></video>
   </button>
   <div
-    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 top-8 bg-bg-secondary p-2 rounded-lg gap-2 z-10 absolute float-left"
+    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 top-8 bg-bg-secondary p-2 rounded-lg gap-2 z-10 absolute float-left border border-white/10"
   >
-    <div class="bg-bg-secondary rounded-lg shrink-0 size-16">
+    <div class="bg-bg-secondary rounded-lg shrink-0 size-16 border border-white/10">
       <video
         src={files.icon}
         autoplay

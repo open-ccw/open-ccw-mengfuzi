@@ -10,7 +10,7 @@
 <div class="h-18 md:h-24">
   <a
     href="https://ccw.site/post/{item.slug}"
-    class="h-full flex items-center gap-4 bg-white rounded-xl shadow border border-border p-2 hover:border-indigo-200 hover:shadow-md transition-all"
+    class="h-full flex items-center gap-4 bg-bg-secondary rounded-xl shadow border border-border p-2 hover:border-indigo-400 hover:shadow-md transition-all"
   >
     {#if item.featureImage}
       <img

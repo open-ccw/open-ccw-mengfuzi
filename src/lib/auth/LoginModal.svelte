@@ -138,7 +138,7 @@
                 <button
                   type="button"
                   title="移除账号"
-                  class="p-3 rounded-lg bg-bg border border-border-strong text-error hover:bg-error-light hover:border-error transition-colors cursor-pointer"
+                  class="p-3 rounded-lg bg-bg border border-border-strong text-error hover:bg-error/10 hover:border-error transition-colors cursor-pointer"
                   onclick={handleRemove}
                 >
                   ✕
@@ -170,7 +170,7 @@
           <button
             type="submit"
             disabled={submitting || !selectedName}
-            class="w-full rounded-lg bg-bg border-2 border-primary text-text-primary font-semibold p-3 hover:bg-success-light active:bg-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
+            class="w-full rounded-lg bg-bg border-2 border-primary text-text-primary font-semibold p-3 hover:bg-success/10 active:bg-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
           >
             {submitting ? "验证中..." : "确认"}
           </button>

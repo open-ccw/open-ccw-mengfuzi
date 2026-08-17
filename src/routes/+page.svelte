@@ -62,7 +62,7 @@
       </a>
       <a
         href="/oauth"
-        class="rounded-lg border border-border-strong bg-white px-6 py-3 text-text-secondary font-medium hover:bg-bg-secondary transition-colors"
+        class="rounded-lg border border-border-strong bg-bg-secondary px-6 py-3 text-text-secondary font-medium hover:bg-bg-tertiary transition-colors"
       >
         通过第三方登录
       </a>
@@ -72,7 +72,7 @@
   <section class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-3xl">
     {#each features as { icon, title, desc }}
       <div
-        class="flex flex-col items-center text-center gap-2 rounded-xl border border-border bg-white p-6 shadow-sm"
+        class="flex flex-col items-center text-center gap-2 rounded-xl border border-border bg-bg-secondary p-6 shadow-sm"
       >
         <img src={icon} alt={title} class="size-10" />
         <h3 class="text-base font-semibold text-text-primary">{title}</h3>

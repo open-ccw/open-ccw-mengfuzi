@@ -14,10 +14,10 @@
 
 <div class="max-w-full mx-auto flex justify-center py-12 md:py-20 px-4">
   <div
-    class="bg-white rounded-2xl shadow-lg border border-error px-6 py-8 max-w-md w-full text-center"
+    class="bg-bg-secondary rounded-2xl shadow-lg border border-error px-6 py-8 max-w-md w-full text-center"
   >
     <div
-      class="mx-auto size-16 rounded-full bg-error-light flex items-center justify-center mb-4"
+      class="mx-auto size-16 rounded-full bg-error/10 flex items-center justify-center mb-4"
     >
       <svg
         class="size-8 text-error"
@@ -38,13 +38,13 @@
     </p>
     <div class="mt-5 space-y-2 text-sm">
       <div class="flex items-center justify-between gap-2">
-        <span class="text-gray-400">封禁时间</span>
-        <span class="text-gray-800">{formatLockTime(lockDetail.createdAt)}</span
+        <span class="text-text-placeholder">封禁时间</span>
+        <span class="text-text-primary">{formatLockTime(lockDetail.createdAt)}</span
         >
       </div>
       <div class="flex items-center justify-between gap-2">
-        <span class="text-gray-400">解封时间</span>
-        <span class="text-gray-800">{formatLockTime(lockDetail.unlocksAt)}</span
+        <span class="text-text-placeholder">解封时间</span>
+        <span class="text-text-primary">{formatLockTime(lockDetail.unlocksAt)}</span
         >
       </div>
     </div>

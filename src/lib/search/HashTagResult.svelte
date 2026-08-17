@@ -12,7 +12,7 @@
 <div class="h-16 mt-2">
   <a
     href="https://www.ccw.site/topic/{name}"
-    class="h-full flex items-center gap-4 bg-white rounded-xl shadow border border-border p-4 hover:border-indigo-200 hover:shadow-md transition-all"
+    class="h-full flex items-center gap-4 bg-bg-secondary rounded-xl shadow border border-border p-4 hover:border-indigo-400 hover:shadow-md transition-all"
   >
     {#if item.coverLink}
       <img

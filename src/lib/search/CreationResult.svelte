@@ -18,7 +18,7 @@
 <div class="w-48 mt-2">
   <a
     href="/detail/{item.oid}"
-    class="h-full flex flex-col items-center bg-white rounded-xl shadow border border-border p-2 hover:border-indigo-200 hover:shadow-md transition-all"
+    class="h-full flex flex-col items-center bg-bg-secondary rounded-xl shadow border border-border p-2 hover:border-indigo-400 hover:shadow-md transition-all"
   >
     {#if cover}
       <img
@@ -36,7 +36,7 @@
         </div>
       {:else}
         <div
-          class="text-nowrap border-yellow-700 text-yellow-700 border rounded-lg pl-1 pr-1 text-sm scale-75"
+          class="text-nowrap border-yellow-400 text-yellow-400 border rounded-lg pl-1 pr-1 text-sm scale-75"
         >
           改编
         </div>

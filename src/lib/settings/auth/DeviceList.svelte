@@ -105,7 +105,7 @@
         </span>
       {:else}
         <button
-          class="rounded-lg border border-warning bg-warning-light px-4 py-1 text-sm font-medium text-warning hover:bg-warning-light hover:border-warning transition-colors cursor-pointer whitespace-nowrap"
+          class="rounded-lg border border-warning bg-warning/10 px-4 py-1 text-sm font-medium text-warning hover:bg-warning/20 hover:border-warning transition-colors cursor-pointer whitespace-nowrap"
           onclick={logoutSelected}
         >
           退出选中设备 ({selectedCount})
@@ -121,7 +121,7 @@
           </span>
         {:else}
           <button
-            class="rounded-lg border border-error bg-error-light px-4 py-1 text-sm text-error hover:bg-error-light hover:border-error transition-colors cursor-pointer whitespace-nowrap"
+            class="rounded-lg border border-error bg-error/10 px-4 py-1 text-sm text-error hover:bg-error/20 hover:border-error transition-colors cursor-pointer whitespace-nowrap"
             onclick={logoutAll}
           >
             退出全部设备
@@ -151,7 +151,7 @@
             <th class="px-4 py-3 text-center w-44">操作</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-border bg-white">
+        <tbody class="divide-y divide-border bg-bg-secondary">
           {#if loading}
             <tr>
               <td colspan="7" class="px-4 py-16 text-center">

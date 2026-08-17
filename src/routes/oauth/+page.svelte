@@ -40,7 +40,7 @@
   class="w-screen h-screen min-h-fit flex items-center justify-center"
   style:background="url({bg}) repeat center/cover"
 >
-  <div class="bg-white w-lg h-fit rounded-2xl p-10 shadow-xl text-center">
+  <div class="bg-bg-secondary w-lg h-fit rounded-2xl p-10 shadow-xl text-center">
     <div
       class="mx-auto mb-6 w-12 h-12 border-4 border-border border-t-success rounded-full animate-spin"
     ></div>

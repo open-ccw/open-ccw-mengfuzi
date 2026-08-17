@@ -67,7 +67,7 @@
 <div class="flex-wrap flex relative">
   {#if loading}
     <div
-      class="animate-spin border-4 border-t-info border-gray-300 rounded-full size-6"
+      class="animate-spin border-4 border-t-info border-gray-600 rounded-full size-6"
     ></div>
   {:else}
     {#each approvals.filter((tag) => tag.adorned) as tag}
@@ -92,7 +92,7 @@
   {/if}
   {#if error}
     <span
-      class="text-error border border-error rounded-xl p-2 h-fit absolute top-8 bg-white"
+      class="text-error border border-error rounded-xl p-2 h-fit absolute top-8 bg-bg-secondary"
       transition:scale>{error}</span
     >
   {/if}

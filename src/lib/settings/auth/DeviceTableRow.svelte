@@ -138,7 +138,7 @@
     <div class="flex items-center justify-center gap-2 w-44">
       {#if session.currentDevice}
         <span
-          class="rounded-md bg-success-light px-2 py-1 text-xs font-medium text-success whitespace-nowrap"
+          class="rounded-md bg-success/10 px-2 py-1 text-xs font-medium text-success whitespace-nowrap"
         >
           当前设备
         </span>
@@ -157,7 +157,7 @@
           {/if}
           <button
             onclick={fetchDetailedLocation}
-            class="rounded-md bg-info-light px-2.5 py-1 text-xs font-medium text-info hover:bg-info-light transition-colors cursor-pointer whitespace-nowrap"
+            class="rounded-md bg-info/10 px-2.5 py-1 text-xs font-medium text-info hover:bg-info/20 transition-colors cursor-pointer whitespace-nowrap"
           >
             精确定位
           </button>
@@ -176,7 +176,7 @@
         >
       {:else}
         <button
-          class="rounded-md bg-error-light px-2.5 py-1 text-xs font-medium text-error hover:bg-error-light transition-colors cursor-pointer whitespace-nowrap"
+          class="rounded-md bg-error/10 px-2.5 py-1 text-xs font-medium text-error hover:bg-error/20 transition-colors cursor-pointer whitespace-nowrap"
           onclick={handleLogout}
         >
           退出

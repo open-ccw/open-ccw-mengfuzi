@@ -29,7 +29,7 @@
 <div>
   <div class="flex w-full">
     <button
-      class="ml-auto mr-0 bg-white text-error rounded-md border border-error p-1 hover:bg-error-light cursor-pointer"
+      class="ml-auto mr-0 bg-bg-secondary text-error rounded-md border border-error p-1 hover:bg-error/10 cursor-pointer"
       onclick={() => {
         if (!renderAsHTML && !previewSafeHTML) {
           previewSafeHTML = true;

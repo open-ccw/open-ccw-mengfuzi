@@ -59,18 +59,20 @@
     ></CommentTrigger>
     <div class="max-w-full mx-auto md:-mt-16 -mt-12">
       {#if profile.memberArchive?.homepageCover}
-        <div class="relative flex items-center w-full h-72 overflow-hidden">
+        <div class="relative flex items-center w-full h-84 overflow-hidden">
           <ProfileBG url={profile.memberArchive.homepageCover}></ProfileBG>
         </div>
       {:else}
         <div class="md:h-16 h-12"></div>
       {/if}
 
-      <div class="bg-white shadow border border-border">
+      <div
+        class="w-[90%] mx-auto -mt-16 relative z-10 bg-bg-secondary/50 backdrop-blur-[20px] shadow pt-5 rounded-3xl"
+      >
         <div class="px-6 pb-6">
           <!-- 头像 -->
           <div class="flex flex-row gap-4 relative flex-nowrap">
-            <div class="size-16 shrink-0">
+            <div class="size-32 shrink-0 -mt-12">
               {#if profile.avatar}
                 <AvatarImage
                   url={profile.avatar}
@@ -85,25 +87,23 @@
             </div>
 
             <div class="ml-2 mt-0 flex flex-col">
-              <h1
-                class="text-2xl font-bold text-text-primary items-center gap-2 flex"
-              >
+              <h1 class="text-2xl font-bold text-white items-center gap-2 flex">
                 {profile.name}
                 <AuthRankDisplay rank={profile.identityAuthRank}
                 ></AuthRankDisplay>
               </h1>
-              <p class="text-xs text-text-secondary mt-1">
+              <p class="text-xs text-gray-400 mt-1">
                 CCW ID：{profile.studentNumber}
               </p>
               <!-- 简介 -->
               {#if profile.bio}
                 <p
-                  class="mt-1 text-text-secondary leading-relaxed text-sm text-balance break-all wrap-anywhere"
+                  class="mt-1 text-gray-400 leading-relaxed text-sm text-balance break-all wrap-anywhere"
                 >
                   {profile.bio}
                 </p>
               {:else}
-                <p class="mt-1 text-text-placeholder text-xs">
+                <p class="mt-1 text-gray-500 text-xs">
                   这个人很懒，什么都没写~
                 </p>
               {/if}
@@ -128,7 +128,7 @@
 
           <!-- 核心统计 -->
           <div
-            class="mt-6 grid grid-cols-4 gap-3 border-t border-border pt-5 text-center"
+            class="mt-6 grid grid-cols-4 gap-3 border-t border-white/10 pt-5 text-center"
           >
             <ProfileDataView
               name="信誉分"
@@ -147,7 +147,7 @@
 
           <!-- 社交统计 -->
           <div
-            class="mt-3 grid grid-cols-4 gap-3 border-t border-border pt-4 text-center"
+            class="mt-3 grid grid-cols-4 gap-3 border-t border-white/10 pt-4 text-center"
           >
             <ProfileDataView name="被收藏" data={favoriteCount} />
             <ProfileDataView name="评论数" data={profile.commentCount} />
@@ -159,28 +159,25 @@
 
       <!-- 个人信息详情 -->
       <div
-        class="mt-4 bg-white rounded-2xl shadow border border-border px-6 py-5"
+        class="w-[90%] mx-auto mt-4 bg-bg-secondary rounded-2xl shadow border border-white/10 px-6 py-5"
       >
-        <h2 class="text-lg font-semibold text-text-primary mb-4">个人信息</h2>
+        <h2 class="text-lg font-semibold text-white mb-4">个人信息</h2>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
           <div>
-            <div class="text-text-placeholder">性别</div>
-            <div class="text-text-primary mt-1" title={profile.gender}>
+            <div class="text-gray-400">性别</div>
+            <div class="text-gray-200 mt-1" title={profile.gender}>
               {genderLabel(profile.gender, profile.hideGender)}
             </div>
           </div>
           <div>
-            <div class="text-text-placeholder">生日</div>
-            <div
-              class="text-text-primary mt-1"
-              title={String(profile.birthday)}
-            >
+            <div class="text-gray-400">生日</div>
+            <div class="text-gray-200 mt-1" title={String(profile.birthday)}>
               {formatBirthday(profile.birthday)}
             </div>
           </div>
           <div>
-            <div class="text-text-placeholder">加入天数</div>
-            <div class="text-text-primary mt-1">
+            <div class="text-gray-400">加入天数</div>
+            <div class="text-gray-200 mt-1">
               {profile.studentCreatedDays} 天
             </div>
           </div>
@@ -189,9 +186,9 @@
 
       <!-- 个人简介详情 -->
       <div
-        class="mt-4 bg-white rounded-2xl shadow border border-border px-6 py-5"
+        class="w-[90%] mx-auto mt-4 bg-bg-secondary rounded-2xl shadow border border-white/10 px-6 py-5"
       >
-        <h2 class="text-lg font-semibold text-text-primary mb-4">个人介绍</h2>
+        <h2 class="text-lg font-semibold text-white mb-4">个人介绍</h2>
         {#if profile.extraInfo}
           <div class="space-y-4 text-sm">
             {#if profile.extraInfo.learnedProgrammingLanguages}
@@ -201,7 +198,7 @@
                   {#each profile.extraInfo.learnedProgrammingLanguages.split(/[,，]/) as lang}
                     {#if lang.trim()}
                       <span
-                        class="px-2.5 py-1 bg-indigo-50 text-indigo-600 rounded-full text-xs"
+                        class="px-2.5 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-xs"
                         >{lang.trim()}</span
                       >
                     {/if}
@@ -216,7 +213,7 @@
                   {#each profile.extraInfo.hobbies.split(/[,，]/) as hobby}
                     {#if hobby.trim()}
                       <span
-                        class="px-2.5 py-1 bg-purple-50 text-purple-600 rounded-full text-xs"
+                        class="px-2.5 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs"
                         >{hobby.trim()}</span
                       >
                     {/if}

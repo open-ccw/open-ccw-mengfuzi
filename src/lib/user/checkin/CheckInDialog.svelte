@@ -48,7 +48,7 @@
 </script>
 
 <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-  <div class="bg-white w-80 rounded-2xl shadow-xl overflow-hidden relative">
+  <div class="bg-bg-secondary w-80 rounded-2xl shadow-xl overflow-hidden relative">
     <!-- 顶部装饰条 -->
     <div
       class="bg-linear-to-r from-primary to-primary-hover h-16 flex items-center justify-center gap-3"

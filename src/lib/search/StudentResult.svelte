@@ -9,7 +9,7 @@
 <div class="h-16">
   <a
     href="/user/{item.oid}"
-    class="h-full flex items-center gap-4 bg-white rounded-xl shadow border border-border p-2 hover:border-indigo-200 hover:shadow-md transition-all"
+    class="h-full flex items-center gap-4 bg-bg-secondary rounded-xl shadow border border-border p-2 hover:border-indigo-400 hover:shadow-md transition-all"
   >
     {#if item.avatar}
       <div class="size-12 m-2">

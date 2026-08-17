@@ -47,11 +47,11 @@
     class="w-screen h-screen min-h-fit flex items-center justify-center"
     style:background="url({bg}) repeat center/cover"
   >
-    <div class="bg-white w-lg h-fit rounded-2xl p-8 shadow-xl">
+    <div class="bg-bg-secondary w-lg h-fit rounded-2xl p-8 shadow-xl">
       {#if success}
         <div class="text-center py-6">
           <div
-            class="w-16 h-16 mx-auto mb-4 rounded-full bg-success-light flex items-center justify-center"
+            class="w-16 h-16 mx-auto mb-4 rounded-full bg-success/10 flex items-center justify-center"
           >
             <span class="text-3xl text-success">✓</span>
           </div>
@@ -135,7 +135,7 @@
               <div class="w-full border-t border-border"></div>
             </div>
             <div class="relative flex justify-center text-sm">
-              <span class="bg-white px-3 text-text-secondary">
+              <span class="bg-bg-secondary px-3 text-text-secondary">
                 或通过第三方一键登录
               </span>
             </div>
