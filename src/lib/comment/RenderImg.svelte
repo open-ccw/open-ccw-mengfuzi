@@ -14,7 +14,7 @@
   <img
     src={url}
     alt={id}
-    class="h-12 object-cover w-fit border border-border"
+    class="h-12 object-cover aspect-video border border-border"
   />
   <span class="text-[8px] text-text-placeholder">{id}</span>
 </button>
