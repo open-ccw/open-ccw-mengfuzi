@@ -1,0 +1,24 @@
+- generic [ref=f2e3]:
+  - heading "开发者勋章间距测试" [level=1] [ref=f2e4]
+  - generic [ref=f2e5]:
+    - generic [ref=f2e6]:
+      - button [ref=f2e7]
+      - generic:
+        - generic:
+          - paragraph: Open CCW 开发者
+          - paragraph: Open CCW 核心代码开发者
+          - paragraph: 参与 Open CCW 开源项目的开发，为社区贡献力量。
+    - generic [ref=f2e8]:
+      - button [ref=f2e9]
+      - generic:
+        - generic:
+          - paragraph: Open CCW 开发者
+          - paragraph: Open CCW 核心代码开发者
+          - paragraph: 参与 Open CCW 开源项目的开发，为社区贡献力量。
+    - generic [ref=f2e10]:
+      - button [ref=f2e11]
+      - generic:
+        - generic:
+          - paragraph: Open CCW 开发者
+          - paragraph: Open CCW 核心代码开发者
+          - paragraph: 参与 Open CCW 开源项目的开发，为社区贡献力量。

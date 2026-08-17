@@ -103,7 +103,7 @@
     {/if}
     <!-- Open CCW 社区专属勋章 -->
     {#if developerBadgeNames.length > 0}
-      <div class="w-fit flex mt-2 -ml-1">
+      <div class="w-fit flex mt-2 -ml-1 gap-3">
         {#each developerBadgeNames as name}
           <DeveloperBadge {name}></DeveloperBadge>
         {/each}

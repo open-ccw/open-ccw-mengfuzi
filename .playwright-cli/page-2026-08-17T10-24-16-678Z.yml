@@ -1,0 +1,3 @@
+- generic [ref=e2]:
+  - generic [ref=e3]: "500"
+  - 'heading "[safe-delete] 操作失败: ERROR C:\\Users\\0070\\Desktop\\code\\open-ccw-mengfuzi\\.svelte-kit\\types\\src\\routes\\$types.d.ts: Error during a `trash` operation: Os { code: -2147024894, description: \"windows error: 系统找不到指定的文件。 (0x80070002)\" }" [level=1] [ref=e5]'
