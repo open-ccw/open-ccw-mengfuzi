@@ -27,6 +27,6 @@
     }}
     transition:blur={{ duration: 100 }}
   >
-    <img src={url} alt={id} class="h-64 object-cover w-fit max-w-full" />
+    <img src={url} alt={id} class="h-64 object-cover aspect-auto" />
   </button>
 {/if}
