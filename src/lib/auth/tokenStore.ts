@@ -2,7 +2,7 @@ import { setToken } from "$lib/api";
 import { writable } from "svelte/store";
 import { decryptWithPassword, encryptWithPassword } from "$lib/utils/aes";
 import { browser } from "$app/environment";
-import { updateToken } from "$lib/user/userStore";
+import { clearTokenAndUser, updateToken } from "$lib/user/userStore";
 
 const ACCOUNTS_KEY = "oc_accounts";
 const TOKEN_PREFIX = "oc_token_";
@@ -123,7 +123,7 @@ export function getActiveAccount(): string | null {
  */
 export function clearToken(): void {
   localStorage.removeItem(ACTIVE_KEY);
-  token.set("");
+  clearTokenAndUser();
 }
 
 /**

@@ -9,6 +9,7 @@
   import { communityWeb } from "$lib/api";
   import { fade, slide } from "svelte/transition";
   import { notificationStats } from "./notify/notifyStatsStore";
+  import DarkModeSwitch from "./DarkModeSwitch.svelte";
 
   let checkedIn = $state(true);
   let showCheckIn = $state(false);
@@ -65,12 +66,14 @@
       Open CCW
     </h1>
   </a>
-
-  <HamburgerButton
-    open={menuOpen}
-    redDot={!checkedIn || notifyCount > 0 || !$user.loggedIn}
-    ontoggle={() => (menuOpen = !menuOpen)}
-  ></HamburgerButton>
+  <div class="absolute right-0 flex flex-row items-center mr-4 gap-4">
+    <DarkModeSwitch></DarkModeSwitch>
+    <HamburgerButton
+      open={menuOpen}
+      redDot={!checkedIn || notifyCount > 0 || !$user.loggedIn}
+      ontoggle={() => (menuOpen = !menuOpen)}
+    ></HamburgerButton>
+  </div>
 </header>
 
 <!-- 折叠菜单 -->

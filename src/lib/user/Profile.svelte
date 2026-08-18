@@ -74,8 +74,8 @@
       >
         <div class="px-6 pb-6">
           <!-- 头像 -->
-          <div class="flex flex-row gap-4 relative flex-nowrap">
-            <div class="size-32 shrink-0 -mt-12">
+          <div class="flex flex-row gap-4 relative flex-nowrap md:mt-0 -mt-2">
+            <div class="size-16 md:size-32 shrink-0 md:-mt-12">
               {#if profile.avatar}
                 <AvatarImage
                   url={profile.avatar}
@@ -108,7 +108,7 @@
                   {profile.bio}
                 </p>
               {:else}
-                <p class="mt-1 text-gray-500 text-xs">
+                <p class="mt-1 text-text-primary text-xs">
                   这个人很懒，什么都没写~
                 </p>
               {/if}
@@ -212,7 +212,7 @@
                   {#each profile.extraInfo.learnedProgrammingLanguages.split(/[,，]/) as lang}
                     {#if lang.trim()}
                       <span
-                        class="px-2.5 py-1 bg-indigo-500/20 text-indigo-300 rounded-full text-xs"
+                        class="px-2.5 py-1 bg-indigo-500/20 text-text-primary/80 rounded-full text-xs"
                         >{lang.trim()}</span
                       >
                     {/if}
@@ -227,7 +227,7 @@
                   {#each profile.extraInfo.hobbies.split(/[,，]/) as hobby}
                     {#if hobby.trim()}
                       <span
-                        class="px-2.5 py-1 bg-purple-500/20 text-text-primary/50 rounded-full text-xs"
+                        class="px-2.5 py-1 bg-purple-500/20 text-text-primary/80 rounded-full text-xs"
                         >{hobby.trim()}</span
                       >
                     {/if}

@@ -64,10 +64,10 @@
 </script>
 
 <tr
-  class="hover:bg-bg-secondary transition-colors border-b border-border-strong min-h-12"
+  class="hover:bg-bg-secondary group transition-colors border-b border-border-strong min-h-12"
 >
   <td
-    class="flex justify-center items-center h-12 sticky left-0 bg-bg-secondary border-r border-border-strong z-10"
+    class="bg-bg group-hover:bg-bg-secondary size-12 flex justify-center items-center sticky left-0 border-r border-border-strong z-10"
   >
     {#if session.currentDevice}
       <input

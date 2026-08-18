@@ -119,9 +119,9 @@
     </div>
     <form>
       <textarea
-        class="resize-y border border-border-strong rounded-xl md:w-84 w-60 focus:border-primary transition-[border] outline-0 p-2 min-h-12 max-h-64 overflow-y-auto text-sm md:text-lg"
+        class="resize-y border border-border-strong rounded-xl md:w-84 w-60 focus:border-primary transition-[border] outline-0 p-2 min-h-12 max-h-64 overflow-y-auto text-sm md:text-lg text-text-primary"
         name="comment"
-        placeholder="评论(可粘贴图片文件, 输入框可调整大小)"
+        placeholder="评论(可粘贴图片文件)"
         bind:value={comment}
         bind:this={textArea}
         onpaste={(e) => {

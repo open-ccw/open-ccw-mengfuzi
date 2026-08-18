@@ -248,7 +248,11 @@
 {#snippet creationRecommendedAsPotential(
   page: CREATION_RECOMMENDED_AS_POTENTIAL,
 )}
-  {@render ____PLACEHOLDER(page)}
+  你的作品
+  <a href="/detail/{page.content.subject_oid}" class={subjectLinkClass}>
+    {page.content.subject_outline}
+  </a>
+  已被评为[潜力新作]
 {/snippet}
 
 {#snippet creationChecked(page: CREATION_CHECKED)}

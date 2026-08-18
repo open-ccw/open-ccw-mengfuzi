@@ -45,3 +45,9 @@ export async function updateToken(tok: string) {
     throw e;
   }
 }
+
+export function clearTokenAndUser() {
+  setToken("");
+  user.set({ loggedIn: false });
+  token.set("");
+}

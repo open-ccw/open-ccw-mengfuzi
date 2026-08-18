@@ -136,10 +136,10 @@
       <table class="w-full text-sm">
         <thead>
           <tr
-            class="bg-bg-secondary text-text-secondary text-xs font-semibold uppercase tracking-wider"
+            class="bg-bg-secondary border-b border-border text-text-secondary text-xs font-semibold uppercase tracking-wider"
           >
             <th
-              class="px-4 py-3 text-center w-fit sticky left-0 bg-bg-secondary border-r border-border-strong z-10"
+              class="bg-bg-secondary py-3 text-center size-12 sticky left-0 border-r border-border-strong z-10 flex items-center justify-center"
               >选择</th
             >
             <th class="px-4 py-3 text-center w-fit">ID</th>
@@ -151,7 +151,7 @@
             <th class="px-4 py-3 text-center w-44">操作</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-border bg-bg-secondary">
+        <tbody class="divide-y divide-border bg-bg">
           {#if loading}
             <tr>
               <td colspan="7" class="px-4 py-16 text-center">
