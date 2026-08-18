@@ -1,0 +1,22 @@
+{
+  "name": "Open CCW",
+  "short_name": "OpenCCW",
+  "id": ".",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#666666",
+  "description": "一款第三方ccw启动器",
+  "icons": [
+    {
+      "src": "/pwa/icon.png",
+      "sizes": "144x144"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/pwa/shot-wide.png",
+      "sizes": "1915x1017",
+      "form_factor": "wide"
+    }
+  ]
+}
