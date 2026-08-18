@@ -227,7 +227,7 @@
                   {#each profile.extraInfo.hobbies.split(/[,，]/) as hobby}
                     {#if hobby.trim()}
                       <span
-                        class="px-2.5 py-1 bg-purple-500/20 text-primary/50 rounded-full text-xs"
+                        class="px-2.5 py-1 bg-purple-500/20 text-text-primary/50 rounded-full text-xs"
                         >{hobby.trim()}</span
                       >
                     {/if}
