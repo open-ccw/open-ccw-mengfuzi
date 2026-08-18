@@ -13,12 +13,16 @@
     uid = "",
     approvals = [],
     showHidden = true,
+    enlarge = false,
   }: {
     oid?: string;
     uid?: string;
     approvals?: ApprovalTagType[];
     showHidden?: boolean;
+    enlarge?: boolean;
   } = $props();
+
+  const badgeSize = $derived(enlarge ? "h-7" : "h-6");
 
   const developerBadgeNames = $derived(
     developerBadges.find((d) => d.oid === oid || d.uid === uid)?.badges ?? [],
@@ -78,7 +82,7 @@
   let notAdorned = $derived(approvals.filter((tag) => !tag.adorned));
 </script>
 
-<div class="flex-wrap flex relative">
+<div class="flex-wrap flex relative {enlarge ? '-mt-1' : ''}">
   {#if loading}
     <div
       class="animate-spin border-4 border-t-info border-gray-600 rounded-full size-6"
@@ -86,17 +90,17 @@
   {:else}
     {#each adorned as tag}
       <div class="mt-2">
-        <ApprovalTag {tag} onClick={isSelf && showHidden ? detach : null}
+        <ApprovalTag {tag} size={badgeSize} onClick={isSelf && showHidden ? detach : null}
         ></ApprovalTag>
       </div>
     {/each}
     {#if showHidden}
       {#if adorned.length > 0 && notAdorned.length > 0}
-        <div class="border-dashed border border-gray-500 h-6 mt-2"></div>
+        <div class="border-dashed border border-gray-500 {badgeSize} mt-2"></div>
       {/if}
       {#each notAdorned as tag}
         <div class="mt-2">
-          <ApprovalTag {tag} onClick={isSelf && showHidden ? adorn : null}
+          <ApprovalTag {tag} size={badgeSize} onClick={isSelf && showHidden ? adorn : null}
           ></ApprovalTag>
         </div>
       {/each}
@@ -105,7 +109,7 @@
     {#if developerBadgeNames.length > 0}
       <div class="w-fit flex mt-2 -ml-1 gap-3">
         {#each developerBadgeNames as name}
-          <DeveloperBadge {name}></DeveloperBadge>
+          <DeveloperBadge {name} size={badgeSize}></DeveloperBadge>
         {/each}
       </div>
     {/if}

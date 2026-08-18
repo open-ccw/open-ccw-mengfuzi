@@ -55,7 +55,7 @@
 
 <!-- 导航栏 -->
 <header
-  class="bg-[#11111B]/70 w-full h-12 md:h-16 sticky top-0 flex items-center justify-center md:justify-start shrink-0 z-50 backdrop-blur-[7px] [-webkit-backdrop-filter:blur(7px)]"
+  class="bg-[#11111B]/70 w-full h-12 md:h-16 sticky top-0 flex items-center justify-center md:justify-start shrink-0 z-50 backdrop-blur-[10px] [-webkit-backdrop-filter:blur(10px)]"
 >
   <a href="/" class="flex items-center justify-center h-full" title="homepage">
     <div class="size-8 md:size-10 ml-2 md:ml-3 shrink-0"><Logo /></div>

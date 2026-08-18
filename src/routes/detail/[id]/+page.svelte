@@ -22,6 +22,7 @@
   {#if creation?.title}
     <meta name="description" content="{creation.title} - 查看 CCW 社区作品详情，包括作品信息、作者等。Open CCW 第三方 CCW 启动器。" />
   {/if}
+  <link rel="canonical" href={`https://ccw.kivotos.qzz.io/detail/${params.id}`} />
 </svelte:head>
 
 <Error {error}></Error>

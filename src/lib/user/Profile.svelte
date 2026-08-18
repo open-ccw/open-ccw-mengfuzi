@@ -116,6 +116,7 @@
               <ApprovalDisplay
                 oid={profile.studentOid}
                 uid={profile.studentNumber}
+                enlarge
               ></ApprovalDisplay>
               <!-- 电脑版勋章 -->
             </div>
@@ -125,6 +126,7 @@
             <ApprovalDisplay
               oid={profile.studentOid}
               uid={profile.studentNumber}
+              enlarge
             ></ApprovalDisplay>
             <!-- 手机版勋章 -->
           </div>

@@ -5,6 +5,8 @@
   import AvatarToProfile from "$lib/user/AvatarToProfile.svelte";
   import RenderComment from "./RenderComment.svelte";
   import ApprovalDisplay from "$lib/user/ApprovalDisplay.svelte";
+  import { toast } from "$lib";
+  import { user } from "$lib/user/userStore";
 
   const { oid, subjectType, sectionType }: TopicConfig = $props();
   let pageNum = $state(1);
@@ -187,6 +189,11 @@
                 <div class="flex items-center gap-4">
                   <button
                     class="flex items-center gap-1 text-xs text-text-placeholder hover:text-primary transition-colors cursor-pointer"
+                    onclick={() => {
+                      if (!$user.loggedIn) {
+                        toast.warning("请登录账号");
+                      }
+                    }}
                   >
                     <svg
                       class="size-4"
@@ -205,6 +212,11 @@
                   </button>
                   <button
                     class="flex items-center gap-1 text-xs text-text-placeholder hover:text-error transition-colors cursor-pointer"
+                    onclick={() => {
+                      if (!$user.loggedIn) {
+                        toast.warning("请登录账号");
+                      }
+                    }}
                   >
                     <svg
                       class="size-4"

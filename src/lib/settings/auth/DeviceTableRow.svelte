@@ -86,7 +86,10 @@
   >
     {session.id}
   </td>
-  <td class="px-4 py-3 whitespace-nowrap z-0" title={session.device}>
+  <td
+    class="px-4 py-3 whitespace-nowrap z-0 text-text-primary"
+    title={session.device}
+  >
     {#if session.currentDevice}
       <span
         class="mr-1.5 inline-block w-1.5 h-1.5 rounded-full bg-success align-middle"
@@ -94,7 +97,10 @@
     {/if}
     {session.device || "未知设备"}
   </td>
-  <td class="px-4 py-3 whitespace-nowrap z-0" title={session.browser}>
+  <td
+    class="px-4 py-3 whitespace-nowrap z-0 text-text-primary"
+    title={session.browser}
+  >
     {session.browser || "未知浏览器"}
   </td>
   <td class="px-4 py-3 text-text-secondary whitespace-nowrap z-0">

@@ -3,6 +3,8 @@
   import favicon from "$lib/assets/favicon.svg";
   let { children } = $props();
   import "$lib/auth/tokenStore";
+  import { onMount } from "svelte";
+  import { toast } from "$lib";
 </script>
 
 <svelte:head>

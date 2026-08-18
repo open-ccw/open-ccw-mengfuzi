@@ -63,15 +63,15 @@
     </div>
 
     <div class="flex flex-row justify-center w-full">
-      <div class="flex flex-row w-16 items-center gap-1">
+      <div class="flex flex-row w-16 items-center gap-1 text-text-secondary">
         <img src={view} alt="view" class="size-4" />
         <span class="text-sm">{formatCount(viewCount)}</span>
       </div>
-      <div class="flex flex-row w-16 items-center gap-1">
+      <div class="flex flex-row w-16 items-center gap-1 text-text-secondary">
         <img src={like} alt="like" class="size-4" />
         <span class="text-sm">{formatCount(likeCount)}</span>
       </div>
-      <div class="flex flex-row w-16 items-center gap-1">
+      <div class="flex flex-row w-16 items-center gap-1 text-text-secondary">
         <img src={comments} alt="comments" class="size-4" />
         <span class="text-sm">{formatCount(commentCount)}</span>
       </div>

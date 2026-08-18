@@ -5,8 +5,12 @@
   let {
     tag,
     onClick,
-  }: { tag: ApprovalTagType; onClick: ((tag: ApprovalTagType) => any) | null } =
-    $props();
+    size = "h-6",
+  }: {
+    tag: ApprovalTagType;
+    onClick: ((tag: ApprovalTagType) => any) | null;
+    size?: string;
+  } = $props();
 </script>
 
 <div class="group w-fit flex flex-col items-center relative ml-1 mr-1">
@@ -19,17 +23,17 @@
     class={onClick != null ? "cursor-pointer" : ""}
   >
     {#if tag.adorned}
-      <img src={tag.approvalIconLink} alt={tag.approvalTagName} class="h-6" />
+      <img src={tag.approvalIconLink} alt={tag.approvalTagName} class={size} />
     {:else}
       <img
         src={tag.approvalTag.mediumImage}
         alt={tag.approvalTagName}
-        class="h-6 opacity-50 fliter blur-[1px] group-hover:opacity-100 group-hover:blur-none"
+        class="{size} opacity-50 fliter blur-[1px] group-hover:opacity-100 group-hover:blur-none"
       />
     {/if}
   </button>
   <div
-    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 top-6 bg-bg-secondary p-2 rounded-lg gap-2 z-10 absolute float-left border border-white/10 shadow-gray-500/50 shadow"
+    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 {size == 'h-6' ? 'top-6' : 'top-7'} bg-bg-secondary p-2 rounded-lg gap-2 z-10 absolute float-left border border-white/10 shadow-gray-500/50 shadow"
   >
     <!-- 雷霆大icon -->
     <div

@@ -94,7 +94,7 @@
     class="fixed inset-0 flex items-center justify-center"
     transition:scale={{ duration: 200 }}
   >
-    <div class="w-108 rounded-xl bg-bg-secondary border p-8 shadow-2xl">
+    <div class="w-108 rounded-xl bg-bg-secondary/70 backdrop-blur-[10px] border border-white/20 p-8 shadow-2xl">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-2xl font-bold text-text-primary">登录</h2>
         <div class="w-6 h-6">

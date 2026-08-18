@@ -8,12 +8,12 @@
 
 {#if !$user.loggedIn}
   <button
-    class="border-primary border-2 rounded-full w-auto md:h-12 h-8 pl-6 pr-6 md:text-2xl text-xl text-primary cursor-pointer"
+    class="border-primary border-2 rounded-[15px] w-auto md:h-12 h-8 pl-6 pr-6 md:text-2xl text-xl text-primary cursor-pointer"
     onclick={() => {
       openLogin = true;
     }}
   >
-    login
+    登录
   </button>
   {#if openLogin}
     <LoginModal

@@ -69,7 +69,9 @@
         }}
       >
         <img src={icon} alt={name} class="size-8 relative -top-2" />
-        <span class="absolute text-sm shrink-0 bottom-2">{name}</span>
+        <span class="absolute text-sm shrink-0 bottom-2 text-text-primary"
+          >{name}</span
+        >
         {#if $notificationStats && counts && counts[id] > 0}
           <div
             class="bg-error size-4 rounded-full absolute top-2 right-2 text-xs text-white"
