@@ -222,12 +222,12 @@
             {/if}
             {#if profile.extraInfo.hobbies}
               <div>
-                <div class="text-gray-400">兴趣爱好</div>
+                <div class="text-text-primary">兴趣爱好</div>
                 <div class="flex flex-wrap gap-2 mt-2">
                   {#each profile.extraInfo.hobbies.split(/[,，]/) as hobby}
                     {#if hobby.trim()}
                       <span
-                        class="px-2.5 py-1 bg-purple-500/20 text-purple-300 rounded-full text-xs"
+                        class="px-2.5 py-1 bg-purple-500/20 text-primary/50 rounded-full text-xs"
                         >{hobby.trim()}</span
                       >
                     {/if}
@@ -236,7 +236,7 @@
               </div>
             {/if}
             {#if profile.extraInfo.selfIntroduction}
-              <span class="text-gray-400">自我介绍</span>
+              <span class="text-text-primary">自我介绍</span>
               <RenderHTML text={profile.extraInfo.selfIntroduction}
               ></RenderHTML>
             {/if}
