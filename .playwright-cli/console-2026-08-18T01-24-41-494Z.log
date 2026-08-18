@@ -1,4 +1,0 @@
-[    6238ms] TypeError: Cannot read properties of undefined (reading 'getBoundingClientRect')
-    at sample (http://127.0.0.1:8799/toast-repro2.html:119:17)
-    at http://127.0.0.1:8799/toast-repro2.html:144:7
-    at http://127.0.0.1:8799/toast-repro2.html:131:5

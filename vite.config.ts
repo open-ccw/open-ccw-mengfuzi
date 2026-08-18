@@ -1,7 +1,6 @@
 import tailwindcss from "@tailwindcss/vite";
 import adapter from "@sveltejs/adapter-cloudflare";
 import { sveltekit } from "@sveltejs/kit/vite";
-import { svelteSitemap } from "svelte-sitemap/vite";
 import { defineConfig } from "vite";
 
 export default defineConfig({
@@ -27,14 +26,6 @@ export default defineConfig({
         ],
       },
       adapter: adapter(),
-    }),
-    svelteSitemap({
-      domain: "https://ccw.kivotos.qzz.io",
-      outDir: ".svelte-kit/cloudflare",
-      resetTime: true,
-      changeFreq: "weekly",
-      ignore: ["oauth*", "settings*", "404.html"],
-      additional: ["/user/244373873"],
     }),
   ],
   build: {

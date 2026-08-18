@@ -66,7 +66,9 @@
       Open CCW
     </h1>
   </a>
-  <div class="absolute right-0 flex flex-row items-center mr-4 gap-4">
+  <div
+    class="absolute right-0 flex flex-row items-center mr-2 md:mr-4 gap-0 md:gap-4"
+  >
     <DarkModeSwitch></DarkModeSwitch>
     <HamburgerButton
       open={menuOpen}
