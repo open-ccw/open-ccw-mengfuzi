@@ -60,13 +60,12 @@
     --color-border: #45475a;
     --color-border-strong: #585b70;
   }
+  * {
+    transition-property: background-color;
+    transition-duration: var(--default-transition-duration);
+  }
 }
 
 body {
   background-color: var(--color-bg);
-}
-
-* {
-  transition-property: background-color;
-  transition-duration: 100ms;
 }

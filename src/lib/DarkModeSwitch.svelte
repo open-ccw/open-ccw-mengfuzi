@@ -28,7 +28,7 @@
   type="button"
   aria-label={dark ? "切换到浅色模式" : "切换到深色模式"}
   title={dark ? "切换到浅色模式" : "切换到深色模式"}
-  class="flex items-center gap-2 rounded-full size-8 border border-border bg-bg-secondary p-1 transition-colors hover:border-border-strong hover:bg-bg-tertiary"
+  class="flex items-center gap-2 rounded-full size-8 border cursor-pointer border-border bg-bg-secondary p-1 transition-colors hover:border-border-strong hover:bg-bg-tertiary"
   onclick={toggleTheme}
 >
   <span
