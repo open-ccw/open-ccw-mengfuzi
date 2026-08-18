@@ -61,13 +61,15 @@
       sectionType="COMMENT"
     ></CommentTrigger>
     <div class="max-w-full mx-auto md:-mt-16 -mt-12">
-      {#if profile.memberArchive?.homepageCover}
-        <div class="relative flex items-center w-full h-84 overflow-hidden">
+      <div class="relative flex items-center w-full h-84 overflow-hidden">
+        {#if profile.memberArchive?.homepageCover}
           <ProfileBG url={profile.memberArchive.homepageCover}></ProfileBG>
-        </div>
-      {:else}
-        <div class="md:h-16 h-12"></div>
-      {/if}
+        {:else}
+          <ProfileBG
+            url={"https://static.xiguacity.cn/h1t86b7fg6c7k1qngo8i1hc1/static/media/mobile-bg.dc8c7967.png"}
+          ></ProfileBG>
+        {/if}
+      </div>
 
       <div
         class="w-[90%] mx-auto -mt-16 relative z-10 bg-bg-secondary/50 backdrop-blur-[20px] shadow pt-5 rounded-3xl"
