@@ -1,16 +1,19 @@
 @import "tailwindcss";
 @plugin '@tailwindcss/typography';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @font-face {
-  font-family: 'Inter';
-  src: url('https://img.js.design/assets/font/Inter-Bold.ttf.br') format('truetype');
+  font-family: "Inter";
+  src: url("https://img.js.design/assets/font/Inter-Bold.ttf.br")
+    format("truetype");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @theme {
-  --font-family-inter: 'Inter', sans-serif;
+  --font-family-inter: "Inter", sans-serif;
 
   --color-primary: var(--color-green-600);
   --color-primary-hover: var(--color-green-700);
@@ -25,22 +28,42 @@
   --color-info: var(--color-blue-500);
   --color-info-light: var(--color-blue-100);
 
-  --color-text-primary: #cdd6f4;
-  --color-text-secondary: #a6adc8;
-  --color-text-placeholder: #7f849c;
-  --color-text-disabled: #585b70;
-  --color-logo: #E4E2F0;
+  --color-text-primary: #585b70;
+  --color-text-secondary: #7f849c;
+  --color-text-placeholder: #a6adc8;
+  --color-text-disabled: #cdd6f4;
+  --color-logo: #e4e2f0;
 
   --color-border: #45475a;
   --color-border-strong: #585b70;
 
-  --color-bg: #1e1e2e;
-  --color-bg-secondary: #313244;
-  --color-bg-tertiary: #45475a;
+  --color-bg: #efeff6;
+  --color-bg-secondary: #e4e4e7;
+  --color-bg-tertiary: #d3d3d6;
 
   --color-primary-outline-focus: var(--color-green-400);
 }
 
+@layer theme {
+  /* 2. 当父元素有 .dark 类时，覆盖变量的值 */
+  .dark {
+    --color-text-primary: #cdd6f4;
+    --color-text-secondary: #a6adc8;
+    --color-text-placeholder: #7f849c;
+    --color-text-disabled: #585b70;
+    --color-logo: #e4e2f0;
+
+    --color-bg: #1e1e2e;
+    --color-bg-secondary: #313244;
+    --color-bg-tertiary: #45475a;
+  }
+}
+
 body {
-  background-color: #1e1e2e;
+  background-color: var(--color-bg);
+}
+
+* {
+  transition-property: background-color;
+  transition-duration: 100ms;
 }

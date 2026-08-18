@@ -1,6 +1,7 @@
-import { get, writable } from "svelte/store";
+import { writable } from "svelte/store";
 import { token } from "$lib/auth/tokenStore";
 import { communityWeb, setToken } from "$lib/api";
+import { getToken } from "@ccw-api/request";
 
 export const user = writable<SelfUser>({ loggedIn: false });
 

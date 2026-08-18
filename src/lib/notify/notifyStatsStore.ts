@@ -7,9 +7,15 @@ export const notificationStats = writable<Awaited<
   ReturnType<typeof communityWeb.getNotificationStats>
 > | null>(null);
 
-if (browser) {
-  refreshNotificationStats();
-}
+user.subscribe(async (user) => {
+  if (!browser) {
+    return;
+  }
+  if (!user.loggedIn) {
+    return;
+  }
+  await refreshNotificationStats();
+});
 
 export async function refreshNotificationStats() {
   if (!get(user).loggedIn) {

@@ -90,18 +90,20 @@
             </div>
 
             <div class="ml-2 mt-0 flex flex-col">
-              <h1 class="text-2xl font-bold text-white items-center gap-2 flex">
+              <h1
+                class="text-2xl font-bold text-black dark:text-white items-center gap-2 flex"
+              >
                 {profile.name}
                 <AuthRankDisplay rank={profile.identityAuthRank}
                 ></AuthRankDisplay>
               </h1>
-              <p class="text-xs text-gray-400 mt-1">
+              <p class="text-xs text-text-primary mt-1">
                 CCW ID：{profile.studentNumber}
               </p>
               <!-- 简介 -->
               {#if profile.bio}
                 <p
-                  class="mt-1 text-gray-400 leading-relaxed text-sm text-balance break-all wrap-anywhere"
+                  class="mt-1 text-text-primary leading-relaxed text-sm text-balance break-all wrap-anywhere"
                 >
                   {profile.bio}
                 </p>
@@ -166,23 +168,28 @@
       <div
         class="w-[90%] mx-auto mt-4 bg-bg-secondary rounded-2xl shadow border border-white/10 px-6 py-5"
       >
-        <h2 class="text-lg font-semibold text-white mb-4">个人信息</h2>
+        <h2 class="text-lg font-semibold text-black dark:text-white mb-4">
+          个人信息
+        </h2>
         <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
           <div>
-            <div class="text-gray-400">性别</div>
-            <div class="text-gray-200 mt-1" title={profile.gender}>
+            <div class="text-text-secondary">性别</div>
+            <div class="text-text-primary mt-1" title={profile.gender}>
               {genderLabel(profile.gender, profile.hideGender)}
             </div>
           </div>
           <div>
-            <div class="text-gray-400">生日</div>
-            <div class="text-gray-200 mt-1" title={String(profile.birthday)}>
+            <div class="text-text-secondary">生日</div>
+            <div
+              class="text-text-primary mt-1"
+              title={String(profile.birthday)}
+            >
               {formatBirthday(profile.birthday)}
             </div>
           </div>
           <div>
-            <div class="text-gray-400">加入天数</div>
-            <div class="text-gray-200 mt-1">
+            <div class="text-text-secondary">加入天数</div>
+            <div class="text-text-primary mt-1">
               {profile.studentCreatedDays} 天
             </div>
           </div>
@@ -193,12 +200,14 @@
       <div
         class="w-[90%] mx-auto mt-4 bg-bg-secondary rounded-2xl shadow border border-white/10 px-6 py-5"
       >
-        <h2 class="text-lg font-semibold text-white mb-4">个人介绍</h2>
+        <h2 class="text-lg font-semibold text-black dark:text-white mb-4">
+          个人介绍
+        </h2>
         {#if profile.extraInfo}
           <div class="space-y-4 text-sm">
             {#if profile.extraInfo.learnedProgrammingLanguages}
               <div>
-                <div class="text-gray-400">掌握语言</div>
+                <div class="text-text-primary">掌握语言</div>
                 <div class="flex flex-wrap gap-2 mt-2">
                   {#each profile.extraInfo.learnedProgrammingLanguages.split(/[,，]/) as lang}
                     {#if lang.trim()}

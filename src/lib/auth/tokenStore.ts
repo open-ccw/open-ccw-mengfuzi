@@ -23,7 +23,6 @@ if (browser) {
 }
 
 token.subscribe((token) => {
-  setToken(token);
   if (token && browser) {
     sessionStorage.setItem(TOKEN_PREFIX, token);
   }

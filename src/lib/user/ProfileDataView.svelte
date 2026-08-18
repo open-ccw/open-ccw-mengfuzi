@@ -6,8 +6,8 @@
 </script>
 
 <div>
-  <div class="text-2xl font-bold text-white">
+  <div class="text-2xl font-bold text-text-primary dark:text-white">
     {data}
   </div>
-  <div class="text-xs text-gray-400 mt-1">{name}</div>
+  <div class="text-xs text-text-secondary mt-1">{name}</div>
 </div>

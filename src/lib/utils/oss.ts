@@ -1,5 +1,5 @@
 import CryptoJS from "crypto-js";
-import { communityWeb } from "@ccw-api/api";
+import { communityWeb } from "$lib/api";
 import { browser } from "$app/environment";
 import type OSS from "ali-oss";
 

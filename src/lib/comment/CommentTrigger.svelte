@@ -1,6 +1,6 @@
 <script lang="ts">
   import CommentMain from "./CommentMain.svelte";
-  import icon from "$lib/assets/chevron-left.svg";
+  import icon from "$lib/assets/chevron-left.svg?raw";
   import { type TopicConfig } from "./topicConfig";
 
   let openComment = $state(false);
@@ -22,9 +22,9 @@
         <div
           class="{openComment
             ? '-scale-x-100'
-            : 'scale-x-100'} transition-all duration-300 transform flex items-center"
+            : 'scale-x-100'} transition-all duration-300 transform flex items-center text-text-primary"
         >
-          <img src={icon} alt="<" />
+          {@html icon}
         </div>
       </button>
     </div>
