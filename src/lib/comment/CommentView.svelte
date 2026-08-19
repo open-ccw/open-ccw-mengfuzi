@@ -1,19 +1,20 @@
 <script lang="ts">
-  import { communityWeb, type Comment } from "@ccw-api/api";
+  import { communityWeb } from "@ccw-api/api";
   import { onMount } from "svelte";
-  import type { TopicConfig } from "./topicConfig";
+  import type { MinimalComment, TopicConfig } from "./types";
   import AvatarToProfile from "$lib/user/AvatarToProfile.svelte";
   import RenderComment from "./RenderComment.svelte";
   import ApprovalDisplay from "$lib/user/ApprovalDisplay.svelte";
   import { toast } from "$lib";
   import { user } from "$lib/user/userStore";
+  import WriteComment from "./WriteComment.svelte";
 
   const { oid, subjectType, sectionType }: TopicConfig = $props();
   let pageNum = $state(1);
   let totalPages = $state(Infinity);
   let loading = $state(false);
   let loadingMore = $state(false);
-  let comments: Comment.Comment[] = $state.raw([]);
+  let comments: MinimalComment[] = $state.raw([]);
   let footer: HTMLElement | null = $state(null);
   let observer: null | IntersectionObserver = $state(null);
   let error = $state("");
@@ -98,6 +99,14 @@
   });
 </script>
 
+<WriteComment
+  {oid}
+  {subjectType}
+  {sectionType}
+  onNewComment={(c) => {
+    comments = [c].concat(...comments);
+  }}
+/>
 <div class="h-fit">
   {#if error}
     <div class="flex flex-col items-center justify-center py-8 gap-3">
@@ -143,7 +152,7 @@
     </div>
   {:else}
     <div class="divide-y divide-border">
-      {#each comments as comment}
+      {#each comments as comment (comment.id)}
         <div class="px-4 py-4 hover:bg-bg-secondary/50 transition-colors">
           <div class="flex gap-3">
             <!-- 头像 -->
@@ -208,7 +217,7 @@
                         stroke-linejoin="round"
                       />
                     </svg>
-                    <span>回复</span>
+                    <span>回复{comment.replyCount}</span>
                   </button>
                   <button
                     class="flex items-center gap-1 text-xs text-text-placeholder hover:text-error transition-colors cursor-pointer"

@@ -216,7 +216,7 @@
       </a>
       下的评论:
     </div>
-    <div class="w-full bg-bg-secondary rounded-lg p-2 border border-border">
+    <div class="w-full bg-bg-secondary rounded-t-lg p-2 border border-border">
       <RenderComment comment={page.content.comments}></RenderComment>
     </div>
     {#if $user.loggedIn}

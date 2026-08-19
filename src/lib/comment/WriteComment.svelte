@@ -2,17 +2,24 @@
   import AvatarToProfile from "$lib/user/AvatarToProfile.svelte";
   import { user } from "$lib/user/userStore";
   import { getOSS } from "$lib/utils/oss";
-  import { communityWeb } from "@ccw-api/api";
+  import { communityWeb, type Comment } from "@ccw-api/api";
   import type OSS from "ali-oss";
   import CryptoJS from "crypto-js";
-  import type { TopicConfig } from "./topicConfig";
+  import type { MinimalComment, TopicConfig } from "./types";
 
   let comment = $state("");
   let textArea: HTMLTextAreaElement | undefined = $state();
   let oss: OSS | undefined = $state();
   let submitting = $state(false);
   let error = $state("");
-  let { oid, subjectType, sectionType }: TopicConfig = $props();
+  let {
+    oid,
+    subjectType,
+    sectionType,
+    onNewComment,
+  }: TopicConfig & {
+    onNewComment(c: MinimalComment): void;
+  } = $props();
 
   function handlePaste(clipboardData: DataTransfer) {
     const item = Array.from(clipboardData.items).at(-1);
@@ -84,12 +91,12 @@
   });
 
   async function createComment() {
-    if (submitting) {
+    if (submitting || !$user.loggedIn) {
       return;
     }
     submitting = true;
     try {
-      await communityWeb.createComment(
+      const newComment = await communityWeb.createComment(
         comment,
         {
           subjectOid: oid,
@@ -98,6 +105,19 @@
         sectionType,
       );
       comment = "";
+      const patchedNewComment: MinimalComment = {
+        ...newComment,
+        likeCount: 0,
+        replyCount: 0,
+        commenter: {
+          accountOid: $user.oid,
+          avatar: $user.avatar,
+          name: $user.name,
+          virtualValue: $user.virtualValue,
+          approvalTagRelations: null,
+        },
+      };
+      onNewComment(patchedNewComment);
     } catch (e) {
       error = String(e);
     }

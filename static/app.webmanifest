@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
   "name": "Open CCW",
   "short_name": "OpenCCW",
   "id": ".",

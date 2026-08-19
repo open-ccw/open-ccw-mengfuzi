@@ -136,7 +136,7 @@
       <table class="w-full text-sm">
         <thead>
           <tr
-            class="bg-bg-secondary border-b border-border text-text-secondary text-xs font-semibold uppercase tracking-wider"
+            class="bg-bg-secondary border-b border-border text-text-secondary text-xs font-semibold uppercase tracking-wider h-12"
           >
             <th
               class="bg-bg-secondary py-3 text-center size-12 sticky left-0 border-r border-border-strong z-10 flex items-center justify-center"

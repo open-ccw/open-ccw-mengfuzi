@@ -1,7 +1,7 @@
 <script lang="ts">
   import CommentMain from "./CommentMain.svelte";
   import icon from "$lib/assets/chevron-left.svg?raw";
-  import { type TopicConfig } from "./topicConfig";
+  import { type TopicConfig } from "./types";
 
   let openComment = $state(false);
   const { oid, subjectType, sectionType }: TopicConfig = $props();
