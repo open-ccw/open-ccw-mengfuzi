@@ -11,13 +11,13 @@
   let {
     oid = "",
     uid = "",
-    approvals = [],
+    approvals = null,
     showHidden = true,
     enlarge = false,
   }: {
     oid?: string;
     uid?: string;
-    approvals?: ApprovalTagType[];
+    approvals?: ApprovalTagType[] | null;
     showHidden?: boolean;
     enlarge?: boolean;
   } = $props();
@@ -73,13 +73,13 @@
     loading = false;
   }
   onMount(() => {
-    if (approvals.length) {
+    if (approvals) {
       return;
     }
     refresh();
   });
-  let adorned = $derived(approvals.filter((tag) => tag.adorned));
-  let notAdorned = $derived(approvals.filter((tag) => !tag.adorned));
+  let adorned = $derived((approvals || []).filter((tag) => tag.adorned));
+  let notAdorned = $derived((approvals || []).filter((tag) => !tag.adorned));
 </script>
 
 <div class="flex-wrap flex relative {enlarge ? '-mt-1' : ''}">
@@ -90,17 +90,25 @@
   {:else}
     {#each adorned as tag}
       <div class="mt-2">
-        <ApprovalTag {tag} size={badgeSize} onClick={isSelf && showHidden ? detach : null}
+        <ApprovalTag
+          {tag}
+          size={badgeSize}
+          onClick={isSelf && showHidden ? detach : null}
         ></ApprovalTag>
       </div>
     {/each}
     {#if showHidden}
       {#if adorned.length > 0 && notAdorned.length > 0}
-        <div class="border-dashed border border-gray-500 {badgeSize} mt-2"></div>
+        <div
+          class="border-dashed border border-gray-500 {badgeSize} mt-2"
+        ></div>
       {/if}
       {#each notAdorned as tag}
         <div class="mt-2">
-          <ApprovalTag {tag} size={badgeSize} onClick={isSelf && showHidden ? adorn : null}
+          <ApprovalTag
+            {tag}
+            size={badgeSize}
+            onClick={isSelf && showHidden ? adorn : null}
           ></ApprovalTag>
         </div>
       {/each}

@@ -7,7 +7,7 @@
   function syncTheme(nextDark: boolean) {
     if (!browser) return;
 
-    document.body.classList.toggle("dark", nextDark);
+    document.documentElement.classList.toggle("dark", nextDark);
     dark = nextDark;
   }
 
@@ -24,10 +24,7 @@
   }
 </script>
 
-<label
-  class="switch"
-  title={dark ? "切换到浅色模式" : "切换到深色模式"}
->
+<label class="switch" title={dark ? "切换到浅色模式" : "切换到深色模式"}>
   <span class="sun" aria-hidden="true">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
       <g fill="#ffd43b">
