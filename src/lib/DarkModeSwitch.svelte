@@ -60,6 +60,7 @@
     width: 48px;
     height: 26px;
     vertical-align: middle;
+    @apply cursor-pointer;
   }
 
   .switch input {

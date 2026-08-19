@@ -48,7 +48,7 @@
     style:background="url({bg}) repeat center/cover"
   >
     <div
-      class="bg-bg-secondary/50 w-lg h-fit rounded-2xl p-8 shadow-xl backdrop-blur-[15px]"
+      class="bg-bg/70 w-lg h-fit rounded-2xl p-8 shadow-xl backdrop-blur-[15px]"
     >
       {#if success}
         <div class="text-center py-6">
@@ -134,15 +134,20 @@
             <a href="/" class="text-info underline">返回登录</a>
           </p>
 
-          <div class="relative my-6">
-            <div class="absolute inset-0 flex items-center">
-              <div class="w-full border-t border-border"></div>
-            </div>
-            <div class="relative flex justify-center text-sm">
-              <span class="bg-bg-secondary px-3 text-text-secondary">
+          <div
+            class="relative my-6 flex flex-row gap-4 justify-center items-center"
+          >
+            <div class="w-full border-t border-border h-0"></div>
+
+            <div
+              class="relative flex justify-center text-sm text-nowrap shrink-0"
+            >
+              <span class="px-3 text-text-secondary">
                 或通过第三方一键登录
               </span>
             </div>
+
+            <div class="w-full border-t border-border h-0"></div>
           </div>
 
           <div class="flex justify-center gap-4">

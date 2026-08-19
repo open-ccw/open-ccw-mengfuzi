@@ -2,8 +2,8 @@
   import AvatarToProfile from "$lib/user/AvatarToProfile.svelte";
   import { user } from "$lib/user/userStore";
   import { getOSS } from "$lib/utils/oss";
-  import { communityWeb, type Comment } from "@ccw-api/api";
-  import { toast } from "$lib";
+  import { communityWeb } from "@ccw-api/api";
+  import { toast } from "$lib/toast";
   import type OSS from "ali-oss";
   import CryptoJS from "crypto-js";
   import type { MinimalComment, TopicConfig } from "./types";
