@@ -98,7 +98,7 @@
   });
 </script>
 
-<div class="h-fit">
+<div class="h-fit mt-6">
   {#if error}
     <div class="flex flex-col items-center justify-center py-8 gap-3">
       <p class="text-error text-sm">{error}</p>

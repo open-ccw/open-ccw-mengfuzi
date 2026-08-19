@@ -3,6 +3,7 @@
   import { user } from "$lib/user/userStore";
   import { getOSS } from "$lib/utils/oss";
   import { communityWeb } from "@ccw-api/api";
+  import { toast } from "$lib";
   import type OSS from "ali-oss";
   import CryptoJS from "crypto-js";
   import type { TopicConfig } from "./topicConfig";
@@ -87,6 +88,10 @@
     if (submitting) {
       return;
     }
+    if (!comment.trim()) {
+      toast.error("评论内容不能为空");
+      return;
+    }
     submitting = true;
     try {
       await communityWeb.createComment(
@@ -110,32 +115,32 @@
     <div class="text-error border border-error">{error}</div>
   {/if}
   <div class="mt-4 flex flex-row gap-4 md:gap-8">
-    <div class="size-8 md:size-12">
+    <div class="size-8 md:size-12 translate-x-1.5 translate-y-1">
       <AvatarToProfile
         oid={$user.oid}
         url={$user.avatar}
         virtual={$user.virtualValue}
       />
     </div>
-    <form>
-      <textarea
-        class="resize-y border border-border-strong rounded-xl md:w-84 w-60 focus:border-primary transition-[border] outline-0 p-2 min-h-12 max-h-64 overflow-y-auto text-sm md:text-lg text-text-primary"
-        name="comment"
-        placeholder="评论(可粘贴图片文件)"
-        bind:value={comment}
-        bind:this={textArea}
-        onpaste={(e) => {
-          if (!e.clipboardData) {
-            return;
-          }
-          const { clipboardData } = e;
-          handlePaste(clipboardData);
-        }}
-      >
-      </textarea>
-      <div class="flex w-full">
+    <form class="flex-1">
+      <div class="input-group w-72 md:w-101">
+        <textarea
+          class="input"
+          name="comment"
+          placeholder="评论(可粘贴图片文件)"
+          bind:value={comment}
+          bind:this={textArea}
+          onpaste={(e) => {
+            if (!e.clipboardData) {
+              return;
+            }
+            const { clipboardData } = e;
+            handlePaste(clipboardData);
+          }}
+        >
+        </textarea>
         <button
-          class="mr-0 ml-auto border-primary border rounded-lg text-primary pl-2 pr-2 {submitting
+          class="button--submit {submitting
             ? 'cursor-not-allowed'
             : 'cursor-pointer'}"
           disabled={submitting}
@@ -145,3 +150,61 @@
     </form>
   </div>
 {/if}
+
+<style>
+  .input-group {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .input {
+    flex: 1;
+    min-height: 72px;
+    max-height: 16rem;
+    padding: 0.5rem 1rem;
+    color: var(--color-text-primary);
+    font-size: 15px;
+    line-height: 1.5;
+    border: 1px solid var(--color-primary);
+    border-radius: 10px 0 0 10px;
+    background-color: transparent;
+    outline: none;
+    resize: none;
+    overflow-y: auto;
+  }
+
+  .input::placeholder {
+    color: var(--color-text-placeholder);
+  }
+
+  .button--submit {
+    min-height: 64px;
+    padding: 0.5em 0.75em;
+    border: 1px solid var(--color-primary);
+    border-left: none;
+    border-radius: 0 10px 10px 0;
+    background-color: transparent;
+    color: var(--color-primary);
+    font-size: 15px;
+    cursor: pointer;
+    transition:
+      background-color 0.15s ease-in-out,
+      color 0.15s ease-in-out;
+  }
+
+  .button--submit:hover {
+    background-color: var(--color-primary);
+    color: #fff;
+  }
+
+  .button--submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .input:focus,
+  .input:focus-visible {
+    border-color: var(--color-primary-active);
+    outline: none;
+  }
+</style>

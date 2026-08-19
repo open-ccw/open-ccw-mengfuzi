@@ -133,7 +133,7 @@ function createToast(iconSvg: string, msg: string): HTMLElement {
     align-items: center;
     width: 300px;
     box-sizing: border-box;
-    background: color-mix(in srgb, var(--color-bg) 70%, transparent);
+    background: color-mix(in srgb, var(--color-bg) 80%, transparent);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     border: 1px solid var(--color-border);
@@ -262,7 +262,7 @@ class ToastLayoutController {
 const controller = new ToastLayoutController();
 
 function showToast(options: ToastOptions = {}): { close: () => void } | undefined {
-  const { msg = 'success', time = 2000, icon = 'success' } = options;
+  const { msg = 'success', time = 2500, icon = 'success' } = options;
   if (typeof window === 'undefined') return;
 
   const iconSvg = ICONS[icon] ?? ICONS.success;
