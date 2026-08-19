@@ -52,6 +52,7 @@
     <p class="text-text-secondary leading-relaxed">
       一款以安全为主要理念的第三方 CCW 启动器，支持 OAuth
       一键授权登录、多账号管理、AES 本地加密存储 Token 与每日签到，便捷实用。
+      提供了pwa支持。
     </p>
     <div class="flex flex-wrap items-center justify-center gap-3 mt-2">
       <a
