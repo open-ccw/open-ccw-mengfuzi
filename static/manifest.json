@@ -4,7 +4,7 @@
   "id": ".",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#666666",
+  "background_color": "#eeeeee",
   "description": "一款第三方ccw启动器",
   "icons": [
     {
