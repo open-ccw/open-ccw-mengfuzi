@@ -74,9 +74,10 @@
       <div
         class="w-[90%] mx-auto -mt-16 relative z-10 bg-bg-secondary/50 backdrop-blur-[20px] shadow pt-5 rounded-3xl"
       >
-        <div class="px-6 pb-6">
-          <!-- 头像 -->
+        <div class="px-6 pb-6 flex-col">
+          <!-- 头像 自我介绍 -->
           <div class="flex flex-row gap-4 relative flex-nowrap md:mt-0 -mt-2">
+            <!-- 头像 -->
             <div class="size-16 md:size-32 shrink-0 md:-mt-12">
               {#if profile.avatar}
                 <AvatarImage
@@ -91,6 +92,7 @@
               {/if}
             </div>
 
+            <!-- 头像右侧基本信息 -->
             <div class="ml-2 mt-0 flex flex-col">
               <h1
                 class="text-2xl font-bold text-black dark:text-white items-center gap-2 flex"
@@ -114,25 +116,14 @@
                   这个人很懒，什么都没写~
                 </p>
               {/if}
+              <div class="flex">
+                <ApprovalDisplay
+                  oid={profile.studentOid}
+                  uid={profile.studentNumber}
+                  enlarge
+                ></ApprovalDisplay>
+              </div>
             </div>
-
-            <div class="md:flex hidden mr-24">
-              <ApprovalDisplay
-                oid={profile.studentOid}
-                uid={profile.studentNumber}
-                enlarge
-              ></ApprovalDisplay>
-              <!-- 电脑版勋章 -->
-            </div>
-          </div>
-
-          <div class="flex md:hidden">
-            <ApprovalDisplay
-              oid={profile.studentOid}
-              uid={profile.studentNumber}
-              enlarge
-            ></ApprovalDisplay>
-            <!-- 手机版勋章 -->
           </div>
 
           <!-- 核心统计 -->

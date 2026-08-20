@@ -33,7 +33,10 @@
     {/if}
   </button>
   <div
-    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 {size == 'h-6' ? 'top-6' : 'top-7'} bg-bg-secondary p-2 rounded-lg gap-2 z-10 absolute float-left border border-white/10 shadow-gray-500/50 shadow"
+    class="w-fit flex transition-opacity group-hover:opacity-100 group-hover:scale-100 scale-0 opacity-0 {size ==
+    'h-6'
+      ? 'top-6'
+      : 'top-7'} bg-bg-secondary p-2 rounded-lg gap-2 z-20 absolute float-left border border-white/10 shadow-gray-500/50 shadow"
   >
     <!-- 雷霆大icon -->
     <div

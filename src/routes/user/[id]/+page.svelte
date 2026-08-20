@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { onMount } from "svelte";
   import type { PageProps } from "./$types";
   import Profile from "$lib/user/Profile.svelte";
   import PageHeader from "$lib/PageHeader.svelte";

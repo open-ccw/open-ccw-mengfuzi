@@ -22,7 +22,7 @@
     enlarge?: boolean;
   } = $props();
 
-  const badgeSize = $derived(enlarge ? "h-7" : "h-6");
+  const badgeSize = $derived(enlarge ? "h-7" : "h-5");
 
   const developerBadgeNames = $derived(
     developerBadges.find((d) => d.oid === oid || d.uid === uid)?.badges ?? [],
