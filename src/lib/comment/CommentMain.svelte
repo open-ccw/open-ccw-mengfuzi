@@ -7,7 +7,7 @@
 </script>
 
 <div
-  class="pl-4 w-80 md:w-lg h-full bg-bg-secondary shadow-lg shadow-black z-20 overflow-y-auto"
+  class="w-80 md:w-lg h-full bg-bg-secondary shadow-lg shadow-black z-20 overflow-y-auto"
   transition:slide={{ axis: "x", duration: 200 }}
 >
   <CommentView {oid} {subjectType} {sectionType} />

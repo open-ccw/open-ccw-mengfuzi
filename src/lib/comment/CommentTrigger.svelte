@@ -10,11 +10,11 @@
 <div class="fixed right-0 z-30 h-full top-0 pt-12 md:pt-16">
   <div class="flex flex-row items-center h-full">
     <div
-      class="rounded-l-full shadow shadow-border-strong bg-bg-secondary w-9 h-18 relative -top-12"
+      class="rounded-l-full shadow-left shadow-border-strong bg-bg-secondary w-9 h-18 relative -top-12 z-30"
     >
       <button
         title="comment"
-        class="cursor-pointer flex items-center w-full h-full pl-2 z-30"
+        class="cursor-pointer flex items-center w-full h-full pl-2"
         onclick={() => {
           openComment = !openComment;
         }}

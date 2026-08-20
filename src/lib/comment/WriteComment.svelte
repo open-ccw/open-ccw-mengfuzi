@@ -134,8 +134,8 @@
   {#if error}
     <div class="text-error border border-error">{error}</div>
   {/if}
-  <div class="mt-4 flex flex-row gap-4 md:gap-8">
-    <div class="size-8 md:size-12 translate-x-1.5 translate-y-1">
+  <div class="mt-4 flex flex-row gap-4 md:gap-8 w-full p-2">
+    <div class="size-8 md:size-12 translate-x-1.5 translate-y-1 shrink-0">
       <AvatarToProfile
         oid={$user.oid}
         url={$user.avatar}
@@ -143,7 +143,7 @@
       />
     </div>
     <form class="flex-1">
-      <div class="input-group w-72 md:w-101">
+      <div class="input-group w-auto">
         <textarea
           class="input"
           name="comment"

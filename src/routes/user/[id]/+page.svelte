@@ -18,28 +18,13 @@
   } | null>(null);
   let lockDetail = $state({ locked: false, createdAt: -1, unlocksAt: -1 });
 
-  $effect(() => {
-    if (!profile) {
-      return;
-    }
-    if (!params.id) {
-      return;
-    }
-    if (
-      profile.studentOid !== params.id &&
-      profile.studentNumber !== params.id
-    ) {
-      profile = null;
-      stats = null;
-      load();
-    }
-  });
-
   async function load() {
     if (!params.id) {
       error = "config error";
       return;
     }
+    lockDetail = { locked: false, createdAt: -1, unlocksAt: -1 };
+    profile = null;
     loading = true;
     error = "";
     try {
@@ -83,8 +68,21 @@
     loading = false;
   }
 
-  onMount(() => {
-    load();
+  $effect(() => {
+    if (loading) {
+      return;
+    }
+    if (!profile) {
+      setTimeout(load, 10);
+      return;
+    }
+    if (
+      profile.studentNumber !== params.id &&
+      profile.studentOid !== params.id
+    ) {
+      setTimeout(load, 10);
+      return;
+    }
   });
 </script>
 
