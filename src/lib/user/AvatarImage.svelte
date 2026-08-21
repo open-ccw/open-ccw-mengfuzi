@@ -6,13 +6,21 @@
   } = $props();
 </script>
 
-<div class="relative size-full flex justify-center items-center">
+<div
+  class="relative size-full flex justify-center items-center select-none"
+>
   {#if virtual}
-    <img src={virtual} alt={virtual} class="absolute scale-150 z-10" />
+    <img
+      src={virtual}
+      alt={virtual}
+      class="absolute scale-150 z-10 select-none"
+      draggable={false}
+    />
   {/if}
   <img
     src={url ?? "https://m.ccw.site/community/images/avatar-default.png"}
     {alt}
-    class="size-full rounded-full z-0 m-auto border border-border"
+    draggable={false}
+    class="size-full rounded-full z-0 m-auto border border-border select-none"
   />
 </div>

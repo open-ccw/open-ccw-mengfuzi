@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { dev } from "$app/environment";
   import { oauthState } from "./oauthConfig";
   import bg from "$lib/assets/registerBG.webp";
 
@@ -40,7 +41,9 @@
   class="w-screen h-screen min-h-fit flex items-center justify-center"
   style:background="url({bg}) repeat center/cover"
 >
-  <div class="bg-bg-secondary w-lg h-fit rounded-2xl p-10 shadow-xl text-center">
+  <div
+    class="bg-bg-secondary w-lg h-fit rounded-2xl p-10 shadow-xl text-center"
+  >
     <div
       class="mx-auto mb-6 w-12 h-12 border-4 border-border border-t-success rounded-full animate-spin"
     ></div>
@@ -50,6 +53,11 @@
     <p class="text-text-secondary text-sm">
       即将重定向至 CCW OAuth 授权页面，请稍候...
     </p>
-    <a href={playerUrl}> 手机端访问失败？点这里 </a>
+    <a
+      href={playerUrl}
+      class="block mt-3 text-sm text-text-placeholder hover:text-text-secondary transition-colors"
+    >
+      手机端访问失败？点这里
+    </a>
   </div>
 </div>

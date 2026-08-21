@@ -1,41 +1,76 @@
 <script lang="ts">
-  import { saveAccount } from "$lib/auth/tokenStore";
+  import { toast } from "$lib";
+  import { getStudentProfile, registerAccount } from "$lib/auth/registerApi";
+  import {
+    listAccounts,
+    localAccountName,
+    saveAccount,
+    updateAccountToken,
+  } from "$lib/auth/tokenStore";
 
   import ccwLogo from "$lib/assets/ccw-logo.webp";
   import bg from "$lib/assets/registerBG.webp";
-  import Error from "$lib/utils/Error.svelte";
+  import successSvg from "$lib/assets/toast/success.svg";
 
   let { token = "" } = $props();
 
-  let name = $state("");
-  let pin = $state("");
-  let error = $state("");
+  let password = $state("");
+  let confirmPassword = $state("");
   let success = $state(false);
+  let registeredName = $state("");
   let submitting = $state(false);
+  let cloudSave = $state(false);
+  let registeredMode = $state<"cloud" | "local">("cloud");
 
-  function handleSubmit(e: SubmitEvent) {
+  const hasToken = () => token.trim().length > 0;
+
+  async function handleSubmit(e: SubmitEvent) {
     e.preventDefault();
-    error = "";
 
-    if (!name.trim()) {
-      error = "请输入账号名称";
+    if (!hasToken()) {
+      toast.warning("请先通过 CCW 一键授权获取 Token");
       return;
     }
-    if (!token.trim()) {
-      error = "请输入 Token";
+    if (!password) {
+      toast.warning("请输入密码");
       return;
     }
-    if (!pin) {
-      error = "请输入 PIN";
+    if (!confirmPassword) {
+      toast.warning("请再次输入密码确认");
+      return;
+    }
+    if (password !== confirmPassword) {
+      toast.error("请输入相同的密码");
       return;
     }
 
     submitting = true;
     try {
-      saveAccount(name.trim(), token.trim(), pin);
+      const t = token.trim();
+      const { uid, avatar, name: displayName } = await getStudentProfile(t);
+      if (cloudSave) {
+        await registerAccount(uid, t, password);
+        if (listAccounts().some((a) => a.name === uid)) {
+          await updateAccountToken(uid, t, password, avatar, displayName);
+        } else {
+          await saveAccount(uid, t, password, avatar, displayName);
+        }
+        registeredMode = "cloud";
+        toast.success("注册成功");
+      } else {
+        const localName = localAccountName(uid);
+        if (listAccounts().some((a) => a.name === localName)) {
+          await updateAccountToken(localName, t, password, avatar, displayName);
+        } else {
+          await saveAccount(localName, t, password, avatar, displayName);
+        }
+        registeredMode = "local";
+        toast.success("账号已保存到本地");
+      }
+      registeredName = uid;
       success = true;
     } catch (e) {
-      error = `保存失败，请重试 ${e}`;
+      toast.error(`注册失败 ${e}`);
     } finally {
       submitting = false;
     }
@@ -52,14 +87,18 @@
     >
       {#if success}
         <div class="text-center py-6">
-          <div
-            class="w-16 h-16 mx-auto mb-4 rounded-full bg-success/10 flex items-center justify-center"
-          >
-            <span class="text-3xl text-success">✓</span>
-          </div>
+          <img
+            src={successSvg}
+            alt="success"
+            class="w-16 h-16 mx-auto mb-4 shrink-0"
+          />
           <h2 class="text-2xl font-bold text-text-primary mb-2">注册成功</h2>
           <p class="text-text-secondary mb-6">
-            账号 "{name}" 已注册，Token 已保存
+            {#if registeredMode === "cloud"}
+              账号 "{registeredName}" 注册成功
+            {:else}
+              账号 "{registeredName}" 已保存到当前设备
+            {/if}
           </p>
           <a
             href="/"
@@ -74,97 +113,210 @@
         >
           欢迎来到Open CCW
         </h1>
-        <span class="ml-auto mr-0 w-fit text-sm text-text-secondary">
-          一款第三方CCW启动器
-        </span>
 
         <form onsubmit={handleSubmit} class="space-y-4">
-          <div>
-            <label for="name" class="block text-sm text-text-primary mb-1"
-              >账号名称</label
-            >
-            <input
-              id="name"
-              type="text"
-              bind:value={name}
-              autocomplete="name"
-              placeholder="为该账号取个名字"
-              class="w-full rounded-lg border border-border px-4 py-3 text-text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
-            />
-          </div>
-
-          <div>
-            <label for="token" class="block text-sm text-text-primary mb-1"
-              >Token</label
-            >
-            <textarea
-              id="token"
-              bind:value={token}
-              placeholder="请输入您的ccw Token"
-              rows="3"
-              class="w-full rounded-lg border border-border px-4 py-3 text-text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors resize-none"
-            ></textarea>
-          </div>
-
-          <div>
-            <label for="pin" class="block text-sm text-text-primary mb-1"
-              >PIN（用于加密 Token）</label
-            >
-            <input
-              id="pin"
-              type="password"
-              bind:value={pin}
-              autocomplete="new-password"
-              class="w-full rounded-lg border border-border px-4 py-3 text-text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
-            />
-          </div>
-
-          <Error {error}></Error>
-
-          <button
-            type="submit"
-            disabled={submitting}
-            class="w-full rounded-lg bg-primary text-white font-semibold py-3 hover:bg-primary-hover active:bg-primary-active disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
+          <div
+            class="rounded-xl border border-border p-4 flex items-center gap-3"
           >
-            {submitting ? "注册中..." : "注册"}
-          </button>
+            {#if hasToken()}
+              <img src={successSvg} alt="success" class="w-12 h-12 shrink-0" />
+              <div class="flex-1 min-w-0">
+                <p class="text-sm font-medium text-text-primary">
+                  已获取 CCW Token
+                </p>
+                <p class="text-xs text-text-secondary break-all">
+                  {token.trim()}
+                </p>
+              </div>
+              <a
+                href="/oauth"
+                class="text-xs text-info underline whitespace-nowrap"
+                >重新授权</a
+              >
+            {:else}
+              <a
+                href="/oauth"
+                class="w-full flex items-center justify-center gap-2 rounded-lg bg-primary text-white font-semibold py-3 hover:bg-primary-hover active:bg-primary-active transition-colors"
+              >
+                <img
+                  src={ccwLogo}
+                  alt="CCW"
+                  class="w-6 h-6 rounded-full object-contain"
+                />
+                CCW 一键授权
+              </a>
+            {/if}
+          </div>
+
+          {#if hasToken()}
+            <div class="mt-2">
+              <label for="password" class="block text-sm text-text-primary mb-2"
+                >密码（加密Token）</label
+              >
+              <input
+                id="password"
+                type="password"
+                bind:value={password}
+                autocomplete="new-password"
+                placeholder="请设置密码"
+                class="w-full rounded-lg border border-border px-4 py-3 text-text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+              />
+            </div>
+
+            <div class="mt-2">
+              <label
+                for="confirm-password"
+                class="block text-sm text-text-primary mb-2">确认密码</label
+              >
+              <input
+                id="confirm-password"
+                type="password"
+                bind:value={confirmPassword}
+                autocomplete="new-password"
+                placeholder="请再次输入密码"
+                class="w-full rounded-lg border border-border px-4 py-3 text-text-primary focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+              />
+            </div>
+
+            <label class="flex items-center gap-2 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                name="account-storage"
+                checked={cloudSave}
+                onchange={(e) => (cloudSave = e.currentTarget.checked)}
+                class="ui-checkbox"
+              />
+              <span
+                class="text-sm leading-relaxed transition-colors {cloudSave
+                  ? 'text-text-primary'
+                  : 'text-text-secondary'}"
+              >
+                云端保存账号，新设备登录无需再注册
+              </span>
+            </label>
+
+            <button
+              type="submit"
+              disabled={submitting}
+              class="w-full rounded-lg bg-primary text-white font-semibold py-3 hover:bg-primary-hover active:bg-primary-active disabled:opacity-50 disabled:cursor-not-allowed transition-colors cursor-pointer"
+            >
+              {submitting ? "注册中..." : "注册"}
+            </button>
+          {/if}
 
           <p class="text-center text-sm text-text-secondary">
             已有账号？
             <a href="/" class="text-info underline">返回登录</a>
           </p>
-
-          <div
-            class="relative my-6 flex flex-row gap-4 justify-center items-center"
-          >
-            <div class="w-full border-t border-border h-0"></div>
-
-            <div
-              class="relative flex justify-center text-sm text-nowrap shrink-0"
-            >
-              <span class="px-3 text-text-secondary">
-                或通过第三方一键登录
-              </span>
-            </div>
-
-            <div class="w-full border-t border-border h-0"></div>
-          </div>
-
-          <div class="flex justify-center gap-4">
-            <a
-              href="/oauth"
-              class="w-12 h-12 rounded-full border-2 border-border flex items-center justify-center hover:border-primary hover:shadow-md active:scale-95 transition-all duration-200 cursor-pointer overflow-hidden"
-              title="使用 CCW OAuth 登录"
-            >
-              <img
-                src={ccwLogo}
-                alt="CCW OAuth"
-                class="w-12 h-12 object-contain"
-              />
-            </a>
-          </div>
         </form>
       {/if}
     </div>
   </div>
 </div>
+
+<style>
+  .ui-checkbox {
+    --primary-color: #1677ff;
+    --secondary-color: #fff;
+    --primary-hover-color: #4096ff;
+    /* checkbox */
+    --checkbox-diameter: 16px;
+    --checkbox-border-radius: 5px;
+    --checkbox-border-color: #d9d9d9;
+    --checkbox-border-width: 1px;
+    --checkbox-border-style: solid;
+    /* checkmark */
+    --checkmark-size: 1.2;
+  }
+
+  .ui-checkbox {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: var(--checkbox-diameter);
+    height: var(--checkbox-diameter);
+    border-radius: var(--checkbox-border-radius);
+    background: var(--secondary-color);
+    border: var(--checkbox-border-width) var(--checkbox-border-style)
+      var(--checkbox-border-color);
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .ui-checkbox::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    -webkit-box-shadow: 0 0 0 calc(var(--checkbox-diameter) / 2.5)
+      var(--primary-color);
+    box-shadow: 0 0 0 calc(var(--checkbox-diameter) / 2.5) var(--primary-color);
+    border-radius: inherit;
+    opacity: 0;
+    -webkit-transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
+    -o-transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
+    transition: all 0.5s cubic-bezier(0.12, 0.4, 0.29, 1.46);
+  }
+
+  .ui-checkbox::before {
+    top: 40%;
+    left: 50%;
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 7px;
+    border-right: 2px solid var(--secondary-color);
+    border-bottom: 2px solid var(--secondary-color);
+    -webkit-transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    -ms-transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    transform: translate(-50%, -50%) rotate(45deg) scale(0);
+    opacity: 0;
+    -webkit-transition:
+      all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6),
+      opacity 0.1s;
+    -o-transition:
+      all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6),
+      opacity 0.1s;
+    transition:
+      all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6),
+      opacity 0.1s;
+  }
+
+  /* actions */
+  .ui-checkbox:hover {
+    border-color: var(--primary-color);
+  }
+
+  .ui-checkbox:checked {
+    background: var(--primary-color);
+    border-color: transparent;
+  }
+
+  .ui-checkbox:checked::before {
+    opacity: 1;
+    -webkit-transform: translate(-50%, -50%) rotate(45deg)
+      scale(var(--checkmark-size));
+    -ms-transform: translate(-50%, -50%) rotate(45deg)
+      scale(var(--checkmark-size));
+    transform: translate(-50%, -50%) rotate(45deg) scale(var(--checkmark-size));
+    -webkit-transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+    -o-transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+    transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+  }
+
+  .ui-checkbox:active:not(:checked)::after {
+    -webkit-transition: none;
+    -o-transition: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    transition: none;
+    opacity: 1;
+  }
+</style>

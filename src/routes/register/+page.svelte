@@ -17,7 +17,7 @@
   <title>注册账号 — Open CCW</title>
   <meta
     name="description"
-    content="Open CCW 注册页面，一键绑定你的 CCW 社区账号。支持手动输入 Token 或 OAuth 一键授权自动获取，PIN 码本地 AES 加密存储保障数据安全。多账号管理、随时切换，安全便捷的 CCW 第三方启动器。"
+    content="Open CCW 注册页面，CCW 一键授权自动获取 Token，仅需设置密码即可完成注册。账号数据云端保存，登录时凭学号与密码换取 Token，安全便捷的 CCW 第三方启动器。"
   />
   <link rel="preload" as="image" href={bg} />
   <link rel="canonical" href="https://ccw.kivotos.qzz.io/register" />

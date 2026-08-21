@@ -1,36 +1,178 @@
-import { setToken } from "$lib/api";
 import { writable } from "svelte/store";
-import { decryptWithPassword, encryptWithPassword } from "$lib/utils/aes";
+import {
+  decryptWithPassword,
+  encryptWithPassword,
+  isV2Encrypted,
+} from "$lib/utils/aes";
 import { browser } from "$app/environment";
 import { clearTokenAndUser, updateToken } from "$lib/user/userStore";
 
 const ACCOUNTS_KEY = "oc_accounts";
 const TOKEN_PREFIX = "oc_token_";
+const QUICK_TOKEN_PREFIX = "oc_quick_token_";// 快捷登录 token密文
 const ACTIVE_KEY = "oc_active_account";
+const QUICK_KEY_DB = "oc_quick_key_db";// 快捷登录加密密钥存储IndexedDB
+const QUICK_KEY_STORE = "keys";
+const QUICK_KEY_RECORD = "device_key";
+
+let quickKeyCache: CryptoKey | null = null;
+
+function openQuickKeyDB(): Promise<IDBDatabase> {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(QUICK_KEY_DB, 1);
+    req.onupgradeneeded = () => {
+      if (!req.result.objectStoreNames.contains(QUICK_KEY_STORE)) {
+        req.result.createObjectStore(QUICK_KEY_STORE);
+      }
+    };
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+async function idbSet(key: string, value: ArrayBuffer): Promise<void> {
+  const db = await openQuickKeyDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(QUICK_KEY_STORE, "readwrite");
+    tx.objectStore(QUICK_KEY_STORE).put(value, key);
+    tx.oncomplete = () => {
+      db.close();
+      resolve();
+    };
+    tx.onerror = () => {
+      db.close();
+      reject(tx.error);
+    };
+  });
+}
+
+async function idbGet(key: string): Promise<ArrayBuffer | undefined> {
+  const db = await openQuickKeyDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(QUICK_KEY_STORE, "readonly");
+    const req = tx.objectStore(QUICK_KEY_STORE).get(key);
+    req.onsuccess = () => {
+      db.close();
+      resolve(req.result as ArrayBuffer | undefined);
+    };
+    req.onerror = () => {
+      db.close();
+      reject(req.error);
+    };
+  });
+}
+
+async function getQuickKey(): Promise<CryptoKey> {
+  if (quickKeyCache) return quickKeyCache;
+  const raw = await idbGet(QUICK_KEY_RECORD);
+  if (raw) {
+    quickKeyCache = await crypto.subtle.importKey(
+      "raw",
+      raw,
+      { name: "AES-GCM" },
+      true,
+      ["encrypt", "decrypt"],
+    );
+    return quickKeyCache;
+  }
+  const key = await crypto.subtle.generateKey(
+    { name: "AES-GCM", length: 256 },
+    true,
+    ["encrypt", "decrypt"],
+  );
+  const exported = await crypto.subtle.exportKey("raw", key);
+  await idbSet(QUICK_KEY_RECORD, exported);
+  quickKeyCache = key;
+  return key;
+}
+
+async function quickEncrypt(value: string): Promise<string> {
+  const key = await getQuickKey();
+  const iv = crypto.getRandomValues(new Uint8Array(12));
+  const cipher = await crypto.subtle.encrypt(
+    { name: "AES-GCM", iv },
+    key,
+    new TextEncoder().encode(value),
+  );
+  const combined = new Uint8Array(iv.byteLength + cipher.byteLength);
+  combined.set(iv, 0);
+  combined.set(new Uint8Array(cipher), iv.byteLength);
+  return arrayBufferToBase64(combined.buffer);
+}
+
+async function quickDecrypt(payload: string): Promise<string | null> {
+  try {
+    const key = await getQuickKey();
+    const combined = base64ToArrayBuffer(payload);
+    const iv = combined.slice(0, 12);
+    const cipher = combined.slice(12);
+    const plain = await crypto.subtle.decrypt(
+      { name: "AES-GCM", iv },
+      key,
+      cipher,
+    );
+    return new TextDecoder().decode(plain);
+  } catch {
+    return null;
+  }
+}
+
+function arrayBufferToBase64(buffer: ArrayBuffer): string {
+  const bytes = new Uint8Array(buffer);
+  let binary = "";
+  for (const b of bytes) binary += String.fromCharCode(b);
+  return btoa(binary);
+}
+
+function base64ToArrayBuffer(base64: string): ArrayBuffer {
+  const binary = atob(base64);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes.buffer;
+}
+
+export const LOCAL_ACCOUNT_SUFFIX = "-local";
+
+export function localAccountName(uid: string): string {
+  return uid + LOCAL_ACCOUNT_SUFFIX;
+}
+
+export function displayAccountName(name: string): string {
+  return name.endsWith(LOCAL_ACCOUNT_SUFFIX)
+    ? name.slice(0, -LOCAL_ACCOUNT_SUFFIX.length)
+    : name;
+}
+
+const LEGACY_LOCAL_KEY = "oc_token";
 
 export interface Account {
   name: string;
   createdAt: number;
+  avatar?: string;
+  displayName?: string;
 }
 
 export const token = writable<string>("");
 
 if (browser) {
+  localStorage.removeItem(LEGACY_LOCAL_KEY);
+  try {
+    indexedDB.deleteDatabase("oc_token_db");
+  } catch {
+  }
+
   const storedToken = sessionStorage.getItem(TOKEN_PREFIX);
   if (storedToken) {
-    updateToken(storedToken);
+    updateToken(storedToken).catch(() => { });
   }
 }
 
-token.subscribe((token) => {
-  if (token && browser) {
-    sessionStorage.setItem(TOKEN_PREFIX, token);
+token.subscribe((tok) => {
+  if (tok && browser) {
+    sessionStorage.setItem(TOKEN_PREFIX, tok);
   }
 });
 
-/**
- * 列出所有已注册账号
- */
 export function listAccounts(): Account[] {
   const raw = localStorage.getItem(ACCOUNTS_KEY);
   if (!raw) {
@@ -43,41 +185,113 @@ export function listAccounts(): Account[] {
   }
 }
 
-/**
- * 保存账号注册表
- */
 function saveAccounts(accounts: Account[]): void {
   localStorage.setItem(ACCOUNTS_KEY, JSON.stringify(accounts));
 }
 
-/**
- * 添加或更新账号，并加密保存 token
- * @param name 账号名称
- * @param tokenValue 待保存的 token
- * @param pin 用户密码/PIN
- */
-export function saveAccount(name: string, tokenValue: string, pin: string) {
+export async function saveAccount(
+  name: string,
+  tokenValue: string,
+  pin: string,
+  avatar?: string,
+  displayName?: string,
+): Promise<void> {
   const accounts = listAccounts();
   const existingIdx = accounts.findIndex((a) => a.name === name);
 
   if (existingIdx >= 0) {
-    throw "同名账号已注册";
+    throw "该账号已注册";
   } else {
-    accounts.push({ name, createdAt: Date.now() });
+    accounts.push({
+      name,
+      createdAt: Date.now(),
+      avatar: avatar ?? "",
+      displayName: displayName ?? "",
+    });
   }
 
   saveAccounts(accounts);
 
-  const encrypted = encryptWithPassword(tokenValue, pin);
+  const encrypted = await encryptWithPassword(tokenValue, pin);
   localStorage.setItem(TOKEN_PREFIX + name, encrypted);
 }
 
-/**
- * 使用密码解密指定账号的 token 并设为活跃账号
- * @param id 账号标识
- * @param pin 用户密码/PIN
- * @returns 解密后的 token，失败返回 null
- */
+export async function updateAccountToken(
+  name: string,
+  tokenValue: string,
+  pin: string,
+  avatar?: string,
+  displayName?: string,
+): Promise<void> {
+  if (!listAccounts().some((a) => a.name === name)) {
+    throw "账号不存在";
+  }
+  const encrypted = await encryptWithPassword(tokenValue, pin);
+  localStorage.setItem(TOKEN_PREFIX + name, encrypted);
+  if (avatar !== undefined || displayName !== undefined) {
+    const accounts = listAccounts();
+    const account = accounts.find((a) => a.name === name);
+    if (account) {
+      if (avatar !== undefined) {
+        account.avatar = avatar;
+      }
+      if (displayName !== undefined) {
+        account.displayName = displayName;
+      }
+      saveAccounts(accounts);
+    }
+  }
+}
+
+export function updateAccountInfo(
+  name: string,
+  info: { avatar?: string; displayName?: string },
+): void {
+  const accounts = listAccounts();
+  const account = accounts.find((a) => a.name === name);
+  if (!account) {
+    return;
+  }
+  if (info.avatar !== undefined) {
+    account.avatar = info.avatar;
+  }
+  if (info.displayName !== undefined) {
+    account.displayName = info.displayName;
+  }
+  saveAccounts(accounts);
+}
+
+export async function enableQuickLogin(
+  name: string,
+  tokenValue: string,
+): Promise<void> {
+  localStorage.setItem(QUICK_TOKEN_PREFIX + name, await quickEncrypt(tokenValue));
+}
+
+export function disableQuickLogin(name: string): void {
+  localStorage.removeItem(QUICK_TOKEN_PREFIX + name);
+}
+
+function isQuickLoginEnabled(name: string): boolean {
+  return localStorage.getItem(QUICK_TOKEN_PREFIX + name) !== null;
+}
+
+export function listQuickAccounts(): Account[] {
+  return listAccounts().filter((a) => isQuickLoginEnabled(a.name));
+}
+
+export async function loadQuickToken(name: string): Promise<string | null> {
+  const payload = localStorage.getItem(QUICK_TOKEN_PREFIX + name);
+  if (!payload) {
+    return null;
+  }
+  return quickDecrypt(payload);
+}
+
+export function setActiveAccount(name: string): void {
+  localStorage.setItem(ACTIVE_KEY, name);
+}
+
 export async function loadAccount(
   id: string,
   pin: string,
@@ -88,7 +302,16 @@ export async function loadAccount(
   }
 
   try {
-    const value = decryptWithPassword(encrypted, pin);
+    const value = await decryptWithPassword(encrypted, pin);
+    if (!value) {
+      return null;
+    }
+    if (!isV2Encrypted(encrypted)) {
+      localStorage.setItem(
+        TOKEN_PREFIX + id,
+        await encryptWithPassword(value, pin),
+      );
+    }
     token.set(value);
     localStorage.setItem(ACTIVE_KEY, id);
     return value;
@@ -97,38 +320,27 @@ export async function loadAccount(
   }
 }
 
-/**
- * 移除账号及其加密 token
- * @param name 账号名
- */
 export function removeAccount(name: string): void {
   const accounts = listAccounts().filter((a) => a.name !== name);
   saveAccounts(accounts);
   localStorage.removeItem(TOKEN_PREFIX + name);
+  localStorage.removeItem(QUICK_TOKEN_PREFIX + name);
 
   if (getActiveAccount() === name) {
     clearToken();
   }
 }
 
-/**
- * 获取当前活跃账号 ID
- */
 export function getActiveAccount(): string | null {
   return localStorage.getItem(ACTIVE_KEY);
 }
 
-/**
- * 清除当前 token 活跃状态
- */
 export function clearToken(): void {
   localStorage.removeItem(ACTIVE_KEY);
+  sessionStorage.removeItem(TOKEN_PREFIX);
   clearTokenAndUser();
 }
 
-/**
- * 退出当前账号（不清除本地保存的账号数据）
- */
 export async function logout() {
   clearToken();
   sessionStorage.removeItem(TOKEN_PREFIX);

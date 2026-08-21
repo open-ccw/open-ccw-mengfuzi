@@ -1,7 +1,6 @@
 import { writable } from "svelte/store";
 import { token } from "$lib/auth/tokenStore";
 import { communityWeb, setToken } from "$lib/api";
-import { getToken } from "@ccw-api/request";
 
 export const user = writable<SelfUser>({ loggedIn: false });
 
@@ -38,12 +37,12 @@ async function updateUser() {
 
 export async function updateToken(tok: string) {
   setToken(tok);
-  try {
-    await updateUser();
-    token.set(tok);
-  } catch (e) {
-    throw e;
-  }
+  token.set(tok);
+  await updateUser();
+}
+
+export async function refreshUser(): Promise<void> {
+  await updateUser();
 }
 
 export function clearTokenAndUser() {
