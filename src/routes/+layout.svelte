@@ -8,12 +8,9 @@
   import { browser } from "$app/env";
 
   if (browser && origin !== "null" && "serviceWorker" in navigator) {
-    navigator.serviceWorker.register(
-      new URL("/src/lib/service-worker.ts", import.meta.url),
-      {
-        type: dev ? "module" : "classic",
-      },
-    );
+    navigator.serviceWorker.register("/service-worker.js", {
+      type: dev ? "module" : "classic",
+    });
   }
 </script>
 
