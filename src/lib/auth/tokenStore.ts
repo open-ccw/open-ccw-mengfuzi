@@ -162,7 +162,7 @@ if (browser) {
 
   const storedToken = sessionStorage.getItem(TOKEN_PREFIX);
   if (storedToken) {
-    console.log("aaa");
+    4;
     updateToken(storedToken).catch(() => {});
   }
 }
