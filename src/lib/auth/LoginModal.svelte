@@ -27,9 +27,9 @@
 
   let dialog = $state<HTMLDialogElement>();
   let uid = $state("");
-  let password = $state("");
+  let passkey = $state("");
   let submitting = $state(false);
-  let mode = $state<"password" | "quick">("password");
+  let mode = $state<"passkey" | "quick">("passkey");
   let accounts = $state<Account[]>([]);
   let quickLoggingIn = $state(false);
   let menuAccount = $state<string | null>(null);
@@ -59,8 +59,8 @@
       toast.warning("请输入uid");
       return;
     }
-    if (!password) {
-      toast.warning("密码不能为空");
+    if (!passkey) {
+      toast.warning("密钥不能为空");
       return;
     }
     submitting = true;
@@ -68,7 +68,7 @@
       const name = uid.trim();
       const localOnly = name.endsWith(LOCAL_ACCOUNT_SUFFIX);
       const localName = localOnly ? name : localAccountName(name);
-      const localTok = await loadAccount(localName, password);
+      const localTok = await loadAccount(localName, passkey);
       if (localTok) {
         if (trustDevice) {
           await enableQuickLogin(localName, localTok);
@@ -88,25 +88,25 @@
         return;
       }
       if (localOnly) {
-        toast.error("本地账号不存在或密码错误");
+        toast.error("本地账号不存在或密钥错误");
         return;
       }
-      const tok = await loginAccount(name, password);
+      const tok = await loginAccount(name, passkey);
       await updateToken(tok);
       const currentUser = get(user);
       const avatar = currentUser.loggedIn ? currentUser.avatar : "";
       const displayName = currentUser.loggedIn ? currentUser.name : "";
       if (listAccounts().some((a) => a.name === name)) {
-        await updateAccountToken(name, tok, password, avatar, displayName);
+        await updateAccountToken(name, tok, passkey, avatar, displayName);
       } else {
-        await saveAccount(name, tok, password, avatar, displayName);
+        await saveAccount(name, tok, passkey, avatar, displayName);
       }
       if (trustDevice) {
         await enableQuickLogin(name, tok);
       } else {
         disableQuickLogin(name);
       }
-      await loadAccount(name, password);
+      await loadAccount(name, passkey);
       onclose();
       dialog?.close();
     } catch (e) {
@@ -136,8 +136,8 @@
   async function handleQuickLogin(account: Account) {
     const tok = await loadQuickToken(account.name);
     if (!tok) {
-      toast.warning("该账号未启用快捷登录，请使用账号密码登录");
-      mode = "password";
+      toast.warning("该账号未启用快捷登录，请使用账号密钥登录");
+      mode = "passkey";
       return;
     }
     quickLoggingIn = true;
@@ -294,14 +294,14 @@
 
           <div>
             <label for="password" class="block text-sm text-text-primary mb-2"
-              >密码</label
+              >密钥</label
             >
             <input
               id="password"
               type="password"
-              bind:value={password}
+              bind:value={passkey}
               autocomplete="current-password"
-              placeholder="请输入密码"
+              placeholder="请输入密钥"
               class="p-3 w-full rounded-lg bg-bg border border-border-strong text-text-primary focus:border-primary focus:outline-none transition-colors"
             />
           </div>
@@ -339,17 +339,17 @@
         <button
           type="button"
           role="tab"
-          aria-selected={mode === "password"}
+          aria-selected={mode === "passkey"}
           onclick={() => {
             selectedAccount = null;
-            mode = "password";
+            mode = "passkey";
           }}
           class="flex-1 py-2 rounded-md text-sm font-medium transition-colors cursor-pointer {mode ===
-          'password'
+          'passkey'
             ? 'bg-primary text-white shadow'
             : 'text-text-secondary hover:text-text-primary'}"
         >
-          账号密码登录
+          账号密钥登录
         </button>
         <button
           type="button"
