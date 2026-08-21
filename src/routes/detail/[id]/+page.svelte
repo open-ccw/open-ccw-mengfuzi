@@ -18,11 +18,21 @@
 </script>
 
 <svelte:head>
-  <title>{creation?.title ? `${creation.title} — Open CCW` : '作品详情 — Open CCW'}</title>
+  <title
+    >{creation?.title
+      ? `${creation.title} — Open CCW`
+      : "作品详情 — Open CCW"}</title
+  >
   {#if creation?.title}
-    <meta name="description" content="{creation.title} - 查看 CCW 社区作品详情，包括作品信息、作者等。Open CCW 第三方 CCW 启动器。" />
+    <meta
+      name="description"
+      content="{creation.title} - 查看 CCW 社区作品详情，包括作品信息、作者等。Open CCW 第三方 CCW 启动器。"
+    />
   {/if}
-  <link rel="canonical" href={`https://ccw.kivotos.qzz.io/detail/${params.id}`} />
+  <link
+    rel="canonical"
+    href={`https://ccw.kivotos.qzz.io/detail/${params.id}`}
+  />
 </svelte:head>
 
 <Error {error}></Error>
@@ -32,4 +42,10 @@
     {JSON.stringify(creation, null, 2)}
   </div>
 </details>
+<iframe
+  src="/player/{params.id}"
+  title="player"
+  sandbox="allow-scripts allow-storage-access-by-user-activation allow-modals"
+  class="w-160 h-90"
+></iframe>
 <a href="https://ccw.site/detail/{params.id}">跳转到ccw</a>

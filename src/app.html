@@ -6,8 +6,10 @@
     <meta name="text-scale" content="scale" />
     <link rel="manifest" href="/app.webmanifest" />
     <script>
-      if (localStorage.getItem("theme") == "light")
-        document.documentElement.classList.remove("dark");
+      try {
+        if (localStorage.getItem("theme") == "light")
+          document.documentElement.classList.remove("dark");
+      } catch (E) {}
     </script>
     %sveltekit.head%
   </head>

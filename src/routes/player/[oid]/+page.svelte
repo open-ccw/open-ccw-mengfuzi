@@ -19,7 +19,11 @@
     loadVersion();
     return "";
   });
+  let usePostMessage: boolean = $derived(
+    !(page.url.searchParams.get("usePostMessage") === "false"),
+  );
   let player: typeof import("@open-ccw/player") | undefined = $state();
+  let rpc: typeof import("@mixer/postmessage-rpc") | undefined = $state();
 
   async function loadVersion() {
     const { latestProjectLink } = await communityWeb.getCreationDetail(oid, "");
@@ -27,37 +31,53 @@
   }
 
   $effect(() => {
-    if (canvas && safe && sb3) {
+    if (canvas && safe && sb3 && player) {
       setTimeout(initPlayer, 10);
     }
   });
 
   onMount(() => {
-    if (window.parent || sessionStorage.getItem("oc_token_")) {
+    if (window.origin != "null") {
       safe = confirm("使用player直接运行未知作品可能造成token泄露,是否继续?");
     } else {
       safe = true;
     }
+    if (usePostMessage) {
+      import("@mixer/postmessage-rpc").then((lib) => (rpc = lib));
+    }
+    import("@open-ccw/player").then((lib) => (player = lib));
   });
 
   async function initPlayer() {
-    if (loading || complete || !canvas) {
+    if (loading || complete || !canvas || !player) {
       return;
     }
     complete = false;
     loading = true;
-    player = await import("@open-ccw/player");
 
     const { vm } = await player.init(canvas, () => null);
     vm.setCCWAPI(player.ccwApi({ vm, projectOid: oid }));
     await player.loadProjectURL(new URL(sb3), vm, (args) => {
       return Promise.resolve([false, null]);
     });
+    vm.runtime.ccwAPI.getUserInfo = () => {
+      return Promise.resolve({
+        userId: "a",
+      });
+    };
+    vm.runtime.precompile();
+    vm.runtime.setCompilerOptions({
+      enabled: true,
+      warpTimer: true,
+    });
+    player.updateStageSize(vm, 640, 360);
+    vm.runtime.renderer?.resize(1920, 1080);
     complete = true;
     loading = false;
+    vm.greenFlag();
   }
 </script>
 
-<div>
-  <canvas bind:this={canvas}></canvas>
+<div class="w-screen h-screen">
+  <canvas bind:this={canvas} class="w-full h-full object-contain"></canvas>
 </div>

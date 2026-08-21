@@ -26,10 +26,18 @@ export default defineConfig({
         ],
       },
       adapter: adapter(),
+      serviceWorker: {
+        register: false,
+      },
     }),
   ],
   build: {
     minify: true,
     sourcemap: true,
+  },
+  server: {
+    cors: {
+      origin: "*",
+    },
   },
 });

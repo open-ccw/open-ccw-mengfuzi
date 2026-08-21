@@ -9,9 +9,9 @@ import { clearTokenAndUser, updateToken } from "$lib/user/userStore";
 
 const ACCOUNTS_KEY = "oc_accounts";
 const TOKEN_PREFIX = "oc_token_";
-const QUICK_TOKEN_PREFIX = "oc_quick_token_";// 快捷登录 token密文
+const QUICK_TOKEN_PREFIX = "oc_quick_token_"; // 快捷登录 token密文
 const ACTIVE_KEY = "oc_active_account";
-const QUICK_KEY_DB = "oc_quick_key_db";// 快捷登录加密密钥存储IndexedDB
+const QUICK_KEY_DB = "oc_quick_key_db"; // 快捷登录加密密钥存储IndexedDB
 const QUICK_KEY_STORE = "keys";
 const QUICK_KEY_RECORD = "device_key";
 
@@ -158,12 +158,12 @@ if (browser) {
   localStorage.removeItem(LEGACY_LOCAL_KEY);
   try {
     indexedDB.deleteDatabase("oc_token_db");
-  } catch {
-  }
+  } catch {}
 
   const storedToken = sessionStorage.getItem(TOKEN_PREFIX);
   if (storedToken) {
-    updateToken(storedToken).catch(() => { });
+    console.log("aaa");
+    updateToken(storedToken).catch(() => {});
   }
 }
 
@@ -265,7 +265,10 @@ export async function enableQuickLogin(
   name: string,
   tokenValue: string,
 ): Promise<void> {
-  localStorage.setItem(QUICK_TOKEN_PREFIX + name, await quickEncrypt(tokenValue));
+  localStorage.setItem(
+    QUICK_TOKEN_PREFIX + name,
+    await quickEncrypt(tokenValue),
+  );
 }
 
 export function disableQuickLogin(name: string): void {

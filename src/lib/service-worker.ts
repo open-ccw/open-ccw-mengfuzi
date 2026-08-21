@@ -7,9 +7,6 @@
 // Ensures that the `$service-worker` import has proper type definitions
 /// <reference types="@sveltejs/kit" />
 
-// Only necessary if you have an import from `$env/static/public`
-/// <reference types="../.svelte-kit/ambient.d.ts" />
-
 import { build, files, version } from "$service-worker";
 
 // This gives `self` the correct types

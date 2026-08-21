@@ -1,10 +1,17 @@
 <script lang="ts">
   import "./layout.css";
   import favicon from "$lib/assets/favicon.svg";
+  import "$lib/api";
   let { children } = $props();
-  import "$lib/auth/tokenStore";
-  import { onMount } from "svelte";
-  import { toast } from "$lib";
+
+  import { dev } from "$app/environment";
+  import { browser } from "$app/env";
+
+  if (browser && origin !== "null" && "serviceWorker" in navigator) {
+    navigator.serviceWorker.register("/src/lib/service-worker.ts", {
+      type: dev ? "module" : "classic",
+    });
+  }
 </script>
 
 <svelte:head>
