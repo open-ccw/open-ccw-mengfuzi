@@ -30,7 +30,7 @@
     "wrangler": "^4.118.0"
   },
   "dependencies": {
-    "@ccw-api/api": "^2.1.9",
+    "@ccw-api/api": "^2.1.10",
     "@ccw-api/request": "^1.2.3",
     "@open-ccw/player": "^0.0.4",
     "@types/ali-oss": "^6.23.3",

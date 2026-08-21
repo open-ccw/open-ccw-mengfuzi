@@ -8,6 +8,7 @@
   import { toast } from "$lib";
   import { user } from "$lib/user/userStore";
   import WriteComment from "./WriteComment.svelte";
+  import up from "$lib/assets/arrow-up-from-line.svg?raw";
 
   const { oid, subjectType, sectionType }: TopicConfig = $props();
   let pageNum = $state(1);
@@ -152,7 +153,7 @@
     </div>
   {:else}
     <div class="divide-y divide-border">
-      {#each comments as comment (comment.id)}
+      {#each comments as comment, i (comment.id)}
         <div class="px-4 py-4 hover:bg-bg-secondary/50 transition-colors">
           <div class="flex gap-3">
             <!-- 头像 -->
@@ -166,19 +167,30 @@
 
             <!-- 内容区 -->
             <div class="flex-1 min-w-0">
-              <!-- 用户信息和勋章 -->
-              <div class="flex items-center gap-2 flex-wrap mb-1">
-                <a
-                  href="/user/{comment.commenter.accountOid}"
-                  class="text-base font-semibold text-text-primary hover:text-primary transition-colors"
-                >
-                  {comment.commenter.name}
-                </a>
-                <ApprovalDisplay
-                  approvals={comment.commenter.approvalTagRelations}
-                  oid={comment.commenter.accountOid}
-                  showHidden={false}
-                ></ApprovalDisplay>
+              <div class="flex mb-1">
+                <!-- 用户信息和勋章 -->
+                <div class="flex gap-2">
+                  <a
+                    href="/user/{comment.commenter.accountOid}"
+                    class="text-base shrink-0 font-semibold text-text-secondary hover:text-primary transition-colors"
+                  >
+                    {comment.commenter.name}
+                  </a>
+                  <ApprovalDisplay
+                    approvals={comment.commenter.approvalTagRelations}
+                    oid={comment.commenter.accountOid}
+                    showHidden={false}
+                  ></ApprovalDisplay>
+                </div>
+                {#if comment.weight}
+                  <div
+                    class="size-6 text-star"
+                    aria-label="该评论被置顶"
+                    title="该评论被置顶"
+                  >
+                    {@html up}
+                  </div>
+                {/if}
               </div>
 
               <!-- 评论内容 -->
@@ -198,9 +210,10 @@
                 <div class="flex items-center gap-4">
                   <button
                     class="flex items-center gap-1 text-xs text-text-placeholder hover:text-primary transition-colors cursor-pointer"
-                    onclick={() => {
+                    onclick={async () => {
                       if (!$user.loggedIn) {
                         toast.warning("请登录账号");
+                        return;
                       }
                     }}
                   >
@@ -221,16 +234,33 @@
                   </button>
                   <button
                     class="flex items-center gap-1 text-xs text-text-placeholder hover:text-error transition-colors cursor-pointer"
-                    onclick={() => {
+                    onclick={async () => {
                       if (!$user.loggedIn) {
                         toast.warning("请登录账号");
+                        return;
+                      }
+                      let success = false;
+                      if (comment.liked) {
+                        success = await communityWeb.unlikeComment(comment.id);
+                      } else {
+                        success = await communityWeb.likeComment(comment.id);
+                      }
+                      if (success) {
+                        let newComments = [...comments];
+                        newComments[i] = {
+                          ...comment,
+                          likeCount:
+                            comment.likeCount + (comment.liked ? -1 : 1),
+                          liked: !comment.liked,
+                        };
+                        comments = newComments;
                       }
                     }}
                   >
                     <svg
                       class="size-4"
                       viewBox="0 0 24 24"
-                      fill="none"
+                      fill={comment.liked ? "red" : "none"}
                       stroke="currentColor"
                       stroke-width="2"
                     >

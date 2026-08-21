@@ -116,7 +116,7 @@
                   这个人很懒，什么都没写~
                 </p>
               {/if}
-              <div class="flex">
+              <div class="flex mt-2">
                 <ApprovalDisplay
                   oid={profile.studentOid}
                   uid={profile.studentNumber}

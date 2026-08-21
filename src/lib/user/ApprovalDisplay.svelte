@@ -82,14 +82,14 @@
   let notAdorned = $derived((approvals || []).filter((tag) => !tag.adorned));
 </script>
 
-<div class="flex-wrap flex relative {enlarge ? '-mt-1' : ''}">
+<div class="flex-wrap flex gap-1 relative {enlarge ? '-mt-1' : ''}">
   {#if loading}
     <div
       class="animate-spin border-4 border-t-info border-gray-600 rounded-full size-6"
     ></div>
   {:else}
     {#each adorned as tag}
-      <div class="mt-2">
+      <div>
         <ApprovalTag
           {tag}
           size={badgeSize}
@@ -99,12 +99,10 @@
     {/each}
     {#if showHidden}
       {#if adorned.length > 0 && notAdorned.length > 0}
-        <div
-          class="border-dashed border border-gray-500 {badgeSize} mt-2"
-        ></div>
+        <div class="border-dashed border border-gray-500 {badgeSize}"></div>
       {/if}
       {#each notAdorned as tag}
-        <div class="mt-2">
+        <div>
           <ApprovalTag
             {tag}
             size={badgeSize}
@@ -115,7 +113,7 @@
     {/if}
     <!-- Open CCW 社区专属勋章 -->
     {#if developerBadgeNames.length > 0}
-      <div class="w-fit flex mt-2 -ml-1 gap-3">
+      <div class="w-fit flex -ml-1 gap-3">
         {#each developerBadgeNames as name}
           <DeveloperBadge {name} size={badgeSize}></DeveloperBadge>
         {/each}

@@ -27,9 +27,10 @@
   --color-warning-light: var(--color-amber-100);
   --color-info: var(--color-blue-500);
   --color-info-light: var(--color-blue-100);
+  --color-star: #f3bf15;
 
   --color-text-primary: #2a2c36;
-  --color-text-secondary: #525564;
+  --color-text-secondary: #585b6a;
   --color-text-placeholder: #9197ad;
   --color-text-disabled: #cdd6f4;
   --color-logo: #e4e2f0;
@@ -54,6 +55,8 @@
     --color-text-placeholder: #7f849c;
     --color-text-disabled: #585b70;
     --color-logo: #e4e2f0;
+
+    --color-star: #ffd753;
 
     --color-bg: #1e1e2e;
     --color-bg-secondary: #313244;
